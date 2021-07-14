@@ -71,7 +71,7 @@ return [
             'prefix_indexes' => $heroku ? '' : true,
             'strict' => $heroku ? '' : true,
             'engine' => $heroku ? '' : null,
-            'options' => $heroku ? '' : extension_loaded('pdo_mysql') ? array_filter([
+            $heroku ? '' : 'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
