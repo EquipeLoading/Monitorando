@@ -1,8 +1,12 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    background-color: #f0f2f5;
   }
-  
+  *:focus {
+    outline: none;
+}
 /* /---------- NAV BAR ----------/ */
   
 .topnav {
@@ -49,19 +53,19 @@ body {
     color: #5499C3;
     text-align: center;
     font-size: 1em;  
-    width: 11vw;
+    width: 7vw;
     height: 7vh;
     margin-left: auto;
     margin-top: auto;
     margin-bottom: auto;
     cursor: pointer;
+    border-radius: 7Vh 0 0 7Vh;
 }
 
 .button_on a {
     color: #5499C3;
     padding-top: 0;
     padding-bottom: 0;
-    margin-left: 1vw;
 }
   
 /* /---------- botão registrar-se ----------/ */
@@ -72,21 +76,21 @@ body {
     color: #ffffff;
     text-align: center;
     font-size: 1em;
-    width: 11vw;
+    width: 7vw;
     height: 7vh;
     margin-right: 3vw;
     cursor: pointer;
+    border-radius: 0 7Vh 7vh 0;
 }
 
 .button_new a {
     background-color: none;
     color: #ffffff;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .button_new a:hover {
-    background-color: #193D6F;
+    background-color: transparent;
     color: #ffffff;
 }
 
@@ -437,4 +441,69 @@ h3 {
     top: 15px;
     right: 35px;
     }
+  }
+
+  .overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(25, 61, 111);
+    background-color: rgba(25, 61, 111, 0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 20vh;
+    width: 100%;
+    text-align: center;
+    margin-top: 5vh;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 1.5em;
+    color: #fafafa;
+    display: block;
+    transition: 0.3s;
+   
+  }
+  
+  .overlay a:hover, .overlay a:focus{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn{
+    position: absolute;
+    top: 20px;
+    margin-left: 70%;
+    margin-right: 5vw;
+    font-size: 3em;
+    text-decoration: none;
+    outline: none;
+  }
+  
+  .overlay .closebtn:focus{
+    text-decoration: none;
+    outline: none;
+    color: transparent;
+  }
+
+  #menuButton{
+      font-size: 1.5em;
+      margin-left: 5vw;
+      height: auto;
+      cursor: pointer;
+      color: #fff;
+  }
+
+  #background{
+      height: 5vh;
+      background-color: #193D6F;
   }

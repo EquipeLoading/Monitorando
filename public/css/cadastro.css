@@ -1,0 +1,177 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    width: 100vw;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    background-color: #f0f2f5;
+  }
+  *:focus {
+    outline: none;
+}
+
+hr{
+    width: 90%;
+    border: 1px solid #f0f2f5;
+}
+
+
+
+/* /---------- caixa de login ----------/ */
+
+@media (max-width: 812px){
+    #monitorando{
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+        margin-top: 15vh;
+    }
+    #cadastro {
+        background-color: #d7dadf;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #193D6F;
+        font-size: 1em;
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 0 .8em #193D6F;
+        margin-right: auto;
+        display: block;
+        align-items: stretch;
+    }
+
+    #login_button{
+        width: 90%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #193D6F;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    #login_button:hover{
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+    }
+
+}
+  
+@media (min-width: 813px){
+
+    section{
+        height: 100vh;
+        width: 100vw;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    #monitorando{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #cadastro {
+        background-color: #d7dadf;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #193D6F;
+        font-size: 1.2em;
+        position: block;
+        padding: 0;
+        width: 25vw;
+        margin-top: 3vh;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 0 .8em #193D6F;
+        margin-right: auto;
+        display: block;
+        align-items: stretch;
+    }
+
+    #login_button{
+        width: 90%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #193D6F;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    #login_button:hover{
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+    }
+}
+  
+  
+/* remove a linha dos links */
+  
+a {
+    text-decoration: none;
+    color: #193D6F;
+}
+  
+@media(min-width: 813px){
+    .button_registro {
+        width: 10.9vw;
+        height: 5.5vh;
+        background-color: #BFC4CA;
+        color: #193D6F;
+        font-weight: bold;
+        border-radius: 5px;
+        border: transparent;
+        text-align: center;
+        margin-bottom: 1vh;
+        cursor: pointer;
+    }
+
+    .button_registro:hover{
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+
+    }
+
+}
+  
+@media(max-width: 812px){
+    .button_login {
+        width: 125px;
+        height: 35px;
+        top: 382px;
+        background-color: #193D6F;
+        color: #ffffff;
+        font-weight: bold;
+        border-radius: 0 0 5px 5px;
+        border-radius: 5px;
+        text-align: center;
+        margin-bottom: 2vh;
+
+    }
+    .button_registro {
+        width: 125px;
+        height: 35px;
+        top: 382px;
+        background-color: #BFC4CA;
+        color: #193D6F;
+        font-weight: bold;
+        border-radius: 5px;
+        border: transparent;
+        text-align: center;
+        margin-bottom: 1vh;
+        margin-bottom: 2vh;
+    }
+}
+

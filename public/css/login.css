@@ -2,9 +2,13 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
-
+    background-color: #f0f2f5;
   }
   
+  
+*:focus {
+    outline: none;
+}
 /* /---------- NAV BAR ----------/ */
   
 .topnav {
@@ -12,7 +16,7 @@ body {
     background-color: #5499C3;
     display: flex;
     align-items: center;
-    width: 100vw;
+    width: 100%;
 }
   
 .topnav a {
@@ -51,19 +55,19 @@ body {
     color: #5499C3;
     text-align: center;
     font-size: 1em;  
-    width: 11vw;
+    width: 7vw;
     height: 7vh;
     margin-left: auto;
     margin-top: auto;
     margin-bottom: auto;
     cursor: pointer;
+    border-radius: 7Vh 0 0 7Vh;
 }
 
 .button_on a {
     color: #5499C3;
     padding-top: 0;
     padding-bottom: 0;
-    margin-left: 1vw;
 }
   
 /* /---------- botão registrar-se ----------/ */
@@ -74,17 +78,17 @@ body {
     color: #ffffff;
     text-align: center;
     font-size: 1em;
-    width: 11vw;
+    width: 7vw;
     height: 7vh;
     margin-right: 3vw;
     cursor: pointer;
+    border-radius: 0 7Vh 7vh 0;
 }
 
 .button_new a {
     background-color: none;
     color: #ffffff;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .button_new a:hover {
@@ -120,8 +124,12 @@ body {
 /* /---------- caixa de login ----------/ */
 
 @media (max-width: 812px){
+    h1{
+        height: auto;
+        padding-top: 1vh;
+    }   
     #login {
-        background-color: #BFC4CA;
+        background-color: #d7dadf;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;
@@ -132,9 +140,8 @@ body {
         margin-right: auto;
         margin-top: 3vh;
         text-align: center;
-        border-radius: 0 0 5px 5px;
         border-radius: 10px;
-        box-shadow: 0 0 .8em #193D6F;
+        box-shadow: 0 0 .9em rgb(25, 61, 111, .7);
         display: block;
         align-items: stretch;
     }
@@ -143,8 +150,9 @@ body {
   
 
 @media (min-width: 813px){
+
     #login {
-        background-color: #BFC4CA;
+        background-color: #d7dadf;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;
@@ -155,9 +163,8 @@ body {
         margin-left: 72vw;
         margin-top: 3vh;
         text-align: center;
-        border-radius: 0 0 5px 5px;
         border-radius: 10px;
-        box-shadow: 0 0 .8em #193D6F;
+        box-shadow: 0 0 .9em rgb(25, 61, 111, .7);
         display: block;
         align-items: stretch;
     }
@@ -219,23 +226,36 @@ a {
         background-color: #193D6F;
         color: #ffffff;
         font-weight: bold;
-        border-radius: 0 0 5px 5px;
         border-radius: 5px;
+        cursor: pointer;
         text-align: center;
+        border: 2px solid;
+        border: transparent;
     }
+
+    .button_login:hover {
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+    }
+
     .button_registro {
         width: 125px;
         height: 35px;
         top: 382px;
-        background-color: #BFC4CA;
+        background-color: rgb(191, 196, 202);
         color: #193D6F;
         font-weight: bold;
-        border-radius: 0 0 5px 5px;
         border-radius: 5px;
-        border-color: #193D6F;
+        /* border-color: #193D6F; */
+        border: transparent;
         text-align: center;
         margin-bottom: 2vh;
+        cursor: pointer;
     }
+    .button_registro:hover{
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+
+    }
+
 }
   
 @media(max-width: 812px){
@@ -324,6 +344,12 @@ a {
         border: 1px solid #fff;
         border-radius: 3vh;
         padding-left: 10px;
+    }
+    .inputBorder:focus{
+        border: none;
+        border-color: transparent;
+        outline:none;
+
     }
     
 }
@@ -444,7 +470,7 @@ h3 {
       margin-left: 5vw;
       height: auto;
       cursor: pointer;
-      color: #fafafa;
+      color: #fff;
   }
 
   #background{

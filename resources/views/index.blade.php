@@ -6,6 +6,8 @@
     <title> Monitorando </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+    <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+
     <!-- mediaquery -->
 </head>
 

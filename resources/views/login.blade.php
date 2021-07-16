@@ -18,6 +18,8 @@
     <title> Monitorando - Login </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/login.css') }}">
+    <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+
     <!-- mediaquery -->
 </head>
 
@@ -63,7 +65,6 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <h1> L O G I N </h1>
-
                 <p id="camp">
                     <label class="labelFont" for="email"> E-mail </label>
                     <br>
