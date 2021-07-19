@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Aluno;
 use App\Models\Professor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class CadastroController extends Controller
 {
@@ -17,7 +18,7 @@ class CadastroController extends Controller
     {
         app()->setLocale($locale);
         session()->put('locale', $locale);
-        return view('cadastro', ['tipo' => 'principal', 'locale' => app()->getLocale()]);
+        return view('cadastro', ['locale' => app()->getLocale()]);
     }
 
     public function cadastroProfessor(Request $request, $locale = null)
@@ -28,7 +29,7 @@ class CadastroController extends Controller
         if($request->input('_token') != ''){
             $regras = [
                 'nome' => 'required|min:5|max:60',
-                'email' => 'required|email|unique:usuarios|ends_with:@ifsp.edu.br',
+                'email' => 'required|email|unique:users|ends_with:@ifsp.edu.br',
                 'prontuario' => 'required|min:9|max:9',
                 'disciplinas' => 'required|min:5|max:100',
                 'senha' => 'required|min:5|max:60',
@@ -51,7 +52,7 @@ class CadastroController extends Controller
 
             $request->validate($regras, $feedback);
        
-            $usuario = new Usuario();
+            $usuario = new User();
 
             $usuario->fill([
                 'nome' => $request->nome,
@@ -65,10 +66,20 @@ class CadastroController extends Controller
             //pega todos os dados enviados pelo formulário e armazena no banco de dados como um novo usuário
             $professor->fill([
                 'disciplinas' => $request->disciplinas,
-                'usuario_id' => $usuario->id
+                'user_id' => $usuario->id
             ])->save();
 
-            return redirect()->route('login');
+            event(new Registered($usuario));
+
+            Auth::login($usuario);
+
+            session_start();
+            session()->put('nome', $usuario->nome);
+            session()->put('email', $usuario->email);
+
+            return redirect()->route('index');
+
+            //return redirect()->route('login');
         }
     }
 
@@ -80,9 +91,9 @@ class CadastroController extends Controller
         if($request->input('_token') != ''){
             $regras = [
                 'nome' => 'required|min:5|max:60',
-                'email' => 'required|email|unique:usuarios',
+                'email' => 'required|email|unique:users',
                 'prontuario' => 'required|min:9|max:9',
-                'turma' => 'exists:turmas,id',
+                'turma_id' => 'exists:turmas,id',
                 'senha' => 'required|min:5|max:60',
                 'confirmacao_senha' => 'required|same:senha'
             ];
@@ -96,13 +107,13 @@ class CadastroController extends Controller
                 'prontuario.min' => 'O prontuario deve ter no mínimo 9 caracteres',
                 'prontuario.max' => 'O campo prontuário deve ter no máximo 9 caracteres',
                 'prontuario.unique' => 'O prontuário digitado já está em uso',
-                'turma.exists' => 'A turma selecionada não existe',
+                'turma_id.exists' => 'A turma selecionada não existe',
                 'confirmacao_senha.same' => 'A senha foi digitada incorretamente'
             ];
 
             $request->validate($regras, $feedback);
        
-            $usuario = new Usuario();
+            $usuario = new User();
 
             $usuario->fill([
                 'nome' => $request->nome,
@@ -116,11 +127,21 @@ class CadastroController extends Controller
             //pega todos os dados enviados pelo formulário e armazena no banco de dados como um novo usuário
             $aluno->fill([
                 'turma_id' => $request->turma_id,
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'status' => 'Comum'
             ])->save();
 
-            return redirect()->route('login');
+            event(new Registered($usuario));
+
+            Auth::login($usuario);
+
+            session_start();
+            session()->put('nome', $usuario->nome);
+            session()->put('email', $usuario->email);
+
+            return redirect()->route('index');
+
+            //return redirect()->route('index');
         }
     }
 

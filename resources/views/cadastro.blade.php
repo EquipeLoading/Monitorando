@@ -16,7 +16,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> Monitorando - Cadastro</title>
+    <title> @lang('lang.titleCadastro')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/cadastro.css') }}">
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
@@ -68,9 +68,9 @@
         
         <div id="cadastro">
             <h1> @lang('lang.Cadastro') </h1>
-            <p>Deseja se cadastrar como </p>
-            <a id="aluno_button" href="{{ route('cadastro', ['tipo' => 'aluno', 'locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >Aluno</button></a>
-            <a id="professor_button" href="{{ route('cadastro', ['tipo' => 'professor', 'locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >Professor</button></a>
+            <p> @lang('lang.desejaCadastrar') </p>
+            <a id="aluno_button" href="{{ route('cadastro.aluno', ['locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >@lang('lang.aluno')</button></a>
+            <a id="professor_button" href="{{ route('cadastro.professor', ['locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >@lang('lang.professor')</button></a>
             <hr>
             <a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> <button id="login_button">@lang('lang.Entrar')</button></a>
         </div>

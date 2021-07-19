@@ -1,36 +1,33 @@
 <?php   
-        $mobile = FALSE;
-        $user_agents = array("iPhone","iPad","Android","webOS","BlackBerry","iPod","Symbian","IsGeneric");
-        foreach($user_agents as $user_agent){
-            if (strpos($_SERVER['HTTP_USER_AGENT'], $user_agent) !== FALSE) {
-                $mobile = TRUE;
-                $modelo = $user_agent;
-                break;
-            }
-        }     
+    $mobile = FALSE;
+    $user_agents = array("iPhone","iPad","Android","webOS","BlackBerry","iPod","Symbian","IsGeneric");
+    foreach($user_agents as $user_agent){
+        if (strpos($_SERVER['HTTP_USER_AGENT'], $user_agent) !== FALSE) {
+            $mobile = TRUE;
+            $modelo = $user_agent;
+            break;
+        }
+    }     
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8" />
-    <title> Monitorando - Cadastro Professor</title>
+    <title> @lang('lang.titleCadastroProfessor')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
-
     <!-- mediaquery -->
 </head>
 
 <body>
-<script>
+    <script>
         function openNav() {
             document.getElementById("menuButton").style.display = 'none';
             document.getElementById("myNav").style.width = "70%";
         }
-
         function closeNav() {
             document.getElementById("menuButton").style.display = 'block';
             document.getElementById("myNav").style.width = "0%";
@@ -57,7 +54,7 @@
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             <!-- <button class="button_on"><a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> @lang('lang.Entrar') </a></button>
-            <button class="button_new"><a href="{{ route('cadastro', ['tipo' => 'principal', 'locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button> -->
+            <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button> -->
         </div> 
     <?php } ?>
     
@@ -75,19 +72,19 @@
                 </p>
 
                 <p id="camp">
-                    <label class="labelFont" for="email"> E-mail institucional </label>
-                    <input class="inputBorder" name="email" value="{{ old('email') }}" type="email" placeholder="nome@ifsp.edu.br" />
+                    <label class="labelFont" for="email"> @lang('lang.emailInstitucional') </label>
+                    <input class="inputBorder" name="email" value="{{ old('email') }}" type="email" placeholder="@lang('lang.Nome')@ifsp.edu.br" />
                     {{ $errors->has('email') ? $errors->first('email') : '' }}
                 </p>
 
                 <p id="camp">
-                    <label class="labelFont" for="prontuario"> Prontuário </label>
+                    <label class="labelFont" for="prontuario"> @lang('lang.prontuario') </label>
                     <input class="inputBorder" name="prontuario" value="{{ old('prontuario') }}" type="text" placeholder="SPXXXXXXX" />
                     {{ $errors->has('prontuario') ? $errors->first('prontuario') : '' }}
                 </p>
 
                 <p id="camp">
-                    <label class="labelFont" for="disciplinas"> Disciplinas </label>
+                    <label class="labelFont" for="disciplinas"> @lang('lang.disciplinas') </label>
                     <input class="inputBorder" name="disciplinas" value="{{ old('disciplinas') }}" type="text" />
                     {{ $errors->has('disciplinas') ? $errors->first('disciplinas') : '' }}
                 </p>

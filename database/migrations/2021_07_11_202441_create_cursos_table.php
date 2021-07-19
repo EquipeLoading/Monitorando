@@ -15,7 +15,7 @@ class CreateCursosTable extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->enum('nome', ['Informática integrado ao Ensino Médio', 'Mecânica integrado ao Ensino Médio', 'Eletrônica integrado ao Ensino Médio', 'Eletrotécnica integrdo ao Ensino Médio']);
+            $table->enum('nome', ['Informática integrado ao Ensino Médio', 'Mecânica integrado ao Ensino Médio', 'Eletrônica integrado ao Ensino Médio', 'Eletrotécnica integrado ao Ensino Médio']);
             $table->timestamps();
         });
 
@@ -38,6 +38,11 @@ class CreateCursosTable extends Migration
      */
     public function down()
     {
+        Schema::table('curso_disciplina', function (Blueprint $table) {
+            $table->dropForeign('disciplinas_disciplina_id_foreign');
+            $table->dropForeign('cursos_curso_id_foreign');
+        });
+
         Schema::dropIfExists('curso_disciplinas');
 
         Schema::dropIfExists('cursos');

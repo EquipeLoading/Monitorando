@@ -16,7 +16,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> Monitorando - Cadastro Aluno</title>
+    <title> @lang('lang.titleCadastroAluno')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
@@ -81,13 +81,13 @@
                 </p>
 
                 <p id="camp">
-                    <label class="labelFont" for="prontuario"> Prontuário </label>
+                    <label class="labelFont" for="prontuario"> @lang('lang.prontuario') </label>
                     <input class="inputBorder"  name="prontuario" value="{{ old('prontuario') }}" type="text" placeholder="SPXXXXXXX" />
                     {{ $errors->has('prontuario') ? $errors->first('prontuario') : '' }}
                 </p>
 
                 <p id="camp">
-                    <label class="labelFont" for="turma">Turma</label>
+                    <label class="labelFont" for="turma">@lang('lang.turma')</label>
                     <select class="inputBorder"  name="turma_id">
                         @foreach($turmas as $turma)
                             <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>{{ $turma->numero }}</option>

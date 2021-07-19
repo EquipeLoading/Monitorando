@@ -1,13 +1,13 @@
 <?php   
-        $mobile = FALSE;
-        $user_agents = array("iPhone","iPad","Android","webOS","BlackBerry","iPod","Symbian","IsGeneric");
-        foreach($user_agents as $user_agent){
-            if (strpos($_SERVER['HTTP_USER_AGENT'], $user_agent) !== FALSE) {
-                $mobile = TRUE;
-                $modelo = $user_agent;
-                break;
-            }
-        }     
+    $mobile = FALSE;
+    $user_agents = array("iPhone","iPad","Android","webOS","BlackBerry","iPod","Symbian","IsGeneric");
+    foreach($user_agents as $user_agent){
+        if (strpos($_SERVER['HTTP_USER_AGENT'], $user_agent) !== FALSE) {
+            $mobile = TRUE;
+            $modelo = $user_agent;
+            break;
+        }
+    }     
 ?>
 
 <!DOCTYPE html>
@@ -16,20 +16,18 @@
 <head>
     <meta charset="utf-8" />
     <title> Monitorando - Login </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/login.css') }}">
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
-
     <!-- mediaquery -->
 </head>
 
 <body>
+
     <script>
         function openNav() {
             document.getElementById("menuButton").style.display = 'none';
             document.getElementById("myNav").style.width = "70%";
         }
-
         function closeNav() {
             document.getElementById("menuButton").style.display = 'block';
             document.getElementById("myNav").style.width = "0%";
@@ -56,7 +54,7 @@
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             <button class="button_on"><a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> @lang('lang.Entrar') </a></button>
-            <button class="button_new"><a href="{{ route('cadastro', ['tipo' => 'principal', 'locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+            <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
         </div> 
     <?php } ?>
     <section>
@@ -68,7 +66,7 @@
                 <p id="camp">
                     <label class="labelFont" for="email"> E-mail </label>
                     <br>
-                    <input id="email" name="email" class="inputBorder" value="{{ old('email') }}" type="text" placeholder="nome@aluno.ifsp.edu.br" />
+                    <input id="email" name="email" class="inputBorder" value="{{ old('email') }}" type="text" />
                     {{ $errors->has('email') ? $errors->first('email') : '' }}
                 </p>
 
@@ -89,7 +87,7 @@
                 </p>
 
                 <p>
-                    <button class="button_registro" type="button"><a href="{{ route('cadastro', ['tipo' => 'principal', 'locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                    <button class="button_registro" type="button"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
                     <button class="button_login" type="submit"> @lang('lang.Entrar') </button>
                 </p>
 
@@ -111,29 +109,6 @@
         <h3> @lang('lang.Vergonha') </h3>
         <p>@lang('lang.Paragrafo3')</p>
     </div>
-
-    <!-- <footer class="footer">
-        <div id="criacao">
-            <h1 id="tfooter"> Criado por:</h1>
-            <div id="nomes">
-                <li> Ana Beatriz Silva Nascimento </li>
-                <li> Fernanda Cesar da Silva </li>
-                <li> Gustavo Angelozi Frederico </li>
-                <li> Larissa Yumi Ohashi </li>
-                <li> Mariana Souza Santos </li>
-                <li> Wilson de Souza Oliveira Junior </li>
-            </div>
-        </div>
-        <h2> Contato </h2>
-        <div class="contato">
-            <p> E-mail:
-                equipe.loading06@gmail.com </p>
-            <a href="https://www.youtube.com/channel/UC4h1uvG3epGzdxZNYYyVrBQ" target="_blank" class="link"> Youtube
-                Monitorando </a>
-            <a href="https://blogmonitorando.blogspot.com/" target="_blank" class="link"> Blog Monitorando </a>
-        </div>
-        < </footer> -->
-
 </body>
 
 </html>

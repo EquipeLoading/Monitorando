@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Models\Usuario;
 use App\Models\Turma;
-use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,30 +16,52 @@ use Illuminate\Support\Facades\App;
 */
 
 Route::get('/', function() {
-    if(session()->get('nome') != ''){
-        return view('index', ['nome' => session()->get('nome')]);
-    } else {
-        return view('index', ['nome' => 'Desconhecido']);
-    }
-})->name('index');
+    return view('index', ['nome' => session()->get('nome')]);
+})->middleware('verified')->name('index');
 
-Route::get('/login/{locale?}/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
-Route::post('/login/{locale?}', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
+Route::prefix('/login')->group(function() {
+    Route::get('/{locale?}/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
+    Route::post('/{locale?}', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
+});
 
-Route::get('/cadastro/{tipo}/{locale?}', function($tipo) {
-    if($tipo == 'professor') {
+Route::prefix('/cadastro')->group(function() {
+    Route::get('/principal/{locale?}', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro');
+    Route::get('/professor/{locale?}', function($locale = null) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+
         return view('cadastroProfessor', ['locale' => app()->getLocale()]);
-    } else if ($tipo == 'aluno') {
+    })->name('cadastro.professor');
+    Route::post('/professor/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroProfessor'])->name('cadastro.professor');
+    Route::get('/aluno/{locale?}', function($locale = null) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+
         $turmas = Turma::all();
         return view('cadastroAluno', ['locale' => app()->getLocale(), 'turmas' => $turmas]);
-    } else {
-        return view('cadastro', ['locale' => app()->getLocale()]);
-    }
-})->name('cadastro');
-Route::get('/cadastro/principal/{locale?}', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro.index');
-Route::post('/cadastro/professor/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroProfessor'])->name('cadastro.professor');
-Route::post('/cadastro/aluno/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
+    })->name('cadastro.aluno');
+    Route::post('/aluno/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
+});
+
+Route::prefix('/email')->group(function() {
+    Route::get('/verificacao/{locale?}', function($locale = null) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+
+        return view('verificarEmail', ['locale' => app()->getLocale(), 'mensagem' => session()->get('mensagem')]);
+    })->middleware('auth')->name('verification.notice');
+    Route::get('/verificacao/{id}/{hash}', function(EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+    Route::post('/notificacao-de-verificacao', function(Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('mensagem', __('lang.mensagemEmailEnviado'));
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+});
 
 Route::fallback(function() {
-    echo 'Não foi possível acessar a rota requisitada. <a href="'.route('login', ['locale' => app()->getLocale()]).'">Clique aqui</a> para ser redirecionado para a página inicial.';
+    echo __('lang.fallback');
 });

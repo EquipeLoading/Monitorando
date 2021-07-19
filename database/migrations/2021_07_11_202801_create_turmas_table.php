@@ -31,6 +31,10 @@ class CreateTurmasTable extends Migration
      */
     public function down()
     {
+        Schema::table('turmas', function (Blueprint $table) {
+            $table->dropForeign('cursos_curso_id_foreign');
+        });
+
         Schema::dropIfExists('turmas');
     }
 }

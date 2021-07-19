@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -49,22 +49,22 @@ class LoginController extends Controller
             //validação dos dados recebidos por parâmetro
             $request->validate($regras, $feedback);
 
-            //armazenamento dos dados recebidos do formulário
+            //$usuario = ['email' => $request->email, 'senha' => $request->senha];
+
             $email = $request->email;
             $senha = $request->senha;
 
-            $usuario = new Usuario();
+            $usuario = new User();
 
-            //compara os dados recebidos na requisição com os dados armazenados no banco de dados
             $login = $usuario->where('email', $email)->get()->first();
 
-            if(Hash::needsRehash($usuario->senha)) {
-                $usuario->senha = Hash::make($usuario->senha);
-            }
-
-            //inicia a seção caso exista um usuário com os dados informados, se não existir, devolve um erro
             if(isset($login)) {
+                if(Hash::needsRehash($login->senha)) {
+                    $login->senha = Hash::make($login->senha);
+                }
                 if(Hash::check($senha, $login->senha)) {
+                    Auth::login($login);
+
                     session_start();
                     session()->put('nome', $login->nome);
                     session()->put('email', $login->email);
@@ -72,7 +72,7 @@ class LoginController extends Controller
                     return redirect()->route('index');
                 }
             } else {
-                return redirect()->route('login', ['erro' => 1]);
+                return redirect()->route('login', ['locale' => app()->getLocale(), 'erro' => 1]);
             }
 
         }

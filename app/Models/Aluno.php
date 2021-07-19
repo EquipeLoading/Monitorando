@@ -9,5 +9,5 @@ class Aluno extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['turma_id', 'usuario_id', 'status'];
+    protected $fillable = ['turma_id', 'user_id', 'status'];
 }

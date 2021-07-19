@@ -17,13 +17,13 @@ class CreateAlunosTable extends Migration
             $table->id();
             $table->enum('status', ['Monitor', 'Comum']);
             $table->unsignedBigInteger('turma_id');
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             //foreign keys
             $table->foreign('turma_id')->references('id')->on('turmas');
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
-            $table->unique('usuario_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unique('user_id');
         });
     }
 
@@ -34,6 +34,11 @@ class CreateAlunosTable extends Migration
      */
     public function down()
     {
+        Schema::table('alunos', function (Blueprint $table) {
+            $table->dropForeign('users_user_id_foreign');
+            $table->dropForeign('turmas_turma_id_foreign');
+        });
+
         Schema::dropIfExists('alunos');
     }
 }

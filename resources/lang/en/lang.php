@@ -39,6 +39,48 @@
 
       'RecuperarSenha' => 'Recover password',
 
-      'Cadastro' => 'R E G I S T E R'
+      'Cadastro' => 'R E G I S T E R',
+
+      'desejaCadastrar' => 'Register as',
+
+      'aluno' => 'Student',
+
+      'professor' => 'Teacher',
+
+      'prontuario' => 'Register number',
+
+      'turma' => 'Class',
+
+      'emailInstitucional' => 'Institutional e-mail',
+
+      'disciplinas' => 'Subject', 
+
+      'titleCadastro' => 'Monitorando - Register',
+
+      'titleCadastroAluno' => 'Monitorando - Register as student', 
+
+      'titleCadastroProfessor' => 'Monitorando - Register as teacher',
+
+      'titleVerificacaoEmail' => 'Monitorando - E-mail verification',
+
+      'fallback' => 'Can`t connect to the required route. <a href="'.route('index').'">Click here</a> to be redirected to the index page.',
+
+      'mensagemDeVerificacao' => 'Please, check your mailbox',
+
+      'botaoVerificacaoEmail' => 'Resend verification e-mail',
+
+      'subjectEmail' => 'Verify Email Address', 
+
+      'lineEmail' => 'Please click the button below to verify your email address.',
+
+      'actionEmail' => 'Verify Email Address',
+
+      'line2Email' => 'If you did not create an account, no further action is required.',
+
+      'greetingsEmail' => 'Hello!',
+
+      'mensagemEmailEnviado' => 'E-mail was successfully sent!',
+
+      'salutationEmail' => 'Regards, Monitorando'
    ];
 ?>

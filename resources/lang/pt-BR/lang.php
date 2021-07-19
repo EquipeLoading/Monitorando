@@ -31,7 +31,7 @@
 
       'Vergonha' => ' TEM VERGONHA DE TIRAR DÚVIDAS?',
 
-      'Paragrafo3' => 'Isso não será mais um problema, você porderá tirar suas dúvidas por meio de um fórum de dúvidas e mensagens
+      'Paragrafo3' => 'Isso não será mais um problema, você poderá tirar suas dúvidas por meio de um fórum de dúvidas e mensagens
       dentro da plataforma de onde estiver!',
 
 
@@ -42,6 +42,48 @@
 
       'RecuperarSenha' => 'Recuperar Senha',
 
-      'Cadastro' => 'C A D A S T R O'
+      'Cadastro' => 'C A D A S T R O', 
+
+      'desejaCadastrar' => 'Deseja se cadastrar como',
+
+      'aluno' => 'Aluno',
+
+      'professor' => 'Professor',
+
+      'prontuario' => 'Prontuário',
+
+      'turma' => 'Turma',
+
+      'emailInstitucional' => 'E-mail institucional',
+
+      'disciplinas' => 'Disciplina',
+
+      'titleCadastro' => 'Monitorando - Cadastro',
+
+      'titleCadastroAluno' => 'Monitorando - Cadastro Aluno', 
+
+      'titleCadastroProfessor' => 'Monitorando - Cadastro Professor',
+
+      'titleVerificacaoEmail' => 'Monitorando - Verificação de e-mail',
+
+      'fallback' => 'Não foi possível acessar a rota requisitada. <a href="'.route('index').'">Clique aqui</a> para ser redirecionado para a página inicial.',
+
+      'mensagemDeVerificacao' => 'Por  favor, verifique a caixa de entrada de seu e-mail', 
+      
+      'botaoVerificacaoEmail' => 'Reenviar e-mail de verificação', 
+
+      'subjectEmail' => 'Verifique seu endereço de e-mail',
+
+      'lineEmail' => 'Por favor, clique no botão abaixo para verificar seu endereço de e-mail.',
+
+      'actionEmail' => 'Verifique seu endereço de e-mail',
+
+      'line2Email' => 'Se você não criou uma conta, nenhuma ação é necessária.',
+
+      'greetingsEmail' => 'Olá!', 
+
+      'mensagemEmailEnviado' => 'E-mail foi enviado com sucesso!',
+
+      'salutationEmail' => 'Atenciosamente, Monitorando'
    ];
 ?>
