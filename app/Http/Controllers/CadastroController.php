@@ -79,7 +79,6 @@ class CadastroController extends Controller
 
             return redirect()->route('index');
 
-            //return redirect()->route('login');
         }
     }
 
@@ -140,8 +139,6 @@ class CadastroController extends Controller
             session()->put('email', $usuario->email);
 
             return redirect()->route('index');
-
-            //return redirect()->route('index');
         }
     }
 

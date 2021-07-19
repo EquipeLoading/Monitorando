@@ -81,6 +81,8 @@
 
       'mensagemEmailEnviado' => 'E-mail was successfully sent!',
 
-      'salutationEmail' => 'Regards, Monitorando'
+      'salutationEmail' => 'Regards, Monitorando',
+
+      'requiredLogin' => 'The field :attribute is required'
    ];
 ?>

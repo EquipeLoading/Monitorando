@@ -45,8 +45,7 @@ Route::prefix('/cadastro')->group(function() {
 
 Route::prefix('/email')->group(function() {
     Route::get('/verificacao/{locale?}', function($locale = null) {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
+        app()->getLocale($locale);
 
         return view('verificarEmail', ['locale' => app()->getLocale(), 'mensagem' => session()->get('mensagem')]);
     })->middleware('auth')->name('verification.notice');

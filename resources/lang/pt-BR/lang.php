@@ -84,6 +84,8 @@
 
       'mensagemEmailEnviado' => 'E-mail foi enviado com sucesso!',
 
-      'salutationEmail' => 'Atenciosamente, Monitorando'
+      'salutationEmail' => 'Atenciosamente, Monitorando',
+
+      'requiredLogin' => 'O campo :attribute precisa ser preenchido'
    ];
 ?>

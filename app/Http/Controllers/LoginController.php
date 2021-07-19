@@ -42,7 +42,7 @@ class LoginController extends Controller
             ];
 
             $feedback = [
-                'required' => 'O campo :attribute precisa ser preenchido',
+                'required' => __('lang.requiredLogin'),
                 'email.email' => 'Um e-mail válido deve ser informado'
             ];
 
