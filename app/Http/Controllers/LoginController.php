@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     }
 
-    public function autenticacao(Request $request, $locale = null) {
+    public function autenticacao(Request $request) {
 
         if($request->input('_token') != '') {
             $regras = [
@@ -70,6 +70,8 @@ class LoginController extends Controller
                     session()->put('email', $login->email);
 
                     return redirect()->route('index');
+                } else {
+                    return redirect()->route('login', ['locale' => app()->getLocale(), 'erro' => 1]);
                 }
             } else {
                 return redirect()->route('login', ['locale' => app()->getLocale(), 'erro' => 1]);
