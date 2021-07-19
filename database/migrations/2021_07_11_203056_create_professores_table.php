@@ -16,12 +16,12 @@ class CreateProfessoresTable extends Migration
         Schema::create('professores', function (Blueprint $table) {
             $table->id();
             $table->string('disciplinas', 100);
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             //foreign key
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
-            $table->unique('usuario_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unique('user_id');
         });
     }
 
@@ -32,6 +32,10 @@ class CreateProfessoresTable extends Migration
      */
     public function down()
     {
+        Schema::table('professores', function (Blueprint $table) {
+            $table->dropForeign('users_user_id_foreign');
+        });
+
         Schema::dropIfExists('professores');
     }
 }
