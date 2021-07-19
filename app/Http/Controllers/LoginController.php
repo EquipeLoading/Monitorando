@@ -43,7 +43,7 @@ class LoginController extends Controller
 
             $feedback = [
                 'required' => __('lang.requiredLogin'),
-                'email.email' => 'Um e-mail válido deve ser informado'
+                'email.email' => __('lang.emailLogin')
             ];
 
             //validação dos dados recebidos por parâmetro

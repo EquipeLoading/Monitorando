@@ -37,17 +37,17 @@ class CadastroController extends Controller
             ];
 
             $feedback = [
-                'required' => 'O campo :attribute precisa ser preenchido',
-                'min' => 'O campo :attribute deve ter no mínimo 5 caracteres',
-                'max' => 'O campo :attribute deve ter no máximo 60 caracteres',
-                'email.email' => 'Um e-mail válido deve ser informado',
-                'email.unique' => 'O e-mail digitado já está em uso',
-                'email.ends_with' => 'Por favor, digite um e-mail institucional',
-                'prontuario.min' => 'O prontuario deve ter no mínimo 9 caracteres',
-                'prontuario.max' => 'O campo prontuário deve ter no máximo 9 caracteres',
-                'prontuario.unique' => 'O prontuário digitado já está em uso',
-                'disciplinas.max' => 'O campo disciplina deve ter no máximo 100 caracteres',
-                'confirmacao_senha.same' => 'A senha foi digitada incorretamente'
+                'required' => __('lang.requiredLogin'),
+                'min' => __('lang.min'),
+                'max' => __('lang.max'),
+                'email.email' => __('lang.emailLogin'),
+                'email.unique' => __('lang.emailUnique'),
+                'email.ends_with' => __('lang.emailTerminaCom'),
+                'prontuario.min' => __('lang.prontuarioMin'),
+                'prontuario.max' => __('lang.CampoProntuario'),
+                'prontuario.unique' => __('lang.ProntuarioEmUso'),
+                'disciplinas.max' => __('lang.disciplinaMax'),
+                'confirmacao_senha.same' => __('lang.SenhaIncorreta')
             ];
 
             $request->validate($regras, $feedback);
@@ -98,16 +98,16 @@ class CadastroController extends Controller
             ];
 
             $feedback = [
-                'required' => 'O campo :attribute precisa ser preenchido',
-                'min' => 'O campo :attribute deve ter no mínimo 5 caracteres',
-                'max' => 'O campo :attribute deve ter no máximo 60 caracteres',
-                'email.email' => 'Um e-mail válido deve ser informado',
-                'email.unique' => 'O e-mail digitado já está em uso',
-                'prontuario.min' => 'O prontuario deve ter no mínimo 9 caracteres',
-                'prontuario.max' => 'O campo prontuário deve ter no máximo 9 caracteres',
-                'prontuario.unique' => 'O prontuário digitado já está em uso',
-                'turma_id.exists' => 'A turma selecionada não existe',
-                'confirmacao_senha.same' => 'A senha foi digitada incorretamente'
+                'required' => __('lang.requiredLogin'),
+                'min' => __('lang.min'),
+                'max' => __('lang.max'),
+                'email.email' => __('lang.emailLogin'),
+                'email.unique' => __('lang.emailUnique'),
+                'prontuario.min' => __('lang.prontuarioMin'),
+                'prontuario.max' => __('lang.CampoProntuario'),
+                'prontuario.unique' => __('lang.ProntuarioEmUso'),
+                'turma_id.exists' => __('lang.TurmaNãoExiste'),
+                'confirmacao_senha.same' => __('lang.SenhaIncorreta')
             ];
 
             $request->validate($regras, $feedback);

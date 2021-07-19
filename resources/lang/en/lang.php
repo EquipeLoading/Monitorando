@@ -83,6 +83,28 @@
 
       'salutationEmail' => 'Regards, Monitorando',
 
-      'requiredLogin' => 'The field :attribute is required'
+      'requiredLogin' => 'The field :attribute is required',
+
+      'emailLogin' => 'Please inform a valid e-mail',
+
+      'min' => 'The field :attribute need to have at least 5 characters',
+
+      'max' => 'The field :attribute must have a maximun of 60 characters',
+
+      'emailUnique' => 'The inserted email was already used',
+
+      'prontuarioMin' => 'The fiels must have at least 9 characters',
+
+      'CampoProntuario' => 'This field need to have a maximum of 9 characters.',
+
+      'ProntuarioEmUso' => 'The register number informed is already in use.',
+
+      'TurmaNaoExiste' => 'The selected class does not exist.',
+
+      'SenhaIncorreta' => 'Wrong password.',
+
+      'emailTerminaCom' => 'Please, type an Institutional e-mail',
+
+      'disciplinaMax' => 'The field subject must have a maximum of 100 characters'
    ];
 ?>
