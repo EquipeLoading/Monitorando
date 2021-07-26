@@ -41,13 +41,8 @@ class LoginController extends Controller
                 'senha' => 'required'
             ];
 
-            $feedback = [
-                'required' => __('lang.requiredLogin'),
-                'email.email' => __('lang.emailLogin')
-            ];
-
             //validação dos dados recebidos por parâmetro
-            $request->validate($regras, $feedback);
+            $request->validate($regras);
 
             //$usuario = ['email' => $request->email, 'senha' => $request->senha];
 

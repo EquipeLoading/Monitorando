@@ -151,6 +151,13 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'nome' => 'name',
+        'prontuario' => 'register number',
+        'disciplinas' => 'subject',
+        'senha' => 'password',
+        'confirmacao_senha' => 'confirm password',
+        'turma_id' => 'class',
+    ],
 
 ];

@@ -36,21 +36,7 @@ class CadastroController extends Controller
                 'confirmacao_senha' => 'required|same:senha'
             ];
 
-            $feedback = [
-                'required' => __('lang.requiredLogin'),
-                'min' => __('lang.min'),
-                'max' => __('lang.max'),
-                'email.email' => __('lang.emailLogin'),
-                'email.unique' => __('lang.emailUnique'),
-                'email.ends_with' => __('lang.emailTerminaCom'),
-                'prontuario.min' => __('lang.prontuarioMin'),
-                'prontuario.max' => __('lang.CampoProntuario'),
-                'prontuario.unique' => __('lang.ProntuarioEmUso'),
-                'disciplinas.max' => __('lang.disciplinaMax'),
-                'confirmacao_senha.same' => __('lang.SenhaIncorreta')
-            ];
-
-            $request->validate($regras, $feedback);
+            $request->validate($regras);
        
             $usuario = new User();
 
@@ -97,20 +83,7 @@ class CadastroController extends Controller
                 'confirmacao_senha' => 'required|same:senha'
             ];
 
-            $feedback = [
-                'required' => __('lang.requiredLogin'),
-                'min' => __('lang.min'),
-                'max' => __('lang.max'),
-                'email.email' => __('lang.emailLogin'),
-                'email.unique' => __('lang.emailUnique'),
-                'prontuario.min' => __('lang.prontuarioMin'),
-                'prontuario.max' => __('lang.CampoProntuario'),
-                'prontuario.unique' => __('lang.ProntuarioEmUso'),
-                'turma_id.exists' => __('lang.TurmaNãoExiste'),
-                'confirmacao_senha.same' => __('lang.SenhaIncorreta')
-            ];
-
-            $request->validate($regras, $feedback);
+            $request->validate($regras);
        
             $usuario = new User();
 

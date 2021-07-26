@@ -85,29 +85,5 @@
       'mensagemEmailEnviado' => 'E-mail foi enviado com sucesso!',
 
       'salutationEmail' => 'Atenciosamente, Monitorando',
-
-      'requiredLogin' => 'O campo :attribute precisa ser preenchido',
-
-      'emailLogin' => 'Um e-mail válido deve ser informado',
-
-      'min' => 'O campo :attribute deve ter no mínimo 5 caracteres',
-
-      'max' => 'O campo :attribute deve ter no máximo 60 caracteres',
-
-      'emailUnique' => 'O e-mail digitado já está em uso',
-
-      'prontuarioMin' => 'O prontuario deve ter no mínimo 9 caracteres',
-
-      'CampoProntuario' => 'O campo prontuário deve ter no máximo 9 caracteres.',
-
-      'ProntuarioEmUso' => 'O prontuário digitado já está em uso.',
-
-      'TurmaNaoExiste' => 'A turma selecionada não existe.',
-
-      'SenhaIncorreta' => 'A senha foi digitada incorretamente.',
-
-      'emailTerminaCom' => 'Por favor, digite um e-mail institucional',
-
-      'disciplinaMax' => 'O campo disciplina deve ter no máximo 100 caracteres'
    ];
 ?>
