@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\Turma;
+use App\Models\Monitoria;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,8 +18,9 @@ use App\Models\Turma;
 */
 
 Route::get('/', function() {
-    return view('index', ['nome' => session()->get('nome')]);
-})->middleware('verified')->name('index');
+    $monitorias = Monitoria::all();
+    return view('index', ['nome' => session()->get('nome'), 'monitorias' => $monitorias]);
+})->name('index');
 
 Route::prefix('/login')->group(function() {
     Route::get('/{locale?}/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
@@ -42,6 +45,13 @@ Route::prefix('/cadastro')->group(function() {
     })->name('cadastro.aluno');
     Route::post('/aluno/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
 });
+
+Route::get('/monitorias', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
+Route::get('/monitorias/cadastro', function() {
+    return view('cadastroMonitorias');
+})->name('monitorias.cadastro')->middleware('verified');
+Route::post('/monitorias/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
+
 
 Route::prefix('/email')->group(function() {
     Route::get('/verificacao/{locale?}', function($locale = null) {

@@ -38,8 +38,8 @@
         <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a class="active" href="#home"> HOME </a>
-                <a href="#monitorias"> @lang('lang.Monitorias') </a>
+                <a class="active" href="{{ route('index') }}"> HOME </a>
+                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                 <a href="#calendario"> @lang('lang.Calendario') </a>
                 <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             </div>
@@ -49,8 +49,8 @@
         <div>
     <?php }else{ ?>   
         <div class="topnav">
-            <a class="active" href="#home"> HOME </a>
-            <a href="#monitorias"> @lang('lang.Monitorias') </a>
+            <a class="active" href="{{ route('index') }}"> HOME </a>
+            <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             <!-- <button class="button_on"><a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> @lang('lang.Entrar') </a></button>

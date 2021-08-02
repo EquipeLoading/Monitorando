@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Aluno;
@@ -31,7 +30,7 @@ class CadastroController extends Controller
                 'nome' => 'required|min:5|max:60',
                 'email' => 'required|email|unique:users|ends_with:@ifsp.edu.br',
                 'prontuario' => 'required|min:9|max:9',
-                'disciplinas' => 'required|min:5|max:100',
+                'disciplinas' => 'required|min:3|max:100',
                 'senha' => 'required|min:5|max:60',
                 'confirmacao_senha' => 'required|same:senha'
             ];
@@ -63,7 +62,7 @@ class CadastroController extends Controller
             session()->put('nome', $usuario->nome);
             session()->put('email', $usuario->email);
 
-            return redirect()->route('index');
+            return redirect()->route('verification.notice');
 
         }
     }
@@ -111,7 +110,7 @@ class CadastroController extends Controller
             session()->put('nome', $usuario->nome);
             session()->put('email', $usuario->email);
 
-            return redirect()->route('index');
+            return redirect()->route('verification.notice');
         }
     }
 
