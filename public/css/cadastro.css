@@ -11,7 +11,7 @@ body {
 
 hr{
     width: 90%;
-    border: 1px solid #f0f2f5;
+    border: 1px solid #193D6F;
 }
 
 
@@ -23,10 +23,14 @@ hr{
         display: block;
         margin-left: auto;
         margin-right: auto; 
-        margin-top: 10vh;
+        margin-top: 20vh;
+        margin-bottom: 5vh;
+        height: 20vh;
+        color: #193D6F;
     }
     #cadastro {
-        background-color: #d7dadf;
+        padding-top: 1vh;
+        background-color: #f1f1f1;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;
@@ -65,7 +69,6 @@ hr{
 }
   
 @media (min-width: 813px){
-
     section{
         height: 100vh;
         width: 100vw;
@@ -78,6 +81,7 @@ hr{
     #monitorando{
         margin-left: auto;
         margin-right: auto;
+        color: #193D6F;
     }
     #cadastro {
         background-color: #d7dadf;
@@ -117,13 +121,7 @@ hr{
     }
 }
   
-  
-/* remove a linha dos links */
-  
-a {
-    text-decoration: none;
-    color: #193D6F;
-}
+
   
 @media(min-width: 813px){
     .button_registro {
