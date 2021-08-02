@@ -1,0 +1,170 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    background-color: #5499C3;
+  }
+  *:focus {
+    outline: none;
+}
+  
+
+  
+@media(min-width: 813px){
+    section{
+        height: 100vh;
+        width: 100vw;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        align-items: center;
+    }
+    #cadastro {
+        background-color: #f1f1f1;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #193D6F;
+        font-size: 1.2em;
+        position: block;
+        padding: 0;
+        width: 25vw;
+        margin-top: 3vh;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 0 .8em #193D6F;
+        margin-right: auto;
+        display: block;
+        align-items: stretch;
+    }
+    .button_registre {
+        width: 90%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #193D6F;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    .button_registre:hover{
+        box-shadow: 0 0 1em rgb(83, 95, 109);
+    }
+    hr{
+        border: 0px;
+    }
+    #monitorando{
+        margin-left: auto;
+        height: 30vh;
+    }
+}
+  
+@media(max-width: 812px){
+    #cadastro {
+        background-color: #f1f1f1;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #193D6F;
+        font-size: 1.2em;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        padding: 10px 30px;
+        text-align: center;
+        border-radius: 0 0 5px 5px;
+        border-radius: 10px;
+        box-shadow: 0 0 .8em #193D6F;
+        display: block;
+        align-items: stretch;
+    }
+    #monitorando{
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+        margin-top: 2vh;
+        height: 20vh;
+    }
+    .button_registre {
+        width: 90%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #193D6F;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    hr{
+        width: 40%;
+        border: 1px solid #f0f2f5;
+        margin: 2vh auto;
+    }
+}
+  
+  
+@media(min-width: 813px){
+    #camp {
+        margin-left: auto;
+        margin-right: auto;
+        width: 20.5vw;
+        text-align: left;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .6em;
+    }    
+}
+
+@media(max-width: 812px){
+    #camp {
+        margin-left: auto;
+        margin-right: auto;
+        width: 63vw;
+        text-align: left;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .6em;
+    } 
+}
+
+.labelFont{
+    font-size: 1.5em !important;
+    height: 2vh !important;
+    margin-bottom: 2vh !important;
+}
+
+@media(min-width: 813px){
+    .inputBorder{
+        margin-top: .2vh;
+        margin-bottom: .2vh;
+        height: 3vh;
+        width: 20vw;
+        border: 1px solid rgb(84, 153, 195, .4);
+        border-radius: 3vh;
+        padding-left: 10px;
+    }
+    
+}
+
+@media(max-width: 812px){
+    .inputBorder{
+        margin-top: .2vh;
+        margin-bottom: .2vh;
+        height: 3vh;
+        width: 60vw;
+        border: 1px solid rgb(84, 153, 195, .4);
+        border-radius: 3vh;
+        padding-left: 10px;
+    }
+    
+}
+
+

@@ -1,0 +1,203 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    width: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    background-color: #f0f2f5;
+}
+
+*:focus {
+    outline: none;
+}
+
+
+
+/* /---------- NAV BAR ----------/ */
+  
+.topnav {
+    overflow: hidden;
+    background-color: #5499C3;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+  
+.topnav a {
+    float: left;
+    color: #ffffff;
+    text-align: center;
+    padding: 4vh 2vw;
+    text-decoration: none;
+    font-size: 1em;
+}
+  
+.topnav a:hover {
+    background-color: #ffffff;
+    color: #5499C3;
+}
+  
+.topnav a.active {
+    background-color: #193D6F;
+    color: #ffffff;
+}
+
+.topnav p {
+    float: right;
+    color: #fff;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 10px;
+}
+
+#profile{
+    border-radius: 7Vh;
+    width: auto;
+    height: 6vh ;
+    background-color: #f0f2f5;
+    margin-right: 3vw ;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: transparent;
+}
+
+#profile img{
+    margin-left: .5vw;
+    margin-right: auto;
+}
+text{
+    margin-left: auto;
+    margin-right: .5vw;
+    color:#5499C3;
+    font-weight: 700;
+}
+#banner{
+    width: 100%;
+}
+
+section{
+    padding: 0 3vw;
+}
+
+#content{
+    display: inline-flex;
+}
+
+hr{
+    background-color: #193D6F;
+    border-radius: 10vh;
+    border: transparent;
+    width: .4vw;
+    height: 10vh;
+}
+
+#titleDiscipline{
+    margin-left: .5vw;
+    font-weight: 300;
+    margin-bottom: 0;
+    color: #193D6F;
+}
+#nameDiscipline{
+    margin-left: .5vw;
+    margin-top: 0;
+    font-weight: 700;
+    color: #193D6F;
+}
+
+#card{
+    background-color: #f1f1f1;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .5);
+    border-radius: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 5px;
+    width: 15vw;
+    height: auto;
+    margin-bottom: 3vh;
+    align-items: stretch;
+    display: block;
+   
+}
+
+#hour{
+    text-align: center;
+    font-weight: 700;
+    color: #193D6F;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.users{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#user{
+    height: 5vh;
+    margin-left: auto;
+}
+
+.users text{
+    margin-top: auto;
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: auto;
+    color: #000;
+    font-weight: 300;
+}
+
+#limit{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+}
+
+#limit text{
+    margin-top: auto;
+    margin-left: .5vw;
+    margin-right: auto;
+    margin-bottom: auto;
+    color: #000;
+    font-weight: 300;
+}
+
+#details{
+    background-color: #193D6F;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: .8em;
+    width: 8vw;
+    height: 5vh;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 5vh;
+    display: flex;
+    align-items: center;
+}
+
+#details:hover{
+    box-shadow: 0 0 1em rgb(83, 95, 109);
+
+}
+
+#details text{
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    color: #fff;
+    font-weight: 300;
+}
+#arrow{
+    height: 3vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1vw;
+}

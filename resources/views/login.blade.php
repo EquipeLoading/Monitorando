@@ -54,7 +54,6 @@
             <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-            <button class="button_on"><a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> @lang('lang.Entrar') </a></button>
             <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
         </div> 
     <?php } ?>

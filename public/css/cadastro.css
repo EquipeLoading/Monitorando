@@ -81,9 +81,10 @@ hr{
     #monitorando{
         margin-left: auto;
         margin-right: auto;
+        height: 30vh;
     }
     #cadastro {
-        background-color: #d7dadf;
+        background-color: #f1f1f1;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;
