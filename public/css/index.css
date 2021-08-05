@@ -140,7 +140,77 @@ body {
         margin-top: 0;
         font-weight: 700;
         color: #193D6F;
+        
     }
+
+    #topFilter{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: stretch;
+    }
+
+    #filter{
+        margin-left: auto;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 6vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        color: #193D6F;
+        font-weight: bold;
+    }
+
+    #search img{
+        height: 3vh;
+        transform: rotate(270deg);
+        filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
+
+    }
+
+    #search{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    #formSearch{
+        display: flex;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 25vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+    }
+
+    #inputSearch{
+        width: 25vw;
+        background-color: transparent;
+        border: none;
+    }
+
+    #content-all{
+        display: flex;
+        align-items: center;
+    }
+
+    #content-all button{
+        margin-left: auto;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 6vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        color: #193D6F;
+        font-weight: bold;
+    }   
     
     #scroll{
         overflow-x: scroll;
@@ -326,6 +396,64 @@ body {
         margin-top: 0;
         font-weight: 700;
         color: #193D6F;
+        width: 70vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #topFilter{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    #filter{
+        margin-left: auto;
+        border-radius: 5vh;
+        height: 4vh;
+        width: 20vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        color: #193D6F;
+        font-weight: bold;
+    }
+
+    #search img{
+        flex: none;
+        height: 3vh;
+        transform: rotate(270deg);
+        filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
+
+    }
+
+    #search{
+        flex: none;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    #formSearch{
+        flex: none;
+        display: flex;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 60vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+    }
+
+    #inputSearch{
+        flex: none;
+        width: 55vw;
+        background-color: transparent;
+        border: none;
     }
     
     #scroll{
@@ -345,6 +473,25 @@ body {
         height: auto;
         margin: 3vh;
         display: block;
+    }
+
+    #content-all{
+        display: flex;
+        align-items: center;
+    }
+
+    #content-all button{
+        margin-left: auto;
+        border-radius: 5vh;
+        height: 4vh;
+        width: 20vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        color: #193D6F;
+        font-weight: bold;
     }
     
     #hour{
@@ -492,11 +639,3 @@ body {
       height: 5vh;
       background-color: #193D6F;
   }
-
-#quitButton{
-    height: 0;
-    width: 90%;
-    background-color: #f1f1f1;
-    overflow-y: hidden;
-    transition: 0.5s;
-}

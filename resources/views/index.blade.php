@@ -106,6 +106,13 @@
         
     <img src="{{ asset('/img/banner.jpg') }}" alt="banner_monitorando" id="banner">
     <section>
+       <div id="topFilter">
+            <form id="formSearch">
+                <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                <input id="inputSearch" type="text" placeholder="Pesquisa.." name="search">
+            </form>
+            <button id="filter">filtrar</button>
+       </div>
         @foreach($monitorias as $monitoria)
             <?php 
                 $monitoringName = $monitoria->disciplina;
@@ -113,14 +120,17 @@
                 $monitoringName = $monitoring[count($monitoring)-1];
                 $monitoring = $monitoring[0];
             ?>
-            <div id="content">
-                <hr>
-                <div id="discipline">
-                    <h3 id="titleDiscipline">{{ $monitoring }}</h3>
-                    <?php if(!($monitoring === $monitoringName)){ ?>
-                        <h3 id="nameDiscipline">{{ $monitoringName }}</h3>   
-                    <?php }?>   
+            <div id="content-all">
+                <div id="content">
+                    <hr>
+                    <div id="discipline">
+                        <h3 id="titleDiscipline">{{ $monitoring }}</h3>
+                        <?php if(!($monitoring === $monitoringName)){ ?>
+                            <h3 id="nameDiscipline">{{ $monitoringName }}</h3>   
+                        <?php }?>   
+                    </div>
                 </div>
+                <button>ver todos</button>
             </div>
             <div id="scroll">
                 @foreach ($monitorias as $monitoriaCard)
