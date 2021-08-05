@@ -122,59 +122,63 @@
                     <?php }?>   
                 </div>
             </div>
-            <div id="card">
-                <!-- <p>{{ $monitoria->conteudo }}</p> -->
-                <?php 
-                    $monitoringTime = $monitoria->data_horario;
-                    $monitoringT = explode('T',$monitoringTime);
-                    $monitoringTime = $monitoringT[count($monitoringT)-1];
-                    $monitoringT = $monitoringT[0];
-                    
-                    $date = new DateTime($monitoringT);
-                    // $d = DateTime::createFromFormat('Y-m-d', $monitoringT, new DateTimeZone('UTC'));
-                    $n = $date->getTimestamp();
-                    $data = date('D', $n);
-                    $semana = array(
-                        'Sun' => 'Domingo',
-                        'Mon' => 'Segunda-Feira',
-                        'Tue' => 'Terça-Feira',
-                        'Wed' => 'Quarta-Feira',
-                        'Thu' => 'Quinta-Feira',
-                        'Fri' => 'Sexta-Feira',
-                        'Sat' => 'Sábado'
-                    );
+            <div id="scroll">
+                @foreach ($monitorias as $monitoriaCard)
+                        <div id="card">
+                            <!-- <p>{{ $monitoria->conteudo }}</p> -->
+                            <?php 
+                                $monitoringTime = $monitoriaCard->data_horario;
+                                $monitoringT = explode('T',$monitoringTime);
+                                $monitoringTime = $monitoringT[count($monitoringT)-1];
+                                $monitoringT = $monitoringT[0];
+                                
+                                $date = new DateTime($monitoringT);
+                                $n = $date->getTimestamp();
+                                $data = date('D', $n);
+                                $semana = array(
+                                    'Sun' => 'Domingo',
+                                    'Mon' => 'Segunda-Feira',
+                                    'Tue' => 'Terça-Feira',
+                                    'Wed' => 'Quarta-Feira',
+                                    'Thu' => 'Quinta-Feira',
+                                    'Fri' => 'Sexta-Feira',
+                                    'Sat' => 'Sábado'
+                                );
 
-                ?>
-                <p id="hour">{{ date("d/m", $n) . " • " . $semana["$data"] . " " . $monitoringTime }}</p>
-                <p class="users"> 
-                    <?php 
-                        $monitoringMonitor = $monitoria->monitor;
-                        $monitoringM = explode(' e ', $monitoringMonitor);
-                        $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                        $monitoringM = $monitoringM[0];
-                    ?>
-                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                    <text>{{ $monitoringMonitor }}</text>                   
-                </p>
-                <p class="users">
-                    <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                        <text>{{ $monitoringM }}</text>
-                </p>
-                <?php } else{?>   
-                    <p class="users"></p>
-                <?php }?>
-                <!-- <p>{{ $monitoria->local }}</p> -->
-                <p id="limit">
-                    <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                    <text>Participantes {{ $monitoria->num_inscritos }}</text>
-                </p>
-                
-                <p id="details">
-                    <text>Inscrever-se</text>
-                </p>
-                <!-- <p>{{ $monitoria->descricao }}</p> -->
+                            ?>
+                            <p id="hour">{{ date("d/m", $n) . " • " . $semana["$data"] . " " . $monitoringTime }}</p>
+                            <p class="users"> 
+                                <?php 
+                                    $monitoringMonitor = $monitoriaCard->monitor;
+                                    $monitoringM = explode(' e ', $monitoringMonitor);
+                                    $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                    $monitoringM = $monitoringM[0];
+                                ?>
+                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                <text>{{ $monitoringMonitor }}</text>                   
+                            </p>
+                            <p class="users">
+                                <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                    <text>{{ $monitoringM }}</text>
+                            </p>
+                            <?php } else{?>   
+                                <p class="users"></p>
+                            <?php }?>
+                            <!-- <p>{{ $monitoria->local }}</p> -->
+                            <p id="limit">
+                                <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
+                            </p>
+                            
+                            <p id="details">
+                                <text>Inscrever-se</text>
+                            </p>
+                            <!-- <p>{{ $monitoria->descricao }}</p> -->
+                        </div>
+                @endforeach
             </div>
+
         @endforeach
     </section>
 </body>
