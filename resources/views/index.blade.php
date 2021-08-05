@@ -53,9 +53,7 @@
         <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                 <?php if(empty($name)){ ?>
-                    <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
-                <?php }else{ ?>     
+                 <?php if(!empty($name)){ ?>
                     <button id="profile">
                         <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil">                
                             <?php if(!($name !== $allNames)){ ?>
@@ -64,15 +62,21 @@
                                 <text>{{ $name . " " . $allNames }}</text>
                             <?php } ?>
                         <img src="{{ asset('/assets/svg/right-arrow.svg') }}" alt="arrow" id="arrow">
-                    </button>              
-                <?php } ?> 
+                    </button>
+                    <a class="active" href="{{ route('index') }}"> HOME </a>
+                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+                    <a href="#calendario"> @lang('lang.Calendario') </a>
+                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>      
+                <?php }else{ ?>     
                     <!-- <div id="quitButton" >
                         <button onclick=" back()">sair</button>
                     </div> -->
-                <a class="active" href="{{ route('index') }}"> HOME </a>
-                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                <a href="#calendario"> @lang('lang.Calendario') </a>
-                <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                    <a class="active" href="{{ route('index') }}"> HOME </a>
+                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+                    <a href="#calendario"> @lang('lang.Calendario') </a>
+                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                    <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                <?php } ?>
             </div>
         </div>
         <div id="background">
