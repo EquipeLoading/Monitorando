@@ -53,34 +53,6 @@ body {
     padding-right: 10px;
 }
 
-.button_new {
-    background-color: #193D6F;
-    border: none;
-    color: #ffffff;
-    text-align: center;
-    font-size: 1em;
-    width: 10vw;
-    height: 7vh;
-    margin-right: 3vw;
-    margin-left: auto;
-    cursor: pointer;
-    border-radius: 7vh;
-    display: flex;
-    align-items: center;
-}
-
-.button_new a {
-    background-color: none;
-    color: #ffffff;
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.button_new a:hover {
-    background-color: #193D6F;
-    color: #ffffff;
-}
 
 #banner{
     width: 100%;
@@ -88,6 +60,36 @@ body {
 
 @media(min-width: 813px){
 
+    .button_new {
+        background-color: #193D6F;
+        border: none;
+        color: #ffffff;
+        text-align: center;
+        font-size: 1em;
+        width: 10vw;
+        height: 7vh;
+        margin-right: 3vw;
+        margin-left: auto;
+        cursor: pointer;
+        border-radius: 7vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .button_new a {
+        background-color: none;
+        color: #ffffff;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .button_new a:hover {
+        background-color: #193D6F;
+        color: #ffffff;
+    }
+
+    
     #profile{
         border-radius: 7Vh;
         width: auto;
@@ -235,6 +237,32 @@ body {
 
 
 @media(max-width: 812px){
+
+    .button_new {
+        background-color: #f1f1f1;
+        border: none;
+        color: #193D6F;
+        text-align: center;
+        font-size: 1em;
+        width: 90%;
+        height: 6vh;
+        margin-right: 3vw;
+        cursor: pointer;
+        border-radius: 7vh;
+        display: flex;
+        align-items: center;
+        margin-top: 5vh;
+    }
+    
+    .button_new a {
+        background-color: none;
+        color: #193D6F !important;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;     
+        
+    }
+
     #profile{
         border-radius: 7Vh;
         width: 90%;

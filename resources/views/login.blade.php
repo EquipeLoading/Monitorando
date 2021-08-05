@@ -43,6 +43,8 @@
                 <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                 <a href="#calendario"> @lang('lang.Calendario') </a>
                 <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+
             </div>
         </div>
         <div id="background">
