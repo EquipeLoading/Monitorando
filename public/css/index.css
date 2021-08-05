@@ -283,7 +283,7 @@ body {
         margin-left: auto;
         margin-right: .5vw;
         filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
-        height: 50%;
+        height: 40%;
         transform: rotate(90deg);
     }
     #profile text{
