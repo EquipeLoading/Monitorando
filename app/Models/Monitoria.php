@@ -9,5 +9,5 @@ class Monitoria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['disciplina', 'conteudo', 'data_horario', 'local', 'monitor', 'descricao', 'num_inscritos'];
+    protected $fillable = ['codigo', 'disciplina', 'conteudo', 'data', 'hora_inicio', 'hora_fim', 'local', 'monitor', 'descricao', 'num_inscritos', 'user_id'];
 }

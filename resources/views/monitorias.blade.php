@@ -25,6 +25,7 @@
 
     @if($mostrarBotao == true)
         <button type="button"><a href="{{ route('monitorias.cadastro') }}"> Cadastre uma monitoria </a></button>
+        <button type="button"><a href="{{ route('monitorias.cancelar') }}"> Cancele uma monitoria </a></button>
     @endif
 </body>
 

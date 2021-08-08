@@ -470,7 +470,7 @@ body {
         padding: 5px;
         font-weight: 900;
         width: 42vw;
-        height: auto;
+        height: 40vh;
         margin: 3vh;
         display: block;
     }
@@ -639,3 +639,64 @@ body {
       height: 5vh;
       background-color: #193D6F;
   }
+
+  #blank {
+      height: 5vh;
+  }
+
+  .modal {
+    position: fixed; /* Stay in place */
+    z-index: 1;
+    left: 10%;
+    top: 10%;
+  }
+
+  .modalBtn {
+      border: none;
+      padding: 0;
+      background-color: #f0f2f5;
+      cursor: pointer;
+      font-family: "Delius", cursive;
+  }
+
+  /* Modal Content */
+  .modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 50%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color: #5499C3;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 16px;}
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5499C3;
+    color: white;
+  }
+  

@@ -24,6 +24,17 @@ class CreateMonitoriasTable extends Migration
             $table->string('local');
             $table->timestamps();
         });
+
+        Schema::create('monitoria_usuarios', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('monitoria_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+
+            //foreign keys
+            $table->foreign('monitoria_id')->references('id')->on('monitorias');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**
@@ -33,6 +44,13 @@ class CreateMonitoriasTable extends Migration
      */
     public function down()
     {
+        Schema::table('monitoria_usuarios', function (Blueprint $table) {
+            $table->dropForeign('monitoria_usuarios_user_id_foreign');
+            $table->dropForeign('monitoria_usuarios_monitoria_id_foreign');
+        });
+
+        Schema::dropIfExists('monitoria_usuarios');
+
         Schema::dropIfExists('monitorias');
     }
 }

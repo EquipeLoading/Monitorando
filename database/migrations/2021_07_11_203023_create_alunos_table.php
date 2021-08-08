@@ -35,8 +35,8 @@ class CreateAlunosTable extends Migration
     public function down()
     {
         Schema::table('alunos', function (Blueprint $table) {
-            $table->dropForeign('users_user_id_foreign');
-            $table->dropForeign('turmas_turma_id_foreign');
+            $table->dropForeign('alunos_user_id_foreign');
+            $table->dropForeign('alunos_turma_id_foreign');
         });
 
         Schema::dropIfExists('alunos');
