@@ -1,4 +1,4 @@
-    <?php
+<?php
      $allNames =  $nome;
      $name = explode(' ', $allNames);
      $allNames = $name[count($name)-1];
@@ -47,6 +47,11 @@
         //     document.getElementById("quitButton").style.height = "0%";
         //     document.getElementById("arrow").style.display = 'block';
         // }
+
+        function onClick() {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal").style.display = "block";
+        }
     </script>
 
     <?php if($mobile){ ?>
@@ -173,18 +178,18 @@
                                     <text>{{ $monitoringM }}</text>
                             </p>
                             <?php } else{?>   
-                                <p class="users"></p>
+                                <div id="blank"></div>
                             <?php }?>
-                            <!-- <p>{{ $monitoria->local }}</p> -->
                             <p id="limit">
                                 <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
                                 <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
                             </p>
                             
-                            <p id="details">
+                            <p id="details" onclick="onClick()">
                                 <text>Inscrever-se</text>
                             </p>
-                            <!-- <p>{{ $monitoria->descricao }}</p> -->
+                                    <!-- <p id="place">{{ $monitoria->local }}</p> -->
+                                    <!-- <p onclick="document.getElementById('modal').style.display='none'">{{ $monitoria->descricao }} </p> -->
                         </div>
                 @endforeach
             </div>

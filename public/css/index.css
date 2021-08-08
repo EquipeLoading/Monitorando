@@ -13,7 +13,9 @@ body {
     outline: none;
 }
 
-
+#blank{
+    height: 5vh;
+}
 
 /* /---------- NAV BAR ----------/ */
   
@@ -638,4 +640,8 @@ body {
   #background{
       height: 5vh;
       background-color: #193D6F;
+  }
+
+  #modal{
+    display: none;
   }
