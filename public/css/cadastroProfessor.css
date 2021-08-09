@@ -20,7 +20,7 @@ body {
         align-items: center;
     }
     #cadastro {
-        background-color: #f1f1f1;
+        background-color: #fcfcfc;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;
@@ -64,7 +64,7 @@ body {
   
 @media(max-width: 812px){
     #cadastro {
-        background-color: #f1f1f1;
+        background-color: #fcfcfc;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-style: normal;
         font-weight: bold;

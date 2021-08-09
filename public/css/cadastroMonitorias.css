@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+
+*{
+    font-family: "Delius", cursive;
+}
+*:focus {
+    outline: none;
+}
+
+body{
+    background-color: #5499C3;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+
+#codigo{
+    text-transform: uppercase;
+}
+
+.labelFont{
+    font-size: 1.5em !important;
+    height: 2vh !important;
+    margin-bottom: 2vh !important;
+    font-weight: bold;
+}
+
+h1{
+    color: #5499C3;
+    font-weight: bold;
+    
+}
+@media(min-width: 813px){
+    #monitorando{
+        margin-left: auto;
+        height: 30vh;
+    }
+    section{
+        height: 100%;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        padding-top: auto;
+
+    }
+    #cadastro{
+        flex: none;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .3);
+        border-radius: 10px;
+        padding: 5px;
+        width: 25vw;
+        display: block;
+        align-items: stretch;
+        text-align: center;
+        margin-top: 3vh;
+        margin-left: auto;
+        margin-right: auto;
+        position: block;
+
+    }
+    input{
+        margin-top: .2vh;
+        margin-bottom: .2vh;
+        height: 3.5vh;
+        width: 20vw;
+        border: 1px solid rgb(84, 153, 195, .4);
+        border-radius: 3vh;
+        padding-left: 10px;
+        
+    }
+    .camp {
+        margin-left: auto;
+        margin-right: auto;
+        width: 20.5vw;
+        text-align: left;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .6em;
+    } 
+
+    #disciplina{
+        background-color: rgb(222, 222, 222, .5);
+        border: none;
+    }
+    #time{
+        text-align: left;
+        font-weight: normal;
+        width: 20.5vw;
+        font-size: .6em;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: stretch;
+    }
+    #time .inputBorder{
+        width: 9vw;
+    }
+    #time .labelFont{
+        margin-left: .3vw;
+    }
+    #time #left{
+        width: auto;
+        margin-left: 1.1vw;
+    }
+    #addUser{
+        margin-bottom: 1vh;
+        display: flex;
+        align-items: center;
+    }
+    #add_field_button, #imgTrash{
+        width: 2.5vw;
+        height: 4.5vh;
+        border-radius: 4.5vh;
+        margin-left: 1.1vw;
+        border: none;
+        background-color: #5499C3;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .5);
+        /* font-size: 2em; */
+        cursor: pointer;
+        color:#fcfcfc;
+        display: flex;
+        align-items: center;
+    }
+
+    #imgTrash{
+        background-color: #cf4949;
+
+    }
+
+    #add_field_button img, #imgTrash img{
+        margin: auto;
+        height: 2.1vh;
+        filter: invert(100%) sepia(45%) saturate(2080%) hue-rotate(180deg) brightness(114%) contrast(104%);
+    }
+
+    #button_cadastro{
+        width: 90%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #5499C3;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+}
+
+@media(max-width: 812px){
+    #monitorando{
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+        margin-top: 2vh;
+        height: 15vh;
+    }
+    #cadastro{
+        flex: none;
+        background-color: #fcfcfc;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #193D6F;
+        font-size: 1.2em;
+        width: 65vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        padding: 10px 30px;
+        text-align: center;
+        border-radius: 0 0 5px 5px;
+        border-radius: 10px;
+        box-shadow: 0 0 .8em #193D6F;
+        display: block;
+        align-items: stretch;
+
+    }
+    input{
+        margin-top: .2vh;
+        margin-bottom: .2vh;
+        height: 3vh;
+        width: 60vw;
+        border: 1px solid rgb(84, 153, 195, .4);
+        border-radius: 3vh;
+        padding-left: 10px;
+        
+    }
+    .camp {
+        margin-left: auto;
+        margin-right: auto;
+        width: 63vw;
+        text-align: left;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .6em;
+    } 
+
+    #disciplina{
+        background-color: rgb(222, 222, 222, .5);
+        border: none;
+    }
+    #time{
+        text-align: left;
+        font-weight: normal;
+        width: 60.5vw;
+        font-size: .6em;
+        margin-right: auto;
+        display: flex;
+        align-items: stretch;
+    }
+    #time .inputBorder{
+        width: 26vw;
+    }
+    #time .labelFont{
+        margin-left: .5vw;
+    }
+    #time #left{
+        margin-left: 1.7vw;
+    }
+    #addUser{
+        margin-bottom: 1vh;
+        display: flex;
+        align-items: center;
+    }
+    #add_field_button, #imgTrash{
+        width: 9.5vw;
+        height: 3.5vh;
+        border-radius: 3.5vh;
+        margin-left: 1.1vw;
+        border: none;
+        background-color: #5499C3;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .5);
+        /* font-size: 2em; */
+        cursor: pointer;
+        color:#fcfcfc;
+        display: flex;
+        align-items: center;
+    }
+
+    #imgTrash{
+        background-color: #cf4949;
+
+    }
+
+    #add_field_button img, #imgTrash img{
+        margin: auto;
+        height: 1.8vh;
+        filter: invert(100%) sepia(45%) saturate(2080%) hue-rotate(180deg) brightness(114%) contrast(104%);
+    }
+
+    #button_cadastro{
+        width: 100%;
+        height: 5.5vh;
+        border-radius: 10px;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+        cursor: pointer;
+        background-color: #5499C3;
+        border: 2px solid;
+        border: transparent;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+}

@@ -177,7 +177,7 @@ hr{
     #profile{
         border-radius: 7Vh;
         width: auto;
-        height: 6vh ;
+        height: 5vh ;
         background-color: #f0f2f5;
         margin-right: 3vw ;
         margin-left: auto ;
@@ -194,6 +194,10 @@ hr{
         font-weight: 700;
     }
 
+    #profile img{
+        margin-left: .3vw;
+        margin-right: auto;
+    }
     .monitoriaButton{
         margin-left: 8vw;
         border-radius: 5vh;

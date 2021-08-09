@@ -97,7 +97,7 @@ body {
     #profile{
         border-radius: 7Vh;
         width: auto;
-        height: 6vh ;
+        height: 5vh ;
         background-color: #f0f2f5;
         margin-right: 3vw ;
         margin-left: auto ;
@@ -114,7 +114,7 @@ body {
         font-weight: 700;
     }
     #profile img{
-        margin-left: .5vw;
+        margin-left: .3vw;
         margin-right: auto;
     }
     section{
