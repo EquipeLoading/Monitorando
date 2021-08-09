@@ -93,9 +93,8 @@
     <img src="{{ asset('/assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
  
     <section>        
-       
-
-        <div id="all-content">
+        <?php if(!empty($nome)){?>
+            <div id="all-content">
             <div id="content">
                 <hr>
                 <h3 id="userName">Ola <br> {{ $nome }}!</h3>   
@@ -106,7 +105,9 @@
                     <button type="button" class="monitoriaButton" ><a href="{{ route('monitorias.cancelar') }}"> Cancele uma monitoria </a></button>
                 </div>
              @endif
-        </div>
+        </div>         
+        <?php }?>
+
     </section>  
 
 </body>
