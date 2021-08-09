@@ -244,20 +244,12 @@
                                         <?php 
                                             $monitoringMonitor = $monitoriaCard->monitor;
                                             $monitoringM = explode(' e ', $monitoringMonitor);
-                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                            $monitoringM = $monitoringM[0];
                                         ?>
-                                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        <text>{{ $monitoringMonitor }}</text>                   
-                                    </p>
-                                    <p class="users">
-                                        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                        @foreach($monitoringM as $monitor)
                                             <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                            <text>{{ $monitoringM }}</text>
+                                            <text>{{ $monitor }}</text>         
+                                        @endforeach          
                                     </p>
-                                        <?php } else{?>   
-                                    <p class="users"></p>
-                                        <?php }?>
                                     <p>{{ $monitoria->local }}</p> 
                                     <p id="limit">
                                         <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">

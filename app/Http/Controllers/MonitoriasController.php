@@ -30,7 +30,6 @@ class MonitoriasController extends Controller
                 'hora_inicio' => 'required',
                 'hora_fim' => 'required|after:hora_inicio',
                 'local' => 'required',
-                'monitor' => 'required|min:5',
                 'descricao' => 'required'
             ];
 
@@ -39,6 +38,21 @@ class MonitoriasController extends Controller
             $monitorias = new Monitoria();
 
             $usuario = Auth::user()->id;
+
+            $quantidadeMonitores = 0;
+            $monitor = "";
+
+            if(isset($_POST['monitores'])){
+                foreach($_POST['monitores'] as $monitorNovo){
+                    if($quantidadeMonitores == 0){
+                        $monitor = $monitorNovo;
+                        $quantidadeMonitores++;
+                    } else {
+                        $monitor .= " e ".$monitorNovo;
+                        $quantidadeMonitores++;
+                    }
+                }
+            }
 
             $monitorias->fill([
                 'codigo' => $request->codigo,
@@ -49,7 +63,7 @@ class MonitoriasController extends Controller
                 'num_inscritos' => 0,
                 'descricao' => $request->descricao,
                 'disciplina' => $request->disciplina,
-                'monitor' => $request->monitor,
+                'monitor' => $monitor,
                 'local' => $request->local,
                 'user_id' => $usuario
             ])->save();

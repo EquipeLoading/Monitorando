@@ -35,6 +35,23 @@
                     return false;
                 }
             });
+            
+            var max_campos = 10;
+            var wrapper = $(".input_fields_wrap");
+            var add_button = $(".add_fields_button");
+            
+            var count = 1;
+            $(add_button).click(function(e){
+                e.preventDefault();
+                if(count < max_campos){
+                    count++;
+                    $(wrapper).append('<div><input class="inputBorder" id="monitor_id" name="monitores[]" type="text"/><a href="#" class="remove_field">Remover</a></div>');
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){
+                e.preventDefault(); $(this).parent('div').remove(); count--;
+            });
         });
     </script>
 </head>
@@ -88,11 +105,12 @@
                     {{ $errors->has('local') ? $errors->first('local') : '' }}
                 </p>
 
-                <p id="camp">
-                    <label class="labelFont" for="monitor"> Monitor </label>
-                    <input class="inputBorder"  name="monitor" value="{{ old('monitor') }}" type="text"/>
-                    {{ $errors->has('monitor') ? $errors->first('monitor') : '' }}
-                </p>
+                <div id="camp" class="input_fields_wrap">
+                    <label id="labelMonitores" class="labelFont" for="monitores[]"> Monitor </label>
+                    <button class="add_fields_button" type="button">Adicionar mais um monitor</button>
+                    <input class="inputBorder" id="monitor_id" name="monitores[]" value="{{ old('monitores[]') }}" type="text"/>
+                    {{ $errors->has('monitores[]') ? $errors->first('monitores[]') : '' }}
+                </div>
 
                 <p id="camp">
                     <label class="labelFont" for="descricao"> Descrição </label>
