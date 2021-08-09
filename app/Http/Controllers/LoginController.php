@@ -10,12 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
 
-    public function index(Request $request, $locale = null)
+    public function index(Request $request)
     {
         $erro = '';
-
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
 
         if(app()->getLocale() == 'pt-BR') {
             if($request->get('erro') == 1) {
@@ -66,10 +63,10 @@ class LoginController extends Controller
 
                     return redirect()->route('index');
                 } else {
-                    return redirect()->route('login', ['locale' => app()->getLocale(), 'erro' => 1]);
+                    return redirect()->route('login', ['erro' => 1]);
                 }
             } else {
-                return redirect()->route('login', ['locale' => app()->getLocale(), 'erro' => 1]);
+                return redirect()->route('login', ['erro' => 1]);
             }
 
         }

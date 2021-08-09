@@ -28,7 +28,7 @@
     <section>
         <img src="{{ asset('assets/png/Monitorando2.png') }}" alt="Logo monitorando" id="monitorando"> 
         <hr>    
-        <form id="cadastro" method="POST" action="{{ route('cadastro.aluno', ['locale' => app()->getLocale()]) }}">
+        <form id="cadastro" method="POST" action="{{ route('cadastro.aluno') }}">
                 @csrf
                 <h1> @lang('lang.Cadastro') </h1>
                 <p id="camp">

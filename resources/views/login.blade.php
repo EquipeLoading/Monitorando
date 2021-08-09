@@ -43,7 +43,7 @@
                 <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                 <a href="#calendario"> @lang('lang.Calendario') </a>
                 <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
 
             </div>
         </div>
@@ -56,7 +56,7 @@
             <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-            <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+            <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
         </div> 
     <?php } ?>
     <section>
@@ -89,7 +89,7 @@
                 </p>
 
                 <p>
-                    <button class="button_registro" type="button"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                    <button class="button_registro" type="button"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     <button class="button_login" type="submit"> @lang('lang.Entrar') </button>
                 </p>
 

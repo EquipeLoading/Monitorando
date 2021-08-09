@@ -76,7 +76,7 @@
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="#calendario"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                    <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                    <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                 <?php } ?>
             </div>
         </div>
@@ -90,7 +90,7 @@
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             <?php if(empty($name)){ ?>
-                <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
             <?php }else{ ?>              
                 <button id="profile">
                     <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 
@@ -132,7 +132,7 @@
                     @if($monitoriaRepetida == $monitoria->codigo)
                         <?php
                             $repetida = true;
-                            // break;
+                            break;
                         ?>
                     @else
                         <?php
@@ -214,7 +214,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <span class="close">&times;</span>
-                                    <h2>{{$monitoriaCard->codigo}} - {{$monitoriaCard->disciplina}}></h2>
+                                    <h2>{{$monitoriaCard->codigo}} - {{$monitoriaCard->disciplina}}</h2>
                                 </div>
                                 <div class="modal-body">
                                     <?php 
@@ -244,20 +244,12 @@
                                         <?php 
                                             $monitoringMonitor = $monitoriaCard->monitor;
                                             $monitoringM = explode(' e ', $monitoringMonitor);
-                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                            $monitoringM = $monitoringM[0];
                                         ?>
-                                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        <text>{{ $monitoringMonitor }}</text>                   
-                                    </p>
-                                    <p class="users">
-                                        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                        @foreach($monitoringM as $monitor)
                                             <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                            <text>{{ $monitoringM }}</text>
+                                            <text>{{ $monitor }}</text>         
+                                        @endforeach          
                                     </p>
-                                        <?php } else{?>   
-                                    <p class="users"></p>
-                                        <?php }?>
                                     <p>{{ $monitoria->local }}</p> 
                                     <p id="limit">
                                         <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
@@ -272,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <script>
+                        <script>
                             var modal{{$monitoriaCard->id}} = document.getElementById("modal-{{$monitoriaCard->id}}");
                             var modalBtn{{$monitoriaCard->id}} = document.getElementById({{$monitoriaCard->id}});
                             var closeBtn = document.getElementsByClassName("close");
@@ -291,7 +283,7 @@
                                     modal{{$monitoriaCard->id}}.style.display = "none";
                                 }
                             });
-                        </script> -->
+                        </script>
                     @endforeach
                 </div>
             @endif

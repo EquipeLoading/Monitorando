@@ -13,18 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class CadastroController extends Controller
 {
 
-    public function index(Request $request, $locale = null)
+    public function index(Request $request)
     {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-        return view('cadastro', ['locale' => app()->getLocale()]);
+        return view('cadastro');
     }
 
-    public function cadastroProfessor(Request $request, $locale = null)
+    public function cadastroProfessor(Request $request)
     {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-
         if($request->input('_token') != ''){
             $regras = [
                 'nome' => 'required|min:5|max:60',
@@ -67,11 +62,7 @@ class CadastroController extends Controller
         }
     }
 
-    public function cadastroAluno(Request $request, $locale = null) {
-
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-
+    public function cadastroAluno(Request $request) {
         if($request->input('_token') != ''){
             $regras = [
                 'nome' => 'required|min:5|max:60',
