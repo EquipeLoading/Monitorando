@@ -17,6 +17,8 @@ body {
     height: 5vh;
 }
 
+
+
 /* /---------- NAV BAR ----------/ */
   
 .topnav {
@@ -228,7 +230,7 @@ body {
         border-radius: 10px;
         padding: 5px;
         font-weight: 900;
-        width: 13vw;
+        width: 11vw;
         height: auto;
         margin: 3vh;
         display: block;
@@ -241,6 +243,19 @@ body {
         margin-left: auto;
         margin-right: auto;
         font-family: 'Delius', cursive;
+        margin-bottom: 0;
+        margin-top: 0;
+
+    }
+    #date{
+        text-align: center;
+        /* font-weight: 800; */
+        color: #193D6F;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Delius', cursive;
+        margin-bottom: 0;
+
     }
     
     .users{
@@ -472,7 +487,7 @@ body {
         padding: 5px;
         font-weight: 900;
         width: 42vw;
-        height: auto;
+        height: 40vh;
         margin: 3vh;
         display: block;
     }
@@ -642,6 +657,63 @@ body {
       background-color: #193D6F;
   }
 
-  #modal{
-    display: none;
+  #blank {
+      height: 5vh;
   }
+
+  .modal {
+    position: fixed; /* Stay in place */
+    z-index: 1;
+    left: 10%;
+    top: 10%;
+  }
+
+  .modalBtn {
+      border: none;
+      padding: 0;
+      background-color: #f0f2f5;
+      cursor: pointer;
+      font-family: "Delius", cursive;
+  }
+
+  /* Modal Content */
+  .modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 50%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color: #5499C3;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 16px;}
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5499C3;
+    color: white;
+  }
+  

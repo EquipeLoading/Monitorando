@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\Turma;
 use App\Models\Monitoria;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,14 @@ Route::get('/monitorias/cadastro', function() {
     return view('cadastroMonitorias');
 })->name('monitorias.cadastro')->middleware('verified');
 Route::post('/monitorias/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
+Route::post('/monitorias/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
+Route::get('/monitorias/cancelar', function() {
+    $usuario = Auth::user();
+    $monitorias = Monitoria::where('user_id', $usuario->id)->get();
 
+    return view('cancelarMonitoria', ['monitorias' => $monitorias]);
+})->name('monitorias.cancelar');
+Route::post('/monitorias/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
 
 Route::prefix('/email')->group(function() {
     Route::get('/verificacao/{locale?}', function($locale = null) {
