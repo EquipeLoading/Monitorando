@@ -15,8 +15,8 @@ class MonitoriasController extends Controller
     
     public function index() {
         $mostrarBotao = Gate::allows('mostrar-funcionalidade');
-        
-        return view('monitorias', ['mostrarBotao' => $mostrarBotao, 'nome' => session()->get('nome')]);
+    
+        return view('monitorias', ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao]);
     }
 
     public function cadastro(Request $request)  {

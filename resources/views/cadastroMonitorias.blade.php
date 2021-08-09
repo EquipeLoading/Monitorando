@@ -96,7 +96,7 @@
 
                 <p id="camp">
                     <label class="labelFont" for="descricao"> Descrição </label>
-                    <textarea class="inputBorder" name="descricao" value="{{ old('descricao') }}" type="text"></textarea>
+                    <input class="inputBorder" name="descricao" value="{{ old('descricao') }}" type="text"/>
                     {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
                 </p>
 

@@ -62,7 +62,7 @@
                     <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="#calendario"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                    <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                    <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                 <?php } ?>
             </div>
         </div>
@@ -76,7 +76,7 @@
             <a href="#calendario"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             <?php if(empty($name)){ ?>
-                <button class="button_new"><a href="{{ route('cadastro', ['locale' => app()->getLocale()]) }}"> @lang('lang.Registre-se') </a></button>
+                <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
             <?php }else{ ?>              
                 <button id="profile">
                     <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 

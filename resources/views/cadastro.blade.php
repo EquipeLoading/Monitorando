@@ -30,10 +30,10 @@
         <div id="cadastro">
             <h1> @lang('lang.Cadastro') </h1>
             <p> @lang('lang.desejaCadastrar') </p>
-            <a id="aluno_button" href="{{ route('cadastro.aluno', ['locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >@lang('lang.aluno')</button></a>
-            <a id="professor_button" href="{{ route('cadastro.professor', ['locale' => app()->getLocale()]) }}"><button class="button_registro" type="button" >@lang('lang.professor')</button></a>
+            <a id="aluno_button" href="{{ route('cadastro.aluno') }}"><button class="button_registro" type="button" >@lang('lang.aluno')</button></a>
+            <a id="professor_button" href="{{ route('cadastro.professor') }}"><button class="button_registro" type="button" >@lang('lang.professor')</button></a>
             <hr>
-            <a href="{{ route('login', ['locale' => app()->getLocale()]) }}"> <button id="login_button">@lang('lang.Entrar')</button></a>
+            <a href="{{ route('login') }}"> <button id="login_button">@lang('lang.Entrar')</button></a>
         </div>
     </section>
 </body>

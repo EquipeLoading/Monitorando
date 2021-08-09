@@ -18,54 +18,54 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+//Rota da página principal
 Route::get('/', function() {
     $monitorias = Monitoria::all();
     return view('index', ['nome' => session()->get('nome'), 'monitorias' => $monitorias]);
 })->name('index');
 
+//Rotas de login
 Route::prefix('/login')->group(function() {
-    Route::get('/{locale?}/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
-    Route::post('/{locale?}', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
+    Route::get('/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
+    Route::post('/', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
 });
 
+//Rotas de cadastro
 Route::prefix('/cadastro')->group(function() {
-    Route::get('/principal/{locale?}', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro');
-    Route::get('/professor/{locale?}', function($locale = null) {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-
-        return view('cadastroProfessor', ['locale' => app()->getLocale()]);
+    Route::get('/', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro');
+    Route::get('/professor', function() {
+        return view('cadastroProfessor');
     })->name('cadastro.professor');
-    Route::post('/professor/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroProfessor'])->name('cadastro.professor');
-    Route::get('/aluno/{locale?}', function($locale = null) {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-
+    Route::post('/professor', [\App\Http\Controllers\CadastroController::class, 'cadastroProfessor'])->name('cadastro.professor');
+    Route::get('/aluno', function() {
         $turmas = Turma::all();
-        return view('cadastroAluno', ['locale' => app()->getLocale(), 'turmas' => $turmas]);
+        return view('cadastroAluno', ['turmas' => $turmas]);
     })->name('cadastro.aluno');
-    Route::post('/aluno/{locale?}', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
+    Route::post('/aluno', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
 });
 
-Route::get('/monitorias', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
-Route::get('/monitorias/cadastro', function() {
-    return view('cadastroMonitorias');
-})->name('monitorias.cadastro')->middleware('verified');
-Route::post('/monitorias/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
-Route::post('/monitorias/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
-Route::get('/monitorias/cancelar', function() {
-    $usuario = Auth::user();
-    $monitorias = Monitoria::where('user_id', $usuario->id)->get();
+//Rotas das monitorias (cadastro e cancelamento)
+Route::prefix('/monitorias')->group(function() {
+    Route::get('/', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
+    Route::get('/cadastro', function() {
+        return view('cadastroMonitorias');
+    })->name('monitorias.cadastro')->middleware('verified');
+    Route::post('/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
+    Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
+    Route::get('/cancelar', function() {
+        $usuario = Auth::user();
+        $monitorias = Monitoria::where('user_id', $usuario->id)->get();
 
-    return view('cancelarMonitoria', ['monitorias' => $monitorias]);
-})->name('monitorias.cancelar');
-Route::post('/monitorias/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
+        return view('cancelarMonitoria', ['monitorias' => $monitorias]);
+    })->name('monitorias.cancelar');
+    Route::post('/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
+});
 
+//Rotas de validação de email
 Route::prefix('/email')->group(function() {
-    Route::get('/verificacao/{locale?}', function($locale = null) {
-        app()->getLocale($locale);
+    Route::get('/verificacao', function() {
 
-        return view('verificarEmail', ['locale' => app()->getLocale(), 'mensagem' => session()->get('mensagem')]);
+        return view('verificarEmail', ['mensagem' => session()->get('mensagem')]);
     })->middleware('auth')->name('verification.notice');
     Route::get('/verificacao/{id}/{hash}', function(EmailVerificationRequest $request) {
         $request->fulfill();
@@ -79,6 +79,7 @@ Route::prefix('/email')->group(function() {
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
+//Rota de fallback
 Route::fallback(function() {
     echo __('lang.fallback');
 });
