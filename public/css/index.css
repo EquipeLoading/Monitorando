@@ -295,6 +295,8 @@ body {
         margin-bottom: auto;
         color: #193D6F;
         font-weight: 300;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     #details{
@@ -487,7 +489,6 @@ body {
         padding: 5px;
         font-weight: 900;
         width: 42vw;
-        height: 40vh;
         margin: 3vh;
         display: block;
     }
@@ -517,6 +518,17 @@ body {
         margin-left: auto;
         margin-right: auto;
         font-family: 'Delius', cursive;
+    }
+
+    #date{
+        text-align: center;
+        /* font-weight: 800; */
+        color: #193D6F;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Delius', cursive;
+        margin-bottom: 0;
+
     }
     
     .users{
@@ -555,6 +567,7 @@ body {
         margin-bottom: auto;
         color: #193D6F;
         font-weight: 300;
+        
     }
     
     #details{
@@ -591,19 +604,23 @@ body {
 }
 
 
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(25, 61, 111);
-    background-color: rgba(25, 61, 111, 0.8);
-    overflow-x: hidden;
-    transition: 0.5s;
-  }
-  
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(25, 61, 111);
+        background-color: rgba(25, 61, 111, 0.8);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+    #menuSvg{
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg) brightness(103%) contrast(103%);
+        height: 2.5vh;
+    }
+
   .overlay-content {
     position: relative;
     top: 15vh;
@@ -646,7 +663,7 @@ body {
 
   #menuButton{
       font-size: 1.5em;
-      margin-left: 5vw;
+      margin-left: 3vw;
       height: auto;
       cursor: pointer;
       color: #fff;

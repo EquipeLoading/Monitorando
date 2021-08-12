@@ -81,7 +81,7 @@
             </div>
         </div>
         <div id="background">
-            <span id="menuButton" onclick="openNav()">&#9776;</span>          
+            <span id="menuButton" onclick="openNav()"><img src="{{ asset('/assets/svg/menu.svg') }}" alt="Menu" id="menuSvg"></span>          
         <div>
     <?php }else{ ?>   
         <div class="topnav">
@@ -132,7 +132,7 @@
                     @if($monitoriaRepetida == $monitoria->codigo)
                         <?php
                             $repetida = true;
-                            break;
+                            // break;
                         ?>
                     @else
                         <?php
@@ -264,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        <script>
+                        <!-- <script>
                             var modal{{$monitoriaCard->id}} = document.getElementById("modal-{{$monitoriaCard->id}}");
                             var modalBtn{{$monitoriaCard->id}} = document.getElementById({{$monitoriaCard->id}});
                             var closeBtn = document.getElementsByClassName("close");
@@ -283,7 +283,7 @@
                                     modal{{$monitoriaCard->id}}.style.display = "none";
                                 }
                             });
-                        </script>
+                        </script> -->
                     @endforeach
                 </div>
             @endif
