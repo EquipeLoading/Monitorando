@@ -136,7 +136,7 @@ body {
       }
       .collapsible-wrapper:after {
         content: '';
-        height: 11vh;
+        height: 1vh;
         transition: height 0.3s linear, max-height 0s 0.3s linear;
         
       }
@@ -149,7 +149,7 @@ body {
         margin-right: auto;
         border-bottom-left-radius: 3Vh;
         border-bottom-right-radius: 3Vh;
-        background-color: #f1f1f1;
+        background-color: #f0f2f5;
       }
       .collapsible-wrapper.collapsed > .collapsible {
         margin-bottom: -2000px;
@@ -499,7 +499,7 @@ body {
         margin-right: auto;
         border-bottom-left-radius: 3Vh;
         border-bottom-right-radius: 3Vh;
-        background-color: #f1f1f1;
+        background-color: #f0f2f5;
     }
 
     .collapsible-wrapper.collapsed > .collapsible {
