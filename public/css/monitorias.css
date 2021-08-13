@@ -12,6 +12,11 @@ body {
     outline: none;
 }
 
+*{
+    text-decoration: none;
+    flex: none;
+}
+
 
 /* /---------- NAV BAR ----------/ */
   

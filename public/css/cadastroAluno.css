@@ -7,7 +7,11 @@ body {
   *:focus {
     outline: none;
 }
-  
+
+*{
+    text-decoration: none;
+    flex: none;
+}
 
   
 @media(min-width: 813px){

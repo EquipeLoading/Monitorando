@@ -11,6 +11,12 @@ body {
 *:focus {
     outline: none;
 }
+
+
+*{
+    text-decoration: none;
+    flex: none;
+}
 /* /---------- NAV BAR ----------/ */
   
 .topnav {

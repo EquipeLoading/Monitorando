@@ -9,6 +9,10 @@ body {
     outline: none;
 }
 
+*{
+    text-decoration: none;
+    flex: none;
+}
 hr{
     width: 90%;
     border: 1px solid #193D6F;

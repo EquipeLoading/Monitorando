@@ -2,10 +2,14 @@
 
 *{
     font-family: "Delius", cursive;
+    text-decoration: none;
+    flex: none;
 }
 *:focus {
     outline: none;
 }
+
+
 
 body{
     background-color: #5499C3;
