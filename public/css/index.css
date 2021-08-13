@@ -8,6 +8,9 @@ body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
     background-color: #f0f2f5;
 }
+*{
+    text-decoration: none;
+}
 
 *:focus {
     outline: none;
@@ -27,7 +30,10 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
+    
 }
+
+
   
 .topnav a {
     float: left;
@@ -93,18 +99,94 @@ body {
         color: #ffffff;
     }
 
-    
-    #profile{
+    #profileContainer{
+        position: absolute;
+        width: auto;
+        height: 5vh ;
+        margin-right: 3vw ;
+        margin-left: 85% ;
+        margin-top: 1.5vh;
+        border-radius: 7vh;
+        padding: 1px;
+        display: block;
+        align-items: center;
+        cursor: pointer;
+        border: transparent;
+    }
+
+    .profile{
         border-radius: 7Vh;
         width: auto;
         height: 5vh ;
         background-color: #f0f2f5;
-        margin-right: 3vw ;
         margin-left: auto ;
         display: flex;
         align-items: center;
         cursor: pointer;
         border: transparent;
+        overflow: hidden;
+
+    }
+
+    .collapsible-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+
+      }
+      .collapsible-wrapper:after {
+        content: '';
+        height: 11vh;
+        transition: height 0.3s linear, max-height 0s 0.3s linear;
+        
+      }
+      .collapsible {
+        transition: margin-bottom 0.3s cubic-bezier(0, 0, 0, 1);
+        margin-bottom: 0;
+        max-height: 15vh;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom-left-radius: 3Vh;
+        border-bottom-right-radius: 3Vh;
+        background-color: #f1f1f1;
+      }
+      .collapsible-wrapper.collapsed > .collapsible {
+        margin-bottom: -2000px;
+        transition: margin-bottom 0.3s cubic-bezier(1, 0, 1, 1),
+                    visibility 0s 0.3s, max-height 0s 0.3s;
+        visibility: hidden;
+        max-height: 0;
+
+      }
+      .collapsible-wrapper.collapsed:after
+      {
+        border-radius: 0;
+        height: 0;
+        transition: height 0.3s linear;
+        max-height: 50px;
+      }
+      
+      .menu-item {
+        align-items: center;
+        display: flex !important;
+        margin: 0;
+        padding: .8vh 1vw !important;
+        color: #5499C3 !important;
+        text-align: end;
+        font-size:  1em !important;
+        line-height: 1.3;
+
+      }
+
+    .menu-item #Perfil{
+        margin-left: auto;
+    }
+
+    #logout{
+          margin-left: auto;
+          height: 2.5vh;
+          filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
     }
 
     text{
@@ -113,7 +195,7 @@ body {
         color:#5499C3;
         font-weight: 700;
     }
-    #profile img{
+    .profile img{
         margin-left: .3vw;
         margin-right: auto;
     }
@@ -360,7 +442,7 @@ body {
         
     }
 
-    #profile{
+    .profile{
         border-radius: 7Vh;
         width: 90%;
         height: 6vh ;
@@ -370,11 +452,9 @@ body {
         align-items: center;
         cursor: pointer;
         border: transparent;
-        margin-bottom: 5vh;
     }
-    #profile img{
+    .profile img{
         margin-left: .5vw;
-        /* margin-right: auto; */
     }
     #arrow{
         margin-left: auto;
@@ -383,11 +463,82 @@ body {
         height: 40%;
         transform: rotate(90deg);
     }
-    #profile text{
+
+    #arrow:after{
+        transition: transform .3s linear;
+        transform: rotate(0deg);
+
+    }
+
+    .profile text{
         color:#5499C3;
         font-weight: 700;
         margin-right: auto;
     }
+
+    .collapsible-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 90%;
+        margin-bottom: 5vh;
+
+    }
+
+    .collapsible-wrapper:after {
+        content: '';
+        height: 9vh;
+        transition: height 0.3s linear, max-height 0s 0.3s linear;
+    }
+
+    .collapsible {
+        transition: margin-bottom 0.3s cubic-bezier(0, 0, 0, 1);
+        margin-bottom: 0;
+        max-height: 15vh;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom-left-radius: 3Vh;
+        border-bottom-right-radius: 3Vh;
+        background-color: #f1f1f1;
+    }
+
+    .collapsible-wrapper.collapsed > .collapsible {
+        margin-bottom: -2000px;
+        transition: margin-bottom 0.3s cubic-bezier(1, 0, 1, 1),
+                    visibility 0s 0.3s, max-height 0s 0.3s;
+        visibility: hidden;
+        max-height: 0;
+    }
+      
+    .collapsible-wrapper.collapsed:after{
+        border-radius: 0;
+        height: 0;
+        transition: height 0.3s linear;
+        max-height: 50px;
+    }
+      
+    .menu-item {
+        align-items: center;
+        display: flex !important;
+        margin: 0;
+        padding: .8vh 3.5vw !important;
+        color: #5499C3 !important;
+        font-size: 1em !important;
+        text-align: end;
+        line-height: 1.3;
+    }
+
+
+    .menu-item #Perfil{
+        margin-left: auto;
+    }
+
+    #logout{
+        margin-left: auto;
+        height: 2.5vh;
+        filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
+    }
+
     section{
         padding: 0 3vw;
     }
@@ -621,14 +772,14 @@ body {
         height: 2.5vh;
     }
 
-  .overlay-content {
-    position: relative;
-    top: 15vh;
-    width: 100%;
-    text-align: left;
-    margin-top: 5vh;
-    margin-left: 3vw;
-  }
+    .overlay-content {
+        position: relative;
+        top: 15vh;
+        width: 100%;
+        text-align: left;
+        margin-top: 5vh;
+        margin-left: 3vw;
+    }
   
   .overlay a {
     padding: 8px;

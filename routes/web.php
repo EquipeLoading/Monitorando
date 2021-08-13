@@ -59,7 +59,7 @@ Route::prefix('/monitorias')->group(function() {
         return view('cancelarMonitoria', ['monitorias' => $monitorias]);
     })->name('monitorias.cancelar');
     Route::post('/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
-});
+}); 
 
 //Rotas de validação de email
 Route::prefix('/email')->group(function() {
