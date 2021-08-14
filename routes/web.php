@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\Turma;
+use App\Models\User;
 use App\Models\Monitoria;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,8 +54,8 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
     Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
     Route::get('/cancelar', function() {
-        $usuario = Auth::user();
-        $monitorias = Monitoria::where('user_id', $usuario->id)->get();
+        $usuario = Auth::user()->id;
+        $monitorias = User::find($usuario)->monitorias()->get();
 
         return view('cancelarMonitoria', ['monitorias' => $monitorias]);
     })->name('monitorias.cancelar');
