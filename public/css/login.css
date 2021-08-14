@@ -19,42 +19,7 @@ body {
 }
 /* /---------- NAV BAR ----------/ */
   
-.topnav {
-    overflow: hidden;
-    background-color: #5499C3;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-  
-.topnav a {
-    float: left;
-    color: #ffffff;
-    text-align: center;
-    padding: 4vh 2vw;
-    text-decoration: none;
-    font-size: 1em;
-}
-  
-.topnav a:hover {
-    background-color: #ffffff;
-    color: #5499C3;
-}
-  
-.topnav a.active {
-    background-color: #193D6F;
-    color: #ffffff;
-}
 
-.topnav p {
-    float: right;
-    color: #fff;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 10px;
-}
-  
 /* /---------- botão entrar----------/ */
   
 .button_on {

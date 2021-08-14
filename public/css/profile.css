@@ -7,6 +7,9 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     background-color: #f0f2f5;
 }
+*:focus {
+    outline: none;
+}
 
 body{
     width: 100%;
@@ -16,7 +19,7 @@ section{
     margin: 3vh 3vw;
 }
 
-#content{
+.content{
     display: flex;
 }
 
@@ -25,13 +28,17 @@ hr{
     background-color: #193D6F;
     border: transparent;
     border-radius: .3vw;
-
 }
+
 h3{
     margin-left: .5vw;
     color: #193D6F;
     font-weight: 600;
     font-size: 1.5em;
+}
+
+#all-content{
+    display: flex;
 }
 
 #photoProfile{
@@ -40,6 +47,10 @@ h3{
     width: 15vw;
     display: block;
     align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+
 }
 
 #photoProfile #profile{
@@ -72,20 +83,19 @@ h3{
     filter: invert(100%) sepia(0%) saturate(748%) hue-rotate(116deg) brightness(105%) contrast(101%);
 
 }
-form{
+    form{
         flex: none;
-        background-color: #fcfcfc;
-        box-shadow: 0 0 .8em rgb(99, 98, 98, .3);
         border-radius: 10px;
         padding: 5px;
-        width: auto ;
+        width: 22vw ;
         display: block;
         align-items: stretch;
         text-align: center;
         margin-top: 3vh;
         margin-right: auto;
         position: block;
-}
+        background-color: transparent;
+    }
 
 .editLabel {
         margin-left: auto;
@@ -96,31 +106,43 @@ form{
         font-size: .6em;
         display: flex;
         flex-direction: column;
-        
+        margin-bottom: 1vh;    
+        background-color: transparent;
 }
 label{
-    font-size: 1.5em;
+    margin-left: .7vw;
+    font-size: 1.7em;
+    color: #5499C3;
+    font-weight: 800;
+    background-color: transparent;
+
 }
 input{
     margin-top: .2vh;
     margin-bottom: .2vh;
-    height: 3.5vh;
-    width: 20vw;
-    border: 1px solid rgb(84, 153, 195, .4);
-    border-radius: 3vh;
+    height: 4.5vh;
+    border-radius: 4.5vh;
+    width: 18.2vw;
+    display: flex;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
     padding-left: 10px;   
-}
-.buttonInline{
-    margin-left: .5vw;
-    height: 5.5vh;
-    width: 5.5vh;
-    border-radius: 5.5vh;
-    /* padding: 1px; */
-    background-color: #5499C3;
     border: transparent;
 }
 
-.buttonInline img{
+
+.buttonInline, #buttonAdd, #link #trash{
+    margin-left: .5vw;
+    height: 4.5vh;
+    width: 4.5vh;
+    border-radius: 4.5vh;
+    /* padding: 1px; */
+    background-color: #5499C3;
+    border: transparent;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+}
+
+.buttonInline img, #buttonAdd img, #trash img{
     display: flex;
     margin-top: auto;
     margin-bottom: auto;
@@ -131,4 +153,54 @@ input{
 .inputInline{
     display: flex;
     align-items: center;
+    background-color: transparent;
+
+}
+
+#slim, #link{
+    display: flex;
+    align-items: initial;
+    margin-left: 0 !important;
+    padding-left: 0;
+    background-color: transparent;
+
+}
+
+#slim input{
+    width: 7vw;
+    margin-left: 0 !important;
+}
+
+#link input{
+    width: 15.5vw;
+    margin-left: 0 !important;
+}
+
+#cardProfile{
+    margin-top: 3vh;
+    display: block;
+    align-items: center;
+    width: 22.5vw;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+    padding: 5px;
+    background-color: #fcfcfcc9;
+    border-radius: 2vw;
+}
+
+/* #two-content{
+    margin-top: 3.5vh;
+    margin-left: 2vw;
+    height: 50vh;
+    width: 30vw;
+} */
+
+#trash{
+    background-color: #cf4949 !important;
+}
+
+#trash img{
+    transform: rotate(0deg);
+    background-color: transparent;
+    filter: invert(100%) sepia(0%) saturate(748%) hue-rotate(116deg) brightness(105%) contrast(101%);
+
 }

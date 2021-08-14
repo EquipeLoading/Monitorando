@@ -31,6 +31,8 @@ Route::prefix('/login')->group(function() {
 });
 
 Route::prefix('/profile')->group(function(){
+    $monitorias = Monitoria::all();
+
     Route::get('/', [\App\Http\Controllers\profileController::class, 'index']) ->name('profile');
 });
 
