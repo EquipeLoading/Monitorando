@@ -152,8 +152,6 @@
         </div> 
         
     <?php } ?>
-    
-
         
     <img src="{{ asset('/assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
     <section>

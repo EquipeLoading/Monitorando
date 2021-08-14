@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+
+
+*{
+    font-family: "Delius", cursive;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+    background-color: #f0f2f5;
+}
+
+body{
+    width: 100%;
+}
+
+section{
+    margin: 3vh 3vw;
+}
+
+#content{
+    display: flex;
+}
+
+hr{
+    width: .3vw;
+    background-color: #193D6F;
+    border: transparent;
+    border-radius: .3vw;
+
+}
+h3{
+    margin-left: .5vw;
+    color: #193D6F;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+#photoProfile{
+    margin-top: 2vh;
+    height: auto;
+    width: 15vw;
+    display: block;
+    align-items: center;
+}
+
+#photoProfile #profile{
+    height: 25vh;
+    width: 25vh;
+    border-radius: 25vh;
+    background-color: #e4e4e4;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#photoProfile button{
+    height: 5.5vh;
+    width: 5.5vh;
+    border-radius: 5.5vh;
+    /* padding: 1px; */
+    background-color: #5499C3;
+    display: flex;
+    margin-left: auto;
+    border: transparent;
+}
+
+#photoProfile button img{
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: rotate(90deg);
+    background-color: transparent;
+    filter: invert(100%) sepia(0%) saturate(748%) hue-rotate(116deg) brightness(105%) contrast(101%);
+
+}
+form{
+        flex: none;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .3);
+        border-radius: 10px;
+        padding: 5px;
+        width: auto ;
+        display: block;
+        align-items: stretch;
+        text-align: center;
+        margin-top: 3vh;
+        margin-right: auto;
+        position: block;
+}
+
+.editLabel {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .6em;
+        display: flex;
+        flex-direction: column;
+        
+}
+label{
+    font-size: 1.5em;
+}
+input{
+    margin-top: .2vh;
+    margin-bottom: .2vh;
+    height: 3.5vh;
+    width: 20vw;
+    border: 1px solid rgb(84, 153, 195, .4);
+    border-radius: 3vh;
+    padding-left: 10px;   
+}
+.buttonInline{
+    margin-left: .5vw;
+    height: 5.5vh;
+    width: 5.5vh;
+    border-radius: 5.5vh;
+    /* padding: 1px; */
+    background-color: #5499C3;
+    border: transparent;
+}
+
+.buttonInline img{
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: rotate(90deg);
+    background-color: transparent;
+    filter: invert(100%) sepia(0%) saturate(748%) hue-rotate(116deg) brightness(105%) contrast(101%);
+}
+.inputInline{
+    display: flex;
+    align-items: center;
+}

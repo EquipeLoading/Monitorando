@@ -5,7 +5,7 @@ body {
     font-family: "Delius", cursive;
     margin: 0;
     width: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     background-color: #f0f2f5;
 }
 *{
@@ -126,7 +126,6 @@ body {
         cursor: pointer;
         border: transparent;
         overflow: hidden;
-
     }
 
     .collapsible-wrapper {
@@ -134,13 +133,14 @@ body {
         overflow: hidden;
         width: 100%;
 
-      }
-      .collapsible-wrapper:after {
+    }
+
+    .collapsible-wrapper:after {
         content: '';
         height: 10vh;
         transition: height 0.3s linear, max-height 0s 0.3s linear;
         
-      }
+    }
       .collapsible {
         transition: margin-bottom 0.3s cubic-bezier(0, 0, 0, 1);
         margin-bottom: 0;
