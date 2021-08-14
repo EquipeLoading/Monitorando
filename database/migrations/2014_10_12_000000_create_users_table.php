@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('prontuario', 9);
             $table->binary('senha', 60);
+            $table->enum('tipo', ['Monitor', 'Comum', 'Professor']);
             $table->rememberToken();
             $table->timestamps();
         });

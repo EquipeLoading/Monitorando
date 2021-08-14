@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
-use Illuminate\Support\Facades\DB;
 
 class MonitoriasController extends Controller
 {
     
     public function index() {
-        $mostrarBotao = Gate::allows('mostrar-funcionalidade');
+        $mostrarBotao = Gate::allows('professor');
     
         return view('monitorias', ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao]);
     }
@@ -23,7 +22,7 @@ class MonitoriasController extends Controller
         if($request->input('_token') != ''){
 
             $regras = [
-                'codigo' => 'required|min:3|max:3|exists:disciplinas',
+                'codigo' => 'required|min:3|max:5',
                 'disciplina' => 'required',
                 'conteudo' => 'required|min:5|max:60',
                 'data' => 'required|after_or_equal:today',
@@ -65,8 +64,9 @@ class MonitoriasController extends Controller
                 'disciplina' => $request->disciplina,
                 'monitor' => $monitor,
                 'local' => $request->local,
-                'user_id' => $usuario
             ])->save();
+
+            User::find($usuario)->monitorias()->attach($monitorias->id);
 
             return redirect()->route('index');
         }
@@ -90,6 +90,8 @@ class MonitoriasController extends Controller
     }
 
     public function cancelar(Request $request) {
+        $usuario = Monitoria::find($request->monitoria_id)->usuarios()->get()->first();
+        $usuario->monitorias()->detach($request->monitoria_id);
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
         $monitoria->delete();
 

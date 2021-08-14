@@ -42,7 +42,7 @@
                     @if($monitoriaRepetida == $monitoria->codigo)
                         <?php
                             $repetida = true;
-                            // break;
+                            break;
                         ?>
                     @else
                         <?php
@@ -174,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <script>
+                        <script>
                             var modal{{$monitoriaCard->id}} = document.getElementById("modal-{{$monitoriaCard->id}}");
                             var modalBtn{{$monitoriaCard->id}} = document.getElementById({{$monitoriaCard->id}});
                             var closeBtn = document.getElementsByClassName("close");
@@ -193,7 +193,7 @@
                                     modal{{$monitoriaCard->id}}.style.display = "none";
                                 }
                             });
-                        </script> -->
+                        </script>
                     @endforeach
                 </div>
             @endif

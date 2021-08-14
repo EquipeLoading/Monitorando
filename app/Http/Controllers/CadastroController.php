@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Aluno;
-use App\Models\Professor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -38,15 +36,9 @@ class CadastroController extends Controller
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'prontuario' => $request->prontuario,
-                'senha' => Hash::make($request->senha)
-            ])->save();
-
-            $professor = new Professor();
-
-            //pega todos os dados enviados pelo formulário e armazena no banco de dados como um novo usuário
-            $professor->fill([
-                'disciplinas' => $request->disciplinas,
-                'user_id' => $usuario->id
+                'senha' => Hash::make($request->senha),
+                'tipo' => 'Professor',
+                'disciplinas' => $request->disciplinas
             ])->save();
 
             event(new Registered($usuario));
@@ -81,16 +73,9 @@ class CadastroController extends Controller
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'prontuario' => $request->prontuario,
-                'senha' => Hash::make($request->senha)
-            ])->save();
-
-            $aluno = new Aluno();
-
-            //pega todos os dados enviados pelo formulário e armazena no banco de dados como um novo usuário
-            $aluno->fill([
+                'senha' => Hash::make($request->senha),
                 'turma_id' => $request->turma_id,
-                'user_id' => $usuario->id,
-                'status' => 'Comum'
+                'tipo' => 'Comum'
             ])->save();
 
             event(new Registered($usuario));

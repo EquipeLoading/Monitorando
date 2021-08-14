@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Models\Professor;
 use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,12 +26,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('mostrar-funcionalidade', function() {
+        Gate::define('professor', function() {
             $usuario = Auth::user();
-            $professor = new Professor();
-            $usuarioProfessor = $professor->where('user_id', $usuario->id)->get()->first();
+            $professor = false;
+            if($usuario->tipo == 'Professor'){
+                $professor = true;
+            }
             
-            return isset($usuarioProfessor);
+            return $professor;
         });
     }
 }

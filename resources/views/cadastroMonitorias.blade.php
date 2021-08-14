@@ -67,7 +67,7 @@
 <body>
     <script type="text/javascript">   
         window.onload = function() {
-            jQuery('#codigo').attr('maxlength','3');
+            jQuery('#codigo').attr('maxlength','5');
         }
     </script>
     <section>
@@ -85,7 +85,7 @@
 
                 <p class="camp" >
                     <label class="labelFont" for="disciplina"> @lang('lang.disciplinas') </label>
-                    <input id="disciplina" class="inputBorder"  name="disciplina" value="{{ old('disciplina') }}" type="text" readonly/>
+                    <input id="disciplina" class="inputBorder"  name="disciplina" value="{{ old('disciplina') }}" type="text" />
                     {{ $errors->has('disciplina') ? $errors->first('disciplina') : '' }}
                 </p>
 
