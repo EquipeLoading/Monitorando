@@ -31,6 +31,12 @@ Route::prefix('/login')->group(function() {
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
 });
 
+Route::prefix('/profile')->group(function(){
+    $monitorias = Monitoria::all();
+
+    Route::get('/', [\App\Http\Controllers\profileController::class, 'index']) ->name('profile');
+});
+
 //Rotas de cadastro
 Route::prefix('/cadastro')->group(function() {
     Route::get('/', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro');

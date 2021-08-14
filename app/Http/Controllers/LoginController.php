@@ -26,7 +26,7 @@ class LoginController extends Controller
             }
         }
 
-        return view('login');
+        return view('login', ['nome' => session()->get('nome')]);
 
     }
 

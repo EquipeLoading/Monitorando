@@ -1,15 +1,6 @@
-<?php   
-    $mobile = FALSE;
-    $user_agents = array("iPhone","iPad","Android","webOS","BlackBerry","iPod","Symbian","IsGeneric");
-    foreach($user_agents as $user_agent){
-        if (strpos($_SERVER['HTTP_USER_AGENT'], $user_agent) !== FALSE) {
-            $mobile = TRUE;
-            $modelo = $user_agent;
-            break;
-        }
-    }     
-?>
+@extends('topbar.topbar')
 
+@section('conteudo')
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,42 +14,6 @@
 </head>
 
 <body>
-
-    <script>
-        function openNav() {
-            document.getElementById("menuButton").style.display = 'none';
-            document.getElementById("myNav").style.width = "70%";
-        }
-        function closeNav() {
-            document.getElementById("menuButton").style.display = 'block';
-            document.getElementById("myNav").style.width = "0%";
-        }
-    </script>
-     
-    <?php if($mobile){ ?>
-        <div id="myNav" class="overlay">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="overlay-content">
-                <a class="active" href="{{ route('index') }}"> HOME </a>
-                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                <a href="#calendario"> @lang('lang.Calendario') </a>
-                <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
-
-            </div>
-        </div>
-        <div id="background">
-            <span id="menuButton" onclick="openNav()">&#9776;</span>          
-        <div>
-    <?php }else{ ?>   
-        <div class="topnav">
-            <a class="active" href="{{ route('index') }}"> HOME </a>
-            <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="#calendario"> @lang('lang.Calendario') </a>
-            <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-            <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
-        </div> 
-    <?php } ?>
     <section>
         <img src="{{ asset('/img/banner.jpg') }}" alt="banner_monitorando" id="banner">
         <div id="login">
@@ -114,3 +69,4 @@
 </body>
 
 </html>
+@endsection
