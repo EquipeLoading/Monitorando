@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
-use Illuminate\Support\Facades\DB;
 
 class MonitoriasController extends Controller
 {

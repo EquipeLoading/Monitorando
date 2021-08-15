@@ -160,6 +160,14 @@
                                                 </button>
                                             </form>
                                         @endif
+                                    @else
+                                        <form method="POST" action="{{ route('inscricao') }}">
+                                            @csrf
+                                            <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                            <button id="details" type="submit">
+                                                <text>Inscrever-se</text>
+                                            </button>
+                                        </form>
                                     @endif
                                     <!-- <p>{{ $monitoria->descricao }}</p> -->
                                 </div>
@@ -213,26 +221,35 @@
                                     </div>
                                     <div class="modal-footer">
                                         @if(isset($inscrito))
-                                        @foreach($inscrito as $monitoriaInscrita)
-                                            @if($monitoriaInscrita->id == $monitoriaCard->id)
-                                                <?php 
-                                                    $usuarioInscrito = true;
-                                                    break; 
-                                                ?>
+                                            @foreach($inscrito as $monitoriaInscrita)
+                                                @if($monitoriaInscrita->id == $monitoriaCard->id)
+                                                    <?php 
+                                                        $usuarioInscrito = true;
+                                                        break; 
+                                                    ?>
+                                                @else
+                                                    <?php
+                                                        $usuarioInscrito = false;
+                                                    ?>
+                                                @endif
+                                            @endforeach
+                                            @if($usuarioInscrito == true)
+                                                <form method="POST" action="{{ route('cancelamentoInscricao') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                                    <button id="details" type="submit">
+                                                        <text>Cancelar Inscrição</text>
+                                                    </button>
+                                                </form>
                                             @else
-                                                <?php
-                                                    $usuarioInscrito = false;
-                                                ?>
+                                                <form method="POST" action="{{ route('inscricao') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                                    <button id="details" type="submit">
+                                                        <text>Inscrever-se</text>
+                                                    </button>
+                                                </form>
                                             @endif
-                                        @endforeach
-                                        @if($usuarioInscrito == true)
-                                            <form method="POST" action="{{ route('cancelamentoInscricao') }}">
-                                                @csrf
-                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                <button id="details" type="submit">
-                                                    <text>Cancelar Inscrição</text>
-                                                </button>
-                                            </form>
                                         @else
                                             <form method="POST" action="{{ route('inscricao') }}">
                                                 @csrf
@@ -242,7 +259,6 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @endif
                                     </div>
                                 </div>
                             </div>
