@@ -8,14 +8,36 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
+use Illuminate\Support\Facades\DB;
 
 class MonitoriasController extends Controller
 {
     
     public function index() {
         $mostrarBotao = Gate::allows('professor');
+        $monitorias = Monitoria::all();
+
+        $tipo = 'Inscrito';
+        $usuario = Auth::user();
+        $inscrito = null;
+        if(isset($usuario)){
+            $inscrito = Monitoria::whereHas('usuarios', function($query) use ($tipo) {
+                $query->with('monitoria_user.tipo')->where('monitoria_user.tipo', $tipo)->where('monitoria_user.user_id', Auth::user()->id);
+            })->get();
+        }
     
-        return view('monitorias', ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao]);
+        return view('monitorias', ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao, 'monitorias' => $monitorias, 'inscrito' => $inscrito]);
+    }
+
+    public function inscricaoMonitorias(Request $request) {
+        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
+        $usuario->monitorias()->attach($monitoria, ['tipo' => 'Inscrito']);
+
+        $monitoria->num_inscritos += 1;
+        $monitoria->save();
+
+        return redirect()->route('index');
     }
 
     public function cadastro(Request $request)  {
@@ -94,6 +116,16 @@ class MonitoriasController extends Controller
         $usuario->monitorias()->detach($request->monitoria_id);
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
         $monitoria->delete();
+
+        return redirect()->route('index');
+    }
+
+    public function cancelarInscricao(Request $request) {
+        $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
+        $monitoria->usuarios()->wherePivot('tipo', 'Inscrito')->detach(Auth::user()->id);
+        
+        $monitoria->num_inscritos -= 1;
+        $monitoria->save();
 
         return redirect()->route('index');
     }

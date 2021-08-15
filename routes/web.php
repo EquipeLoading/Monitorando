@@ -21,14 +21,14 @@ use Illuminate\Support\Facades\Auth;
 
 //Rota da página principal
 Route::get('/', function() {
-    $monitorias = Monitoria::all();
-    return view('index', ['nome' => session()->get('nome'), 'monitorias' => $monitorias]);
+    return view('index', ['nome' => session()->get('nome')]);
 })->name('index');
 
 //Rotas de login
 Route::prefix('/login')->group(function() {
     Route::get('/{erro?}', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'autenticacao'])->name('login');
+    Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 });
 
 Route::prefix('/profile')->group(function(){
@@ -54,6 +54,8 @@ Route::prefix('/cadastro')->group(function() {
 //Rotas das monitorias (cadastro e cancelamento)
 Route::prefix('/monitorias')->group(function() {
     Route::get('/', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
+    Route::post('/', [\App\Http\Controllers\MonitoriasController::class, 'inscricaoMonitorias'])->name('inscricao')->middleware('verified');
+    Route::post('/cancelar-inscricao', [\App\Http\Controllers\MonitoriasController::class, 'cancelarInscricao'])->name('cancelamentoInscricao')->middleware('verified');
     Route::get('/cadastro', function() {
         return view('cadastroMonitorias');
     })->name('monitorias.cadastro')->middleware('verified');

@@ -41,23 +41,18 @@
                 }
             });
             
-            var max_campos = 10;
             var wrapper = $("#input_fields_wrap");
             var add_button = $("#add_field_button");
             
-            var count = 1;
             $(add_button).click(function(e){
                 e.preventDefault();
-                if(count < max_campos){
-                    count++;
                     $(wrapper).append('<div id="addUser">' + 
                                             '<input class="inputBorder" id="monitor_id" name="monitores[]" type="text"/>' + 
                                             '<a id="imgTrash" class="remove_field"><img  src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>' + 
                                        '</div>');
-                }
             });
             $(wrapper).on("click",".remove_field", function(e){
-                e.preventDefault(); $(this).parent('div').remove(); count--;
+                e.preventDefault(); $(this).parent('div').remove(); 
             });
            
         });

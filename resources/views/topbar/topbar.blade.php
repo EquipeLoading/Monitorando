@@ -1,8 +1,13 @@
 <?php
-    $allNames =  $nome;
-    $name = explode(' ', $allNames);
-    $allNames = $name[count($name)-1];
-    $name = $name[0];
+    $allNames = null;
+    $name = null;
+    $usuario = Auth::user();
+    if(isset($usuario)){
+        $allNames =  Auth::user()->nome;
+        $name = explode(' ', $allNames);
+        $allNames = $name[count($name)-1];
+        $name = $name[0];
+    }
 
 
         $mobile = FALSE;
@@ -123,10 +128,13 @@
                                 Perfil
                                 <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 
                             </a>
-                            <a class="menu-item" href="{{ route('login') }}">
-                                Sair
-                                <img src="{{ asset('/assets/svg/logout.svg') }}" alt="Logout" id="logout">
-                            </a>
+                            <form class="menu-item" method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit">
+                                    Sair
+                                    <img src="{{ asset('/assets/svg/logout.svg') }}" alt="Logout" id="logout">
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
