@@ -118,12 +118,20 @@
                                             $monitoringM = $monitoringM[0];
                                         ?>
                                         <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        <text>{{ $usuarios->where('prontuario', $monitoringMonitor)->first()->nome }}</text>                   
+                                        @if($usuarios->where('prontuario', $monitoringMonitor)->first()->nome != null)
+                                            <text>{{ $usuarios->where('prontuario', $monitoringMonitor)->first()->nome }}</text>    
+                                        @else
+                                            <text>{{ $monitoringMonitor }}</text>    
+                                        @endif
                                     </p>
                                         <?php if(!($monitoringM === $monitoringMonitor)){ ?>
                                             <p class="users">
                                                 <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                                <text>{{ $usuarios->where('prontuario', $monitoringM)->first()->nome }}</text>
+                                                @if($usuarios->where('prontuario', $monitoringM)->first()->nome != null)
+                                                    <text>{{ $usuarios->where('prontuario', $monitoringM)->first()->nome }}</text>
+                                                @else
+                                                    <text>{{ $monitoringM }}</text>    
+                                                @endif
                                              </p>
                                         <?php } else{?>   
                                             <p id="blank"></p>
