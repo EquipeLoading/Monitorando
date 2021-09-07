@@ -116,10 +116,12 @@
                                             $monitoringM = explode(' e ', $monitoringMonitor);
                                             $monitoringMonitor = $monitoringM[count($monitoringM)-1];
                                             $monitoringM = $monitoringM[0];
+                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first()->nome;
+                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first()->nome;
                                         ?>
                                         <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        @if($usuarios->where('prontuario', $monitoringMonitor)->first()->nome != null)
-                                            <text>{{ $usuarios->where('prontuario', $monitoringMonitor)->first()->nome }}</text>    
+                                        @if(isset($monitor1))
+                                            <text>{{ $monitor1 }}</text>    
                                         @else
                                             <text>{{ $monitoringMonitor }}</text>    
                                         @endif
@@ -127,8 +129,8 @@
                                         <?php if(!($monitoringM === $monitoringMonitor)){ ?>
                                             <p class="users">
                                                 <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                                @if($usuarios->where('prontuario', $monitoringM)->first()->nome != null)
-                                                    <text>{{ $usuarios->where('prontuario', $monitoringM)->first()->nome }}</text>
+                                                @if(isset($monitor2))
+                                                    <text>{{ $monitor2 }}</text>
                                                 @else
                                                     <text>{{ $monitoringM }}</text>    
                                                 @endif
