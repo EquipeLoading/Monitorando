@@ -117,7 +117,7 @@
                 </p>
 
                 <div class="camp" id="input_fields_wrap">
-                    <label id="labelMonitores" class="labelFont" for="monitores[]"> Monitor </label>
+                    <label id="labelMonitores" class="labelFont" for="monitores[]"> Prontuário do Monitor </label>
                     <div id="addUser">
                         <input class="inputBorder" id="monitor_id" name="monitores[]" value="{{ old('monitores[]') }}" type="text"/>
                         <button id="add_field_button" type="button" onclick="addButton()">        

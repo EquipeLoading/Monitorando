@@ -34,15 +34,17 @@
         </script>
         <section>
             <div id="topFilter">
-                <form id="formSearch">
+                <form id="formSearch" action="" method="GET">
                     <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                     <input id="inputSearch" type="text" placeholder="Pesquisa.." name="search">
                 </form>
                 <button id="filter">filtrar</button>
             </div>
             <?php
-                $cont = 0;
-                $usuarioInscrito = false;
+                if(!isset($search)) { 
+
+                    $cont = 0;
+                    $usuarioInscrito = false;
             ?>
             @foreach($monitorias as $monitoria)
                 <?php
@@ -116,12 +118,12 @@
                                             $monitoringM = $monitoringM[0];
                                         ?>
                                         <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        <text>{{ $monitoringMonitor }}</text>                   
+                                        <text>{{ $usuarios->where('prontuario', $monitoringMonitor)->first()->nome }}</text>                   
                                     </p>
                                         <?php if(!($monitoringM === $monitoringMonitor)){ ?>
                                             <p class="users">
                                                 <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                                <text>{{ $monitoringM }}</text>
+                                                <text>{{ $usuarios->where('prontuario', $monitoringM)->first()->nome }}</text>
                                              </p>
                                         <?php } else{?>   
                                             <p id="blank"></p>
@@ -286,6 +288,53 @@
                     </div>
                 @endif
             @endforeach
+            <?php } else { ?> 
+                @if(!isset($post)) 
+                    <p>Nenhuma monitoria foi encontrada</p>
+                @endif
+                @foreach ($posts as $post)
+                
+                <div id="scroll">
+                    <button id="{{$post->id}}" class="modalBtn">
+                        <div id="card">
+                            <?php 
+                                $date = new DateTime($post->data);
+                                $n = $date->getTimestamp();
+                                $data = date('D', $n);
+                                $semana = array(
+                                    'Sun' => 'Domingo',
+                                    'Mon' => 'Segunda-Feira',
+                                    'Tue' => 'Terça-Feira',
+                                    'Wed' => 'Quarta-Feira',
+                                    'Thu' => 'Quinta-Feira',
+                                    'Fri' => 'Sexta-Feira',
+                                    'Sat' => 'Sábado'
+                                );
+            
+                            ?>
+                            <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                            <p id="hour">{{$post->hora_inicio." - ".$post->hora_fim}} </p>
+                            <p>{{ $post->conteudo }}</p>
+                            <p class="users"> 
+                                <?php 
+                                    $monitoringMonitor = $post->monitor;
+                                    $monitoringM = explode(' e ', $monitoringMonitor);
+                                ?>
+                                @foreach($monitoringM as $monitor)
+                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                    <text>{{ $monitor }}</text>         
+                                @endforeach          
+                            </p>
+                            <p>{{ $post->local }}</p> 
+                            <p id="limit">
+                                <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                <text>Participantes {{ $post->num_inscritos }}</text>
+                            </p>
+                            <p>{{ $post->descricao }}</p>
+                        </div>
+                    </button>
+                </div>
+            @endforeach <?php } ?>
         </section>
 
     </body>

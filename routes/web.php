@@ -7,6 +7,7 @@ use App\Models\Turma;
 use App\Models\User;
 use App\Models\Monitoria;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +64,7 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
     Route::get('/cancelar', function() {
         $usuario = Auth::user()->id;
-        $monitorias = User::find($usuario)->monitorias()->get();
+        $monitorias = User::find($usuario)->monitorias()->wherePivot('tipo', 'Criador')->get();
 
         return view('cancelarMonitoria', ['monitorias' => $monitorias]);
     })->name('monitorias.cancelar');

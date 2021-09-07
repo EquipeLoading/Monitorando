@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
+use Illuminate\Support\Facades\DB;
 
 class MonitoriasController extends Controller
 {
     
-    public function index() {
+    public function index(Request $request) {
         $mostrarBotao = Gate::allows('professor');
         $monitorias = Monitoria::all();
 
@@ -24,8 +25,16 @@ class MonitoriasController extends Controller
                 $query->with('monitoria_user.tipo')->where('monitoria_user.tipo', $tipo)->where('monitoria_user.user_id', Auth::user()->id);
             })->get();
         }
-    
-        return view('monitorias', ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao, 'monitorias' => $monitorias, 'inscrito' => $inscrito]);
+        
+        $monitorias = Monitoria::all();
+        $search = $request->input('search');
+        $posts = DB::table('monitorias')
+                ->where('conteudo', 'LIKE', "%{$search}%")
+                ->orWhere('disciplina', 'LIKE', "%{$search}%")
+                ->orWhere('codigo', 'LIKE',  "%{$search}%")
+                ->get();
+
+        return view('monitorias', compact('posts'), ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao, 'monitorias' => $monitorias, 'inscrito' => $inscrito, 'search' => $search, 'usuarios' => User::all()]);
     }
 
     public function inscricaoMonitorias(Request $request) {
@@ -36,7 +45,7 @@ class MonitoriasController extends Controller
         $monitoria->num_inscritos += 1;
         $monitoria->save();
 
-        return redirect()->route('index');
+        return redirect()->route('monitorias');
     }
 
     public function cadastro(Request $request)  {
@@ -87,7 +96,14 @@ class MonitoriasController extends Controller
                 'local' => $request->local,
             ])->save();
 
-            User::find($usuario)->monitorias()->attach($monitorias->id);
+            if(isset($_POST['monitores'])){
+                foreach($_POST['monitores'] as $monitorNovo){
+                    $monitores = User::where('prontuario', $monitorNovo)->get()->first();
+                    User::find($monitores->id)->monitorias()->attach($monitorias->id, ['tipo' => 'Monitor']);
+                }
+            }
+
+            User::find($usuario)->monitorias()->attach($monitorias->id, ['tipo' => 'Criador']);
 
             return redirect()->route('index');
         }
@@ -111,8 +127,10 @@ class MonitoriasController extends Controller
     }
 
     public function cancelar(Request $request) {
-        $usuario = Monitoria::find($request->monitoria_id)->usuarios()->get()->first();
-        $usuario->monitorias()->detach($request->monitoria_id);
+        $usuarios = Monitoria::find($request->monitoria_id)->usuarios()->get();
+        foreach($usuarios as $usuario){
+            $usuario->monitorias()->detach($request->monitoria_id);
+        }
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
         $monitoria->delete();
 
@@ -126,7 +144,11 @@ class MonitoriasController extends Controller
         $monitoria->num_inscritos -= 1;
         $monitoria->save();
 
-        return redirect()->route('index');
+        return redirect()->route('monitorias');
+    }
+
+    public function statusMonitor(Request $request){
+        
     }
 
 }
