@@ -16,8 +16,10 @@ class MonitoriasController extends Controller
     public function index(Request $request) {
         $mostrarBotao = Gate::allows('professor');
         $monitorias = Monitoria::all();
-
-        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $usuario = Auth::user();
+        if(isset($usuario)){
+            $usuario = User::where('id', Auth::user()->id)->get()->first();
+        }
         $inscrito = null;
         if(isset($usuario)){
             $inscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->get();
