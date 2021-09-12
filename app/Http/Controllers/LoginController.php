@@ -13,6 +13,12 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         $erro = '';
+        $usuario = Auth::user();
+        $nome = '';
+
+        if(isset($usuario)) {
+            $nome = Auth::user()->nome;
+        }
 
         if(app()->getLocale() == 'pt-BR') {
             if($request->get('erro') == 1) {
@@ -26,7 +32,7 @@ class LoginController extends Controller
             }
         }
 
-        return view('login', ['nome' => session()->get('nome')]);
+        return view('login', ['nome' => $nome]);
 
     }
 
@@ -53,10 +59,15 @@ class LoginController extends Controller
             if(isset($login)) {
                 if(Hash::needsRehash($login->senha)) {
                     $login->senha = Hash::make($login->senha);
+                    $login->save();
                 }
                 if(Hash::check($senha, $login->senha)) {
-                    Auth::login($login);
-
+                    if($request->manterlogado === '1'){
+                        Auth::login($login, $remember = true);
+                    }
+                    else{
+                        Auth::login($login);
+                    }
                     session_start();
                     session()->put('nome', $login->nome);
                     session()->put('email', $login->email);

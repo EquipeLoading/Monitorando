@@ -109,70 +109,61 @@
             </div>
             <div id="scroll">
                 @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
-                    <div id="card">
-                    <!-- <p>{{ $monitoria->conteudo }}</p> -->
-                    <?php 
-                        $monitoringTime = $monitoriaCard->data;
-                        $monitoringT = explode('T',$monitoringTime);
-                        $monitoringTime = $monitoringT[count($monitoringT)-1];
-                        $monitoringT = $monitoringT[0];
-                                
-                        $date = new DateTime($monitoringT);
-                        $n = $date->getTimestamp();
-                        $data = date('D', $n);
-                        $semana = array(
-                            'Sun' => 'Domingo',
-                            'Mon' => 'Segunda-Feira',
-                            'Tue' => 'Terça-Feira',
-                            'Wed' => 'Quarta-Feira',
-                            'Thu' => 'Quinta-Feira',
-                            'Fri' => 'Sexta-Feira',
-                            'Sat' => 'Sábado'
-                        );
+                    <a id="card" href="{{ route('monitorias.informacoes', ['id' => $monitoriaCard->id]) }}">
+                        <!-- <p>{{ $monitoria->conteudo }}</p> -->
+                        <?php 
+                            $monitoringTime = $monitoriaCard->data;
+                            $monitoringT = explode('T',$monitoringTime);
+                            $monitoringTime = $monitoringT[count($monitoringT)-1];
+                            $monitoringT = $monitoringT[0];
+                                    
+                            $date = new DateTime($monitoringT);
+                            $n = $date->getTimestamp();
+                            $data = date('D', $n);
+                            $semana = array(
+                                'Sun' => 'Domingo',
+                                'Mon' => 'Segunda-Feira',
+                                'Tue' => 'Terça-Feira',
+                                'Wed' => 'Quarta-Feira',
+                                'Thu' => 'Quinta-Feira',
+                                'Fri' => 'Sexta-Feira',
+                                'Sat' => 'Sábado'
+                            );
 
                         ?>
                         <p id="hour">{{ date("d/m", $n) . " • " . $semana["$data"] . " " . $monitoriaCard->hora_inicio." - ".$monitoriaCard->hora_fim }}</p>
                         <p class="users"> 
-                                <?php 
-                                    $monitoringMonitor = $monitoriaCard->monitor;
-                                    $monitoringM = explode(' e ', $monitoringMonitor);
-                                    $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                    $monitoringM = $monitoringM[0];
-                                ?>
-                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                <text>{{ $monitoringMonitor }}</text>                   
-                            </p>
-                            <p class="users">
-                                <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                    <text>{{ $monitoringM }}</text>
-                            </p>
-                            <?php } else{?>   
-                                <p class="users"></p>
-                            <?php }?>
-                            <!--
+                            <?php 
                                 $monitoringMonitor = $monitoriaCard->monitor;
-                                $monitoring = explode(' e ', $monitoringMonitor);
-
-                                {{--@foreach($monitoring as $monitores)
-                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                    <text>{{ $monitoringM }}</text>
-                                @endforeach--}}
-                            -->
-                            <!-- <p>{{ $monitoria->local }}</p> -->
-                            <p id="limit">
-                                <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                                <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
-                            </p>
-                            <form method="POST" action="{{ route('monitorias.cancelar') }}">
-                                @csrf
-                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                <button type="submit" id="details">
-                                    <text>Cancelar Monitoria</text>
-                                </button>
-                            </form>
-                            <!-- <p>{{ $monitoria->descricao }}</p> -->
-                        </div>
+                                $monitoringM = explode(' e ', $monitoringMonitor);
+                                $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                $monitoringM = $monitoringM[0];
+                            ?>
+                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                            <text>{{ $monitoringMonitor }}</text>                   
+                        </p>
+                        <p class="users">
+                            <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                <text>{{ $monitoringM }}</text>
+                        </p>
+                        <?php } else{?>   
+                            <p class="users"></p>
+                        <?php }?>
+                        <!-- <p>{{ $monitoria->local }}</p> -->
+                        <p id="limit">
+                            <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                            <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
+                        </p>
+                        <form method="POST" action="{{ route('monitorias.cancelar') }}">
+                            @csrf
+                            <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                            <button type="submit" id="details">
+                                <text>Cancelar Monitoria</text>
+                            </button>
+                        </form>
+                        <!-- <p>{{ $monitoria->descricao }}</p> -->
+                    </a>
                 @endforeach
             </div>
         @endif

@@ -35,11 +35,13 @@
         <section>
             <div id="topFilter">
                 <form id="formSearch" action="" method="GET">
+                    @csrf
                     <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                     <input id="inputSearch" type="text" placeholder="Pesquisa.." name="search">
                 </form>
                 <button id="filter">filtrar</button>
             </div>
+            <p>{{ isset($erro) && $erro != '' ? $erro : '' }}</p>
             <?php
                 if(!isset($search)) { 
 
@@ -85,7 +87,7 @@
                     </div>
                     <div id="scroll">
                         @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
-                            <button id="{{$monitoriaCard->id}}" class="modalBtn">
+                            <a id="{{$monitoriaCard->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $monitoriaCard->id]) }}">
                                 <div id="card">
                                 <!--<p>{{ $monitoria->conteudo }}</p> -->
                                     <?php 
@@ -116,12 +118,12 @@
                                             $monitoringM = explode(' e ', $monitoringMonitor);
                                             $monitoringMonitor = $monitoringM[count($monitoringM)-1];
                                             $monitoringM = $monitoringM[0];
-                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first()->nome;
-                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first()->nome;
+                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
                                         ?>
                                         <img src="{{ asset('assets/svg/user.svg') }}" id="user">
                                         @if(isset($monitor1))
-                                            <text>{{ $monitor1 }}</text>    
+                                            <text>{{ $monitor1->nome }}</text>    
                                         @else
                                             <text>{{ $monitoringMonitor }}</text>    
                                         @endif
@@ -130,7 +132,7 @@
                                             <p class="users">
                                                 <img src="{{ asset('assets/svg/user.svg') }}" id="user">
                                                 @if(isset($monitor2))
-                                                    <text>{{ $monitor2 }}</text>
+                                                    <text>{{ $monitor2->nome }}</text>
                                                 @else
                                                     <text>{{ $monitoringM }}</text>    
                                                 @endif
@@ -183,8 +185,8 @@
                                     @endif
                                     <!-- <p>{{ $monitoria->descricao }}</p> -->
                                 </div>
-                            </button>
-                            <div id="modal-{{$monitoriaCard->id}}" class="modal" style="display:none;">
+                            </a>
+                            <!--<div id="modal-{{$monitoriaCard->id}}" class="modal" style="display:none;">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <span class="close">&times;</span>
@@ -293,19 +295,18 @@
                                         modal{{$monitoriaCard->id}}.style.display = "none";
                                     }
                                 });
-                            </script>
+                            </script>-->
                         @endforeach
                     </div>
                 @endif
             @endforeach
             <?php } else { ?> 
-                @if(!isset($post)) 
+                @if(!isset($posts)) 
                     <p>Nenhuma monitoria foi encontrada</p>
                 @endif
                 @foreach ($posts as $post)
                 
-                <div id="scroll">
-                    <button id="{{$post->id}}" class="modalBtn">
+                    <a id="{{$post->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $post->id]) }}">
                         <div id="card">
                             <?php 
                                 $date = new DateTime($post->data);
@@ -329,12 +330,30 @@
                                 <?php 
                                     $monitoringMonitor = $post->monitor;
                                     $monitoringM = explode(' e ', $monitoringMonitor);
+                                    $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                    $monitoringM = $monitoringM[0];
+                                    $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                    $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
                                 ?>
-                                @foreach($monitoringM as $monitor)
-                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                    <text>{{ $monitor }}</text>         
-                                @endforeach          
+                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                @if(isset($monitor1))
+                                    <text>{{ $monitor1->nome }}</text>    
+                                @else
+                                    <text>{{ $monitoringMonitor }}</text>    
+                                @endif
                             </p>
+                            <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                <p class="users">
+                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                    @if(isset($monitor2))
+                                        <text>{{ $monitor2->nome }}</text>
+                                    @else
+                                        <text>{{ $monitoringM }}</text>    
+                                    @endif
+                                </p>
+                            <?php } else{?>   
+                                <p id="blank"></p>
+                            <?php }?>
                             <p>{{ $post->local }}</p> 
                             <p id="limit">
                                 <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
@@ -342,9 +361,9 @@
                             </p>
                             <p>{{ $post->descricao }}</p>
                         </div>
-                    </button>
-                </div>
-            @endforeach <?php } ?>
+                    </a>
+                @endforeach 
+            <?php } ?>
         </section>
 
     </body>

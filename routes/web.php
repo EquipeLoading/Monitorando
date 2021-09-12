@@ -22,7 +22,14 @@ use Illuminate\Support\Facades\DB;
 
 //Rota da página principal
 Route::get('/', function() {
-    return view('index', ['nome' => session()->get('nome')]);
+    $usuario = Auth::user();
+    $nome = '';
+
+    if(isset($usuario)) {
+        $nome = Auth::user()->nome;
+    }
+
+    return view('index', ['nome' => $nome]);
 })->name('index');
 
 //Rotas de login
@@ -33,9 +40,8 @@ Route::prefix('/login')->group(function() {
 });
 
 Route::prefix('/profile')->group(function(){
-    $monitorias = Monitoria::all();
-
-    Route::get('/', [\App\Http\Controllers\profileController::class, 'index']) ->name('profile');
+    Route::get('/', [\App\Http\Controllers\profileController::class, 'index'])->middleware('auth')->name('profile');
+    Route::put('/', [\App\Http\Controllers\profileController::class, 'atualizarDados'])->name('profile');
 });
 
 //Rotas de cadastro
@@ -56,6 +62,18 @@ Route::prefix('/cadastro')->group(function() {
 Route::prefix('/monitorias')->group(function() {
     Route::get('/', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
     Route::post('/', [\App\Http\Controllers\MonitoriasController::class, 'inscricaoMonitorias'])->name('inscricao')->middleware('verified');
+    Route::get('/{id}', function($id) {
+        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $inscrito = null;
+        if(isset($usuario)){
+            $inscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->get();
+        }
+        return view('informacoesMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first(), 'usuarios' => User::all(), 'inscrito' => $inscrito]);
+    })->whereNumber('id')->name('monitorias.informacoes');
+    Route::get('/editar/{id}', function($id) {
+        return view('editarMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first()]);
+    })->whereNumber('id')->name('monitorias.editar');
+    Route::put('/editar/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarMonitoria'])->whereNumber('id')->name('monitorias.editar');
     Route::post('/cancelar-inscricao', [\App\Http\Controllers\MonitoriasController::class, 'cancelarInscricao'])->name('cancelamentoInscricao')->middleware('verified');
     Route::get('/cadastro', function() {
         return view('cadastroMonitorias');

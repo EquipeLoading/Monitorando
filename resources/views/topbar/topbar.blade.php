@@ -3,7 +3,7 @@
     $name = null;
     $usuario = Auth::user();
     if(isset($usuario)){
-        $allNames =  Auth::user()->nome;
+        $allNames =  $usuario->nome;
         $name = explode(' ', $allNames);
         $allNames = $name[count($name)-1];
         $name = $name[0];

@@ -17,16 +17,12 @@ class MonitoriasController extends Controller
         $mostrarBotao = Gate::allows('professor');
         $monitorias = Monitoria::all();
 
-        $tipo = 'Inscrito';
-        $usuario = Auth::user();
+        $usuario = User::where('id', Auth::user()->id)->get()->first();
         $inscrito = null;
         if(isset($usuario)){
-            $inscrito = Monitoria::whereHas('usuarios', function($query) use ($tipo) {
-                $query->with('monitoria_user.tipo')->where('monitoria_user.tipo', $tipo)->where('monitoria_user.user_id', Auth::user()->id);
-            })->get();
+            $inscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->get();
         }
         
-        $monitorias = Monitoria::all();
         $search = $request->input('search');
         $posts = DB::table('monitorias')
                 ->where('conteudo', 'LIKE', "%{$search}%")
@@ -38,12 +34,16 @@ class MonitoriasController extends Controller
     }
 
     public function inscricaoMonitorias(Request $request) {
-        $usuario = User::where('id', Auth::user()->id)->get()->first();
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
-        $usuario->monitorias()->attach($monitoria, ['tipo' => 'Inscrito']);
+        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $monitoriaInscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->wherePivot('monitoria_id', $monitoria->id)->get()->first();
 
-        $monitoria->num_inscritos += 1;
-        $monitoria->save();
+        if(!(isset($monitoriaInscrito))){
+            $usuario->monitorias()->attach($monitoria, ['tipo' => 'Inscrito']);
+
+            $monitoria->num_inscritos += 1;
+            $monitoria->save();
+        }
 
         return redirect()->route('monitorias');
     }
@@ -59,7 +59,8 @@ class MonitoriasController extends Controller
                 'hora_inicio' => 'required',
                 'hora_fim' => 'required|after:hora_inicio',
                 'local' => 'required',
-                'descricao' => 'required'
+                'descricao' => 'required',
+                'monitores' => 'required|exists:users,prontuario'
             ];
 
             $request->validate($regras);
@@ -139,16 +140,73 @@ class MonitoriasController extends Controller
 
     public function cancelarInscricao(Request $request) {
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
-        $monitoria->usuarios()->wherePivot('tipo', 'Inscrito')->detach(Auth::user()->id);
-        
-        $monitoria->num_inscritos -= 1;
-        $monitoria->save();
+        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $monitoriaInscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->wherePivot('monitoria_id', $monitoria->id)->get()->first();
 
+        if(isset($monitoriaInscrito)){
+            $monitoria->usuarios()->wherePivot('tipo', 'Inscrito')->detach(Auth::user()->id);
+            $monitoria->num_inscritos -= 1;
+            $monitoria->save();
+        }
+        
         return redirect()->route('monitorias');
     }
 
-    public function statusMonitor(Request $request){
+    public function editarMonitoria(Request $request) {
         
-    }
+        $regras = [
+            'codigo' => 'required|min:3|max:5',
+            'disciplina' => 'required',
+            'conteudo' => 'required|min:5|max:60',
+            'data' => 'required|after_or_equal:today',
+            'hora_inicio' => 'required',
+            'hora_fim' => 'required|after:hora_inicio',
+            'local' => 'required',
+            'descricao' => 'required',
+            'monitores' => 'required|exists:users,prontuario'
+        ];
 
+        $request->validate($regras);
+
+        $quantidadeMonitores = 0;
+        $monitor = "";
+
+        if(isset($_POST['monitores'])){
+            foreach($_POST['monitores'] as $monitorNovo){
+                if($quantidadeMonitores == 0){
+                    $monitor = $monitorNovo;
+                    $quantidadeMonitores++;
+                } else {
+                    $monitor .= " e ".$monitorNovo;
+                    $quantidadeMonitores++;
+                }
+            }
+        }
+
+        $monitoria = Monitoria::find($request->monitoria);
+
+        $monitoria->update([
+            'codigo' => $request->codigo,
+            'conteudo' => $request->conteudo,
+            'data' => $request->data,
+            'hora_inicio' => $request->hora_inicio,
+            'hora_fim' => $request->hora_fim,
+            'num_inscritos' => 0,
+            'descricao' => $request->descricao,
+            'disciplina' => $request->disciplina,
+            'monitor' => $monitor,
+            'local' => $request->local,
+        ]);
+
+        $monitoria->usuarios()->wherePivot('tipo', 'Monitor')->detach();
+
+        if(isset($_POST['monitores'])){
+            foreach($_POST['monitores'] as $monitorNovo){
+                $monitores = User::where('prontuario', $monitorNovo)->get()->first();
+                User::find($monitores->id)->monitorias()->attach($monitoria->id, ['tipo' => 'Monitor']);
+            }
+        }
+        
+        return redirect()->route('monitorias.informacoes', ['id' => $request->monitoria]);
+    }
 }

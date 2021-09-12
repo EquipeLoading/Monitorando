@@ -39,7 +39,7 @@
                 </p>
 
                 <p id="check">
-                    <input type="checkbox" name="manterlogado" id="manterlogado" value="" />
+                    <input type="checkbox" name="manterlogado" id="manterlogado" value="1" />
                     <label for="manterlogado">@lang('lang.Manter-meLogado')</label>
                 </p>
 
