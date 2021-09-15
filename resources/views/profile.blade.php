@@ -63,7 +63,7 @@
                         <div class="editLabel">
                                 <label>Nome</label>
                                 <div class="inputInline">
-                                    <input name="nome" type="text" class="inputField" value="{{ $usuario->nome }}" readonly />
+                                    <input name="nome" type="text" class="inputField" value="{{ $usuario->nome ?? old('nome') }}" readonly />
                                     <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                 </div>
                                 {{ $errors->has('nome') ? $errors->first('nome') : '' }}
@@ -72,7 +72,7 @@
                                 <div class="editLabel">
                                     <label>Prontuário</label>
                                     <div class="inputInline">
-                                        <input name="prontuario" type="text" class="inputField" value="{{ $usuario->prontuario }}" readonly />
+                                        <input name="prontuario" type="text" class="inputField" value="{{ $usuario->prontuario ?? old('prontuario') }}" readonly />
                                         <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                     </div>
                                     {{ $errors->has('prontuario') ? $errors->first('prontuario') : '' }}
@@ -88,7 +88,7 @@
                                                     ?>
                                                 @endif
                                             @endforeach
-                                            <input name="turma_id" type="text" class="inputField" value="{{ $numTurma }}" readonly />
+                                            <input name="turma_id" type="text" class="inputField" value="{{ $numTurma ?? old('turma_id') }}" readonly />
                                             <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                         </div>
                                         {{ $errors->has('turma_id') ? $errors->first('turma_id') : '' }}
@@ -97,7 +97,7 @@
                                     <div class="editLabel">
                                         <label>Disciplinas</label>
                                         <div class="inputInline">
-                                            <input name="disciplinas" type="text" class="inputField" value="{{ $usuario->disciplinas }}" readonly />
+                                            <input name="disciplinas" type="text" class="inputField" value="{{ $usuario->disciplinas ?? old('disciplinas') }}" readonly />
                                             <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                         </div>
                                         {{ $errors->has('disciplinas') ? $errors->first('disciplinas') : '' }}
@@ -107,7 +107,7 @@
                         <div class="editLabel">
                             <label>E-mail</label>
                             <div class="inputInline">
-                                <input name="email" type="text" class="inputField" value="{{ $usuario->email }}" readonly />
+                                <input name="email" type="text" class="inputField" value="{{ $usuario->email ?? old('email') }}" readonly />
                                 <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                             </div>
                             {{ $errors->has('email') ? $errors->first('email') : '' }}

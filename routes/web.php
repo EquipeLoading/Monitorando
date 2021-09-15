@@ -63,16 +63,17 @@ Route::prefix('/monitorias')->group(function() {
     Route::get('/', [\App\Http\Controllers\MonitoriasController::class, 'index'])->name('monitorias');
     Route::post('/', [\App\Http\Controllers\MonitoriasController::class, 'inscricaoMonitorias'])->name('inscricao')->middleware('verified');
     Route::get('/{id}', function($id) {
-        $usuario = User::where('id', Auth::user()->id)->get()->first();
+        $usuario = Auth::user();
         $inscrito = null;
         if(isset($usuario)){
+            $usuario = User::where('id', Auth::user()->id)->get()->first();
             $inscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->get();
         }
-        return view('informacoesMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first(), 'usuarios' => User::all(), 'inscrito' => $inscrito]);
+        return view('informacoesMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first(), 'usuarios' => User::all(), 'inscrito' => $inscrito, 'erro' => session()->get('erro')]);
     })->whereNumber('id')->name('monitorias.informacoes');
     Route::get('/editar/{id}', function($id) {
         return view('editarMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first()]);
-    })->whereNumber('id')->name('monitorias.editar');
+    })->whereNumber('id')->name('monitorias.editar')->middleware('verified');
     Route::put('/editar/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarMonitoria'])->whereNumber('id')->name('monitorias.editar');
     Route::post('/cancelar-inscricao', [\App\Http\Controllers\MonitoriasController::class, 'cancelarInscricao'])->name('cancelamentoInscricao')->middleware('verified');
     Route::get('/cadastro', function() {
@@ -82,10 +83,11 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
     Route::get('/cancelar', function() {
         $usuario = Auth::user()->id;
-        $monitorias = User::find($usuario)->monitorias()->wherePivot('tipo', 'Criador')->get();
+        $monitorias = User::find($usuario)->monitorias()->wherePivotIn('tipo', ['Criador', 'Monitor'])->get();
+        $monitorias = $monitorias->unique()->values();
 
-        return view('cancelarMonitoria', ['monitorias' => $monitorias]);
-    })->name('monitorias.cancelar');
+        return view('cancelarMonitoria', ['monitorias' => $monitorias, 'usuarios' => User::all()]);
+    })->name('monitorias.cancelar')->middleware('verified');
     Route::post('/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
 }); 
 

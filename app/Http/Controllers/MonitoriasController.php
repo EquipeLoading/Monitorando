@@ -45,9 +45,14 @@ class MonitoriasController extends Controller
 
             $monitoria->num_inscritos += 1;
             $monitoria->save();
+
+            return redirect()->route('monitorias');
+        }
+        else {
+            return back()->with('erro', 'Não foi possível se inscrever na monitoria');
         }
 
-        return redirect()->route('monitorias');
+        
     }
 
     public function cadastro(Request $request)  {
@@ -149,9 +154,13 @@ class MonitoriasController extends Controller
             $monitoria->usuarios()->wherePivot('tipo', 'Inscrito')->detach(Auth::user()->id);
             $monitoria->num_inscritos -= 1;
             $monitoria->save();
+
+            return redirect()->route('monitorias');
+        } else {
+            return back()->with('erro', 'Não foi possível cancelar a inscrição na monitoria');
         }
         
-        return redirect()->route('monitorias');
+        
     }
 
     public function editarMonitoria(Request $request) {

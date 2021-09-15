@@ -124,7 +124,7 @@
                             <img src="{{ asset('assets/svg/plus.svg') }}" alt="Plus">  
                         </button>
                     </div>
-                    {{ $errors->has('monitores[]') ? $errors->first('monitores[]') : '' }}
+                    {{ $errors->has('monitores') ? $errors->first('monitores') : '' }}
                 </div>
 
                 <p class="camp">

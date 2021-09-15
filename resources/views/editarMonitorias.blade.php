@@ -132,7 +132,7 @@
                                     <img src="{{ asset('assets/svg/plus.svg') }}" alt="Plus">  
                                 </button>
                             </div>
-                            {{ $errors->has('monitores[$i]') ? $errors->first('monitores[$i]') : '' }}
+                            {{ $errors->has('monitores') ? $errors->first('monitores') : '' }}
                         </div>
                         <?php
                             $i++;

@@ -41,7 +41,7 @@
                 </form>
                 <button id="filter">filtrar</button>
             </div>
-            <p>{{ isset($erro) && $erro != '' ? $erro : '' }}</p>
+            
             <?php
                 if(!isset($search)) { 
 
@@ -186,122 +186,12 @@
                                     <!-- <p>{{ $monitoria->descricao }}</p> -->
                                 </div>
                             </a>
-                            <!--<div id="modal-{{$monitoriaCard->id}}" class="modal" style="display:none;">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <span class="close">&times;</span>
-                                        <h2>{{$monitoriaCard->codigo}} - {{$monitoriaCard->disciplina}}</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                        <?php 
-                                            $monitoringTime = $monitoriaCard->data;
-                                            $monitoringT = explode('T',$monitoringTime);
-                                            $monitoringTime = $monitoringT[count($monitoringT)-1];
-                                            $monitoringT = $monitoringT[0];
-                                                    
-                                            $date = new DateTime($monitoringT);
-                                            $n = $date->getTimestamp();
-                                            $data = date('D', $n);
-                                            $semana = array(
-                                                'Sun' => 'Domingo',
-                                                'Mon' => 'Segunda-Feira',
-                                                'Tue' => 'Terça-Feira',
-                                                'Wed' => 'Quarta-Feira',
-                                                'Thu' => 'Quinta-Feira',
-                                                'Fri' => 'Sexta-Feira',
-                                                'Sat' => 'Sábado'
-                                            );
-                
-                                        ?>
-                                        
-                                        <p id="hour">{{ date("d/m", $n) . " • " . $semana["$data"] }}</p>
-                                        <p id="hour">{{ $monitoriaCard->hora_inicio." - ".$monitoriaCard->hora_fim }}</p>
-                                        <p class="users"> 
-                                            <?php 
-                                                $monitoringMonitor = $monitoriaCard->monitor;
-                                                $monitoringM = explode(' e ', $monitoringMonitor);
-                                            ?>
-                                            @foreach($monitoringM as $monitor)
-                                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                                <text>{{ $monitor }}</text>         
-                                            @endforeach          
-                                        </p>
-                                        <p>{{ $monitoriaCard->local }}</p> 
-                                        <p id="limit">
-                                            <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                                            <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
-                                        </p>
-                                        <p>{{ $monitoriaCard->descricao }}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        @if(isset($inscrito))
-                                            @foreach($inscrito as $monitoriaInscrita)
-                                                @if($monitoriaInscrita->id == $monitoriaCard->id)
-                                                    <?php 
-                                                        $usuarioInscrito = true;
-                                                        break; 
-                                                    ?>
-                                                @else
-                                                    <?php
-                                                        $usuarioInscrito = false;
-                                                    ?>
-                                                @endif
-                                            @endforeach
-                                            @if($usuarioInscrito == true)
-                                                <form method="POST" action="{{ route('cancelamentoInscricao') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                    <button id="details" type="submit">
-                                                        <text>Cancelar Inscrição</text>
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <form method="POST" action="{{ route('inscricao') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                    <button id="details" type="submit">
-                                                        <text>Inscrever-se</text>
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        @else
-                                            <form method="POST" action="{{ route('inscricao') }}">
-                                                @csrf
-                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                <button id="details" type="submit">
-                                                    <text>Inscrever-se</text>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                var modal{{$monitoriaCard->id}} = document.getElementById("modal-{{$monitoriaCard->id}}");
-                                var modalBtn{{$monitoriaCard->id}} = document.getElementById({{$monitoriaCard->id}});
-                                var closeBtn = document.getElementsByClassName("close");
-    
-                                modalBtn{{$monitoriaCard->id}}.addEventListener('click', function() {
-                                    modal{{$monitoriaCard->id}}.style.display = "block";
-                                });
-                                
-                                closeBtn[i].addEventListener('click', function() {
-                                    modal{{$monitoriaCard->id}}.style.display = "none";
-                                });
-                                i++;
-    
-                                window.addEventListener('click', function() {
-                                    if(e.target == modal{{$monitoriaCard->id}}) {
-                                        modal{{$monitoriaCard->id}}.style.display = "none";
-                                    }
-                                });
-                            </script>-->
                         @endforeach
                     </div>
                 @endif
             @endforeach
             <?php } else { ?> 
-                @if(!isset($posts)) 
+                @if($posts->isEmpty()) 
                     <p>Nenhuma monitoria foi encontrada</p>
                 @endif
                 @foreach ($posts as $post)

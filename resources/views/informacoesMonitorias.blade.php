@@ -65,6 +65,8 @@
             </form>
         @endif
 
+        <p>{{ isset($erro) ? $erro : '' }}</p>
+
         <h1>{{ $monitoria->codigo }} - {{$monitoria->disciplina}}</h1>
 
         <h2>{{ $monitoria->conteudo }}</h2>
@@ -90,30 +92,19 @@
             <?php 
                 $monitoringMonitor = $monitoria->monitor;
                 $monitoringM = explode(' e ', $monitoringMonitor);
-                $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                $monitoringM = $monitoringM[0];
-                $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
-                $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
             ?>
-            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-            @if(isset($monitor1))
-                <text>{{ $monitor1->nome }}</text>    
-            @else
-                <text>{{ $monitoringMonitor }}</text>    
-            @endif
-        </p>
-        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-            <p class="users">
+            @foreach($monitoringM as $monitores)
                 <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                @if(isset($monitor2))
-                    <text>{{ $monitor2->nome }}</text>
+                <?php
+                    $monitor = $usuarios->where('prontuario', $monitores)->first();
+                ?>
+                @if(isset($monitor))
+                    <text>{{ $monitor->nome }}</text>    
                 @else
-                    <text>{{ $monitoringM }}</text>    
+                    <text>{{ $monitores }}</text>   
                 @endif
-            </p>
-        <?php } else{?>   
-            <p id="blank"></p>
-        <?php }?>
+            @endforeach
+        </p>
         <p>{{ $monitoria->local }}</p> 
         <p id="limit">
             <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
