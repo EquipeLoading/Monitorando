@@ -11,12 +11,20 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
-    public function index() {  
+    public function index($id) {  
         $usuario = Auth::user();
 
         $monitorias = Monitoria::all();
+        $usuarios = User::all();
         $turmas = Turma::all();
-        return view('profile',  ['usuario' => $usuario, 'monitorias' => $monitorias, 'turmas' => $turmas]);
+        $perfilUsuario = User::where('id', $id)->get()->first();
+
+        $usuarioLogado = User::find(Auth::user()->id);
+        $monitoriasParticipadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Participou')->get();
+        $monitoriasInscrito = $usuarioLogado->monitorias()->wherePivot('tipo', 'Inscrito')->get();
+        $monitoriasAvaliadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Avaliado')->get();
+
+        return view('profile',  ['usuario' => $usuario, 'monitorias' => $monitorias, 'turmas' => $turmas, 'perfilUsuario' => $perfilUsuario, 'monitoriasParticipadas' => $monitoriasParticipadas, 'usuarios' => $usuarios, 'monitoriasInscrito' => $monitoriasInscrito, 'monitoriasAvaliadas' => $monitoriasAvaliadas]);
     }
 
     public function atualizarDados(Request $request) {
@@ -27,9 +35,25 @@ class ProfileController extends Controller
                 'email' => 'required|email|unique:users,email,'.$usuario->id.',id',
                 'prontuario' => 'required|min:9|max:9|unique:users,prontuario,'.$usuario->id.',id',
                 'turma_id' => 'exists:turmas,numero',
+                'link' => 'required'
             ];
     
             $request->validate($regras);
+
+            $quantidadeLinks = 0;
+            $link = "";
+
+            if(isset($_POST['link'])){
+                foreach($_POST['link'] as $linkNovo){
+                    if($quantidadeLinks == 0){
+                        $link = $linkNovo;
+                        $quantidadeLinks++;
+                    } else {
+                        $link .= " e ".$linkNovo;
+                        $quantidadeLinks++;
+                    }
+                }
+            }
 
             $turmas = Turma::all();
             $turmaId = 0;
@@ -47,7 +71,8 @@ class ProfileController extends Controller
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
                     'turma_id' => $turmaId,
-                    'email_verified_at' => null
+                    'email_verified_at' => null,
+                    'linksExternos' => $link
                 ]);
 
                 return redirect()->route('verification.notice');
@@ -58,8 +83,9 @@ class ProfileController extends Controller
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
                     'turma_id' => $turmaId,
+                    'linksExternos' => $link
                 ]);
-                return redirect()->route('profile');
+                return redirect()->route('profile', ['id' => $usuario->id]);
             }
         } else {
             $regras = [
@@ -71,6 +97,21 @@ class ProfileController extends Controller
 
             $request->validate($regras);
 
+            $quantidadeLinks = 0;
+            $link = "";
+
+            if(isset($_POST['link'])){
+                foreach($_POST['link'] as $linkNovo){
+                    if($quantidadeLinks == 0){
+                        $link = $linkNovo;
+                        $quantidadeLinks++;
+                    } else {
+                        $link .= " e ".$linkNovo;
+                        $quantidadeLinks++;
+                    }
+                }
+            }
+
             if($request->email != $usuario->email){
                 event(new Registered($usuario));
 
@@ -79,7 +120,8 @@ class ProfileController extends Controller
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
                     'disciplinas' => $request->disciplinas,
-                    'email_verified_at' => null
+                    'email_verified_at' => null,
+                    'linksExternos' => $link
                 ]);
 
                 return redirect()->route('verification.notice');
@@ -89,10 +131,11 @@ class ProfileController extends Controller
                     'nome' => $request->nome,
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
-                    'disciplinas' => $request->disciplinas
+                    'disciplinas' => $request->disciplinas,
+                    'linksExternos' => $link
                 ]);
 
-                return redirect()->route('profile');
+                return redirect()->route('profile', ['id' => $usuario->id]);
             }
         }
     }

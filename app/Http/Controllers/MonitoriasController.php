@@ -220,4 +220,40 @@ class MonitoriasController extends Controller
         
         return redirect()->route('monitorias.informacoes', ['id' => $request->monitoria]);
     }
+
+    public function atribuirPresenca(Request $request, $id) {
+        $regras = [
+            'prontuarios' => 'required|exists:users,prontuario'
+        ];
+
+        $request->validate($regras);
+
+        foreach($_POST['prontuarios'] as $prontuario){
+            $usuarios = User::where('prontuario', $prontuario)->get()->first();
+            User::find($usuarios->id)->monitorias()->attach($id, ['tipo' => 'Participou']);
+        }
+        return back()->with('mensagem', 'A(s) presença(s) foram atribuídas com sucesso!');
+    }
+
+    public function excluirPresenca(Request $request, $monitoriaId, $usuarioId) {
+        $monitoria = Monitoria::where('id', $monitoriaId)->get()->first();
+        $monitoria->usuarios()->wherePivot('tipo', 'Participou')->detach($usuarioId);
+        $usuario = User::where('id', $usuarioId)->get()->first();
+
+        return back()->with('mensagem', 'O usuário '.$usuario->nome.' foi removido da lista de presença da monitoria');
+    }
+
+    public function avaliacao(Request $request, $id) {
+        $regras = [
+            'nota' => 'required|integer|between:1,10',
+            'justificativa' => 'required|min:5|max:500'
+        ];
+
+        $request->validate($regras);
+
+        $monitoria = Monitoria::where('id', $id)->get()->first();
+        $monitoria->usuarios()->attach(Auth::user()->id, ['tipo' => 'Avaliado', 'nota' => $request->nota, 'justificativa' => $request->justificativa]);
+
+        return back()->with('sucesso', 'Sua avaliação foi enviada com sucesso!');
+    }
 }

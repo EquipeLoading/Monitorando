@@ -2,6 +2,10 @@
 
 @section('conteudo')
 
+<?php if(!isset($monitoria)) { ?>
+    <p>Nenhuma monitoria foi encontrada</p>
+<?php } else { ?>
+
     <!DOCTYPE html>
     <html lang="pt-br">
 
@@ -11,19 +15,90 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
         <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <!-- mediaquery -->
     </head>
 
     <body>
 
+        <script>
+            $(document).ready(function(){
+                var count = 0;
+                $('#buttonPresenca').click(function(e) {
+                    e.preventDefault();
+                    if(count == 0){
+                        $('#buttonPresenca').remove();
+                        $('#adicionarPresenca').append('<form action="{{route("monitorias.informacoes", ["id" => $monitoria->id])}}" method="POST">' + 
+                                                            '@csrf' +
+                                                            '<div id="newField">' + 
+                                                                '<label for="prontuarios[]">Prontuário</label>' +
+                                                                '<input type="text" name="prontuarios[]"/>' + 
+                                                                '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
+                                                            '</div>' +  
+                                                            '<button type="submit">Atribuir Presença</button>' +
+                                                        '</form>');
+                        count++;
+                    }
+                });
+                $('#adicionarPresenca').on('click', '#addNewField', function(e) {
+                    $('#newField').append('<div id="newField">' + 
+                                        '<label for="prontuario[]">Prontuário</label>' +
+                                        '<input type="text" name="prontuarios[]">' + 
+                                        '<button type="button" class="remove_field"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' + 
+                                    '</div>');
+                });
+                $('#adicionarPresenca').on('click', '.remove_field', function(e) {
+                    e.preventDefault(); 
+                    $(this).parent('div').remove();
+                });
+
+                $('#modalBtn').on('click', function() {
+                    $("#modal").css('display', 'block');
+                });
+
+                $('.exit').on('click', function() {
+                    $("#modal").css('display', 'none');
+                });
+
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modal").length > 0 ) || ($(e.target).closest("#modalBtn").length > 0))){
+                        $("#modal").css('display', 'none');
+                    }
+                });
+
+                $('#modalAvaliacaoBtn').on('click', function() {
+                    $("#modalAvaliacao").css('display', 'block');
+                });
+
+                $('.close').on('click', function() {
+                    $("#modalAvaliacao").css('display', 'none');
+                });
+
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalAvaliacao").length > 0 ) || ($(e.target).closest("#modalAvaliacaoBtn").length > 0))){
+                        $("#modalAvaliacao").css('display', 'none');
+                    }
+                });
+            });
+        </script>
+
         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
             <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
-            <form method="POST" action="{{ route('monitorias.cancelar') }}">
-                @csrf
-                <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
-                <button type="submit"> Cancelar a monitoria </button>
-            </form>
+            <button type="button" id="modalBtn">Cancelar a monitoria</button>
         @endif
+
+        <div id="modal">
+            <div class="modal-content">
+                <span class="exit">&times;</span>
+                <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
+                <button type="button" class="exit">Não</button>
+                <form method="POST" action="{{ route('monitorias.cancelar') }}">
+                    @csrf
+                    <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
+                    <button type="submit"> Sim </button>
+                </form>
+            </div>
+        </div>
 
         <?php
             $usuarioInscrito = false;
@@ -112,8 +187,91 @@
         </p>
         <p>{{ $monitoria->descricao }}</p>
 
+        @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
+            <div id="adicionarPresenca">
+                <button id="buttonPresenca" type="button">Atribuir presenças na monitoria</button>
+                {{ $errors->has('prontuarios') ? $errors->first('prontuarios') : '' }}
+            </div>
+            {{ session()->has('mensagem') ? session('mensagem') : '' }}
+            @if(!($participantes->isEmpty()))
+                <h2>Usuários que participaram da monitoria</h2>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Prontuário</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($participantes as $participante)
+                            <tr>
+                                <td>{{$participante->nome}}</td>
+                                <td>{{$participante->prontuario}}</td>
+                                <td><a href="{{ route('profile', ['id' => $participante->id]) }}">Visitar Perfil</a></td>
+                                <td>
+                                    <form action="{{ route('monitorias.presenca', ['monitoriaId' => $monitoria->id, 'usuarioId' => $participante->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit">Remover</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        @endif
+
+        @if(Gate::allows('participou', $monitoria))
+            <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
+            {{ $errors->has('nota') ? $errors->first('nota') : '' }}
+            {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
+            <div id="modalAvaliacao">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
+                        @csrf
+                        <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                        <input type="text" name="nota" value="{{old('nota')}}" /><br />
+                        <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                        <textarea name="justificativa" value="{{old('justificativa')}}" form="formAvaliacao"></textarea><br />
+                        <button type="submit">Enviar avaliação</button>
+                    </form>
+                </div>
+            </div>
+            {{ session()->has('sucesso') ? session('sucesso') : '' }}
+        @endif
+
+        @if(Gate::allows('criador', $monitoria))
+            @if(!($avaliacoes->isEmpty()))
+                <?php 
+                    $cont = 0;
+                    $media = 0;
+                ?>
+                @foreach($avaliacoes as $avaliacao)
+                    <?php
+                        $media += $avaliacao->pivot->nota;
+                        $cont++;
+                    ?>
+                @endforeach
+                <?php
+                    $media /= $cont;
+                    $media = number_format($media, 1);
+                ?>
+                <h3>Média das notas das avaliações: {{ $media }}</h3>
+                @foreach($avaliacoes as $avaliacao)
+                    <br>
+                    <div class="avaliacao">
+                        <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
+                        <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
+                    </div>
+                @endforeach
+            @endif
+        @endif
     </body>
 
     </html>
+    <?php } ?>
 
 @endsection

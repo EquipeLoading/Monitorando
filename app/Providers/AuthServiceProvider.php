@@ -63,5 +63,31 @@ class AuthServiceProvider extends ServiceProvider
 
             return $monitor;
         });
+
+        Gate::define('participou', function(User $user, Monitoria $monitoria) {
+            $monitorias = $user->monitorias()->wherePivot('tipo', 'Participou')->get();
+            $participou = false;
+
+            foreach($monitorias as $participante) {
+                if($participante->id === $monitoria->id){
+                    $participou = true;
+                }
+            }
+
+            return $participou;
+        });
+
+        Gate::define('avaliou', function(User $user, Monitoria $monitoria) {
+            $monitorias = $user->monitorias()->wherePivot('tipo', 'Avaliado')->get();
+            $avaliou = false;
+
+            foreach($monitorias as $avaliado) {
+                if($avaliado->id === $monitoria->id){
+                    $avaliou = true;
+                }
+            }
+
+            return $avaliou;
+        });
     }
 }

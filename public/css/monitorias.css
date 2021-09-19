@@ -149,6 +149,60 @@ hr{
     color: transparent;
   } 
 
+  #topFilter{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+#filter{
+    margin-left: auto;
+    border-radius: 5vh;
+    height: 4vh;
+    width: 20vw;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+    margin-top: 2vh;
+    border: none;
+    cursor: pointer;
+    color: #193D6F;
+    font-weight: bold;
+}
+
+#search img{
+    flex: none;
+    height: 3vh;
+    transform: rotate(270deg);
+    filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
+
+}
+
+#search{
+    flex: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#formSearch{
+    flex: none;
+    display: flex;
+    border-radius: 5vh;
+    height: 5.5vh;
+    width: 60vw;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+    margin-top: 2vh;
+}
+
+#inputSearch{
+    flex: none;
+    width: 55vw;
+    background-color: transparent;
+    border: none;
+}
+
 @media(min-width: 813px){
     .button_new {
         background-color: #193D6F;
@@ -233,5 +287,55 @@ hr{
         display: block  ;
         width: 20vw;
         padding-left: auto;
+    }
+
+    #topFilter{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: stretch;
+    }
+
+    #filter{
+        margin-left: auto;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 6vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        color: #193D6F;
+        font-weight: bold;
+    }
+
+    #search img{
+        height: 3vh;
+        transform: rotate(270deg);
+        filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
+
+    }
+
+    #search{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    #formSearch{
+        display: flex;
+        border-radius: 5vh;
+        height: 5.5vh;
+        width: 25vw;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: 2vh;
+    }
+
+    #inputSearch{
+        width: 25vw;
+        background-color: transparent;
+        border: none;
     }
   }

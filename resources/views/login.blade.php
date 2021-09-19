@@ -35,7 +35,7 @@
                 </p>
 
                 <p class="link">
-                    <a href="#paracadastro">@lang('lang.RecuperarSenha')</a>
+                    <a href="{{ route('password.request') }}">@lang('lang.RecuperarSenha')</a>
                 </p>
 
                 <p id="check">

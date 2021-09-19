@@ -1,8 +1,11 @@
 <?php
+    use App\Models\User;
     $allNames = null;
     $name = null;
-    $usuario = Auth::user();
-    if(isset($usuario)){
+    $usuario = null;
+    $usuarios = User::all();
+    if(isset(Auth::user()->id)){
+        $usuario = Auth::user();
         $allNames =  $usuario->nome;
         $name = explode(' ', $allNames);
         $allNames = $name[count($name)-1];
@@ -80,21 +83,30 @@
                         </button>
                         <div class="collapsible-wrapper collapsed">
                             <div class="collapsible">
-                                <a class="menu-item" href="{{ route('profile') }}">
+                                <a class="menu-item" href="{{ route('profile', ['id' => $usuario->id]) }}">
                                     Perfil
                                     <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 
                                 </a>
-                                <a class="menu-item" href="{{ route('login') }}">
-                                    Sair
-                                    <img src="{{ asset('/assets/svg/logout.svg') }}" alt="Logout" id="logout">
-                                </a>
+                                <form class="menu-item" method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">
+                                        Sair
+                                        <img src="{{ asset('/assets/svg/logout.svg') }}" alt="Logout" id="logout">
+                                    </button>
+                                </form>
                             </div>
                         </div>                  
                     </div>
                     <a class="active" href="{{ route('index') }}"> HOME </a>
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="#calendario"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>      
+                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>    
+                    <div id="topFilter">
+                        <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
+                            <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                            <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
+                        </form>
+                    </div>
                 <?php }else{ ?>
                     
                     <a class="active" href="{{ route('index') }}"> HOME </a>
@@ -102,12 +114,96 @@
                     <a href="#calendario"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
                     <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
+                    <div id="topFilter">
+                        <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
+                            <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                            <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
+                        </form>
+                    </div>
                 <?php } ?>
             </div>
         </div>
         <div id="background">
             <span id="menuButton" onclick="openNav()"><img src="{{ asset('/assets/svg/menu.svg') }}" alt="Menu" id="menuSvg"></span>          
         <div>
+        @if(session()->has('search'))
+            @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
+                <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
+            @else
+                @if(!session('pesquisaUsuarios')->isEmpty())
+                    @foreach(session('pesquisaUsuarios') as $resultadoUsuarios)
+                        <a id="{{$resultadoUsuarios->id}}" class="modalBtn" href="{{ route('profile', ['id' => $resultadoUsuarios->id]) }}">
+                            <p>{{$resultadoUsuarios->nome}}</p>
+                            <p>{{$resultadoUsuarios->prontuario}}</p>
+                        </a>
+                    @endforeach
+                @endif
+                @if(!session('pesquisaMonitorias')->isEmpty())
+                    @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
+                        <div id="content-all">
+                            <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
+                                <div id="card">
+                                    <?php 
+                                        $date = new DateTime($resultadoMonitorias->data);
+                                        $n = $date->getTimestamp();
+                                        $data = date('D', $n);
+                                        $semana = array(
+                                            'Sun' => 'Domingo',
+                                            'Mon' => 'Segunda-Feira',
+                                            'Tue' => 'Terça-Feira',
+                                            'Wed' => 'Quarta-Feira',
+                                            'Thu' => 'Quinta-Feira',
+                                            'Fri' => 'Sexta-Feira',
+                                            'Sat' => 'Sábado'
+                                        );
+                                
+                                    ?>
+                                    <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                                    <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
+                                    <p>{{ $resultadoMonitorias->conteudo }}</p>
+                                    <p class="users"> 
+                                        <?php 
+                                            $monitoringMonitor = $resultadoMonitorias->monitor;
+                                            $monitoringM = explode(' e ', $monitoringMonitor);
+                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                            $monitoringM = $monitoringM[0];
+                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                        ?>
+                                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                        @if(isset($monitor1))
+                                            <text>{{ $monitor1->nome }}</text>    
+                                        @else
+                                            <text>{{ $monitoringMonitor }}</text>    
+                                        @endif
+                                    </p>
+                                    <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                        <p class="users">
+                                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                            @if(isset($monitor2))
+                                                <text>{{ $monitor2->nome }}</text>
+                                            @else
+                                                <text>{{ $monitoringM }}</text>    
+                                            @endif
+                                        </p>
+                                    <?php } else{?>   
+                                        <p id="blank"></p>
+                                    <?php }?>
+                                    <p>{{ $resultadoMonitorias->local }}</p> 
+                                    <p id="limit">
+                                        <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                        <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
+                                    </p>
+                                    <p>{{ $resultadoMonitorias->descricao }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif
+            @endif
+        @else
+            @yield('conteudo')
+        @endif
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
                 <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
@@ -124,7 +220,7 @@
                     </button>
                     <div class="collapsible-wrapper collapsed">
                         <div class="collapsible">
-                            <a class="menu-item"  href="{{ route('profile') }}">
+                            <a class="menu-item"  href="{{ route('profile', ['id' => $usuario->id]) }}">
                                 Perfil
                                 <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 
                             </a>
@@ -146,8 +242,91 @@
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             
         </div> 
+        <div id="topFilter">
+            <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
+                <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
+            </form>
+        </div>
+        @if(session()->has('search'))
+            @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
+                <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
+            @else
+                @if(!session('pesquisaUsuarios')->isEmpty())
+                    @foreach(session('pesquisaUsuarios') as $resultadoUsuarios)
+                        <a id="{{$resultadoUsuarios->id}}" class="modalBtn" href="{{ route('profile', ['id' => $resultadoUsuarios->id]) }}">
+                            <p>{{$resultadoUsuarios->nome}}</p>
+                            <p>{{$resultadoUsuarios->prontuario}}</p>
+                        </a>
+                    @endforeach
+                @endif
+                @if(!session('pesquisaMonitorias')->isEmpty())
+                    @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
+                        <div id="content-all">
+                            <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
+                                <div id="card">
+                                    <?php 
+                                        $date = new DateTime($resultadoMonitorias->data);
+                                        $n = $date->getTimestamp();
+                                        $data = date('D', $n);
+                                        $semana = array(
+                                            'Sun' => 'Domingo',
+                                            'Mon' => 'Segunda-Feira',
+                                            'Tue' => 'Terça-Feira',
+                                            'Wed' => 'Quarta-Feira',
+                                            'Thu' => 'Quinta-Feira',
+                                            'Fri' => 'Sexta-Feira',
+                                            'Sat' => 'Sábado'
+                                        );
+                    
+                                    ?>
+                                    <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                                    <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
+                                    <p>{{ $resultadoMonitorias->conteudo }}</p>
+                                    <p class="users"> 
+                                        <?php 
+                                            $monitoringMonitor = $resultadoMonitorias->monitor;
+                                            $monitoringM = explode(' e ', $monitoringMonitor);
+                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                            $monitoringM = $monitoringM[0];
+                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                        ?>
+                                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                        @if(isset($monitor1))
+                                            <text>{{ $monitor1->nome }}</text>    
+                                        @else
+                                            <text>{{ $monitoringMonitor }}</text>    
+                                        @endif
+                                    </p>
+                                    <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                        <p class="users">
+                                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                            @if(isset($monitor2))
+                                                <text>{{ $monitor2->nome }}</text>
+                                            @else
+                                                <text>{{ $monitoringM }}</text>    
+                                            @endif
+                                        </p>
+                                    <?php } else{?>   
+                                        <p id="blank"></p>
+                                    <?php }?>
+                                    <p>{{ $resultadoMonitorias->local }}</p> 
+                                    <p id="limit">
+                                        <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                        <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
+                                    </p>
+                                    <p>{{ $resultadoMonitorias->descricao }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif
+            @endif
+        @else
+            @yield('conteudo')
+        @endif
         
     <?php } ?>
         
-    @yield('conteudo')
 </body>
