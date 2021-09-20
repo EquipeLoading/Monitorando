@@ -99,7 +99,7 @@
                     </div>
                     <a class="active" href="{{ route('index') }}"> HOME </a>
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="#calendario"> @lang('lang.Calendario') </a>
+                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>    
                     <div id="topFilter">
                         <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
@@ -111,7 +111,7 @@
                     
                     <a class="active" href="{{ route('index') }}"> HOME </a>
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="#calendario"> @lang('lang.Calendario') </a>
+                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
                     <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     <div id="topFilter">
@@ -238,7 +238,7 @@
         <div class="topnav">
             <a class="active" href="{{ route('index') }}"> HOME </a>
             <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="#calendario"> @lang('lang.Calendario') </a>
+            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>
             
         </div> 

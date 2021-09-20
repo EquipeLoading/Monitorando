@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use App\Http\Controllers\FullCalenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -192,6 +193,8 @@ Route::get('/pesquisar', function(Request $request){
     
     return back()->with('search', $search)->with('pesquisaMonitorias', $pesquisaMonitorias)->with('pesquisaUsuarios', $pesquisaUsuarios);
 })->name('pesquisar');
+
+Route::get('/calendario', [\App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario')->middleware('verified');
 
 //Rota de fallback
 Route::fallback(function() {
