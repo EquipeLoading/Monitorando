@@ -79,6 +79,20 @@
                         $("#modalAvaliacao").css('display', 'none');
                     }
                 });
+
+                $('#editarAvaliacao').on('click', function() {
+                    $("#modalEditarAvaliacao").css('display', 'block');
+                });
+
+                $('.closeEdit').on('click', function() {
+                    $("#modalEditarAvaliacao").css('display', 'none');
+                });
+
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalEditarAvaliacao").length > 0 ) || ($(e.target).closest("#editarAvaliacao").length > 0))){
+                        $("#modalEditarAvaliacao").css('display', 'none');
+                    }
+                });
             });
         </script>
 
@@ -102,6 +116,7 @@
 
         <?php
             $usuarioInscrito = false;
+            $avaliado = false;
         ?>
 
         @if(isset($inscrito))
@@ -222,25 +237,40 @@
                 </table>
             @endif
         @endif
+        <?php
+            $usuario = Auth::user();
+        ?>
 
         @if(Gate::allows('participou', $monitoria))
-            <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
-            {{ $errors->has('nota') ? $errors->first('nota') : '' }}
-            {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
-            <div id="modalAvaliacao">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
-                        @csrf
-                        <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
-                        <input type="text" name="nota" value="{{old('nota')}}" /><br />
-                        <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
-                        <textarea name="justificativa" value="{{old('justificativa')}}" form="formAvaliacao"></textarea><br />
-                        <button type="submit">Enviar avaliação</button>
-                    </form>
+            @foreach($avaliacoes as $avaliacao)
+                @if(isset($usuario))
+                    @if($avaliacao->id == $usuario->id)
+                        <?php
+                            $avaliado = true;
+                            break;
+                        ?>
+                    @endif
+                @endif
+            @endforeach
+            @if($avaliado == false)
+                <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
+                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
+                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
+                <div id="modalAvaliacao">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
+                            @csrf
+                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                            <input type="text" name="nota" value="{{ old('nota') }}" /><br />
+                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                            <textarea name="justificativa" value="{{ old('justificativa') }}" form="formAvaliacao"></textarea><br />
+                            <button type="submit">Enviar avaliação</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            {{ session()->has('sucesso') ? session('sucesso') : '' }}
+                {{ session()->has('sucesso') ? session('sucesso') : '' }}
+            @endif
         @endif
 
         @if(Gate::allows('criador', $monitoria))
@@ -261,11 +291,71 @@
                 ?>
                 <h3>Média das notas das avaliações: {{ $media }}</h3>
                 @foreach($avaliacoes as $avaliacao)
-                    <br>
-                    <div class="avaliacao">
-                        <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
-                        <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
-                    </div>
+                    @if(isset($usuario))
+                        @if($avaliacao->id == $usuario->id)
+                            <br>
+                            <div class="avaliacao">
+                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
+                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
+                                <button id="editarAvaliacao">Editar avaliação</button>
+                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
+                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
+                                <div id="modalEditarAvaliacao">
+                                    <div class="modal-content">
+                                        <span class="closeEdit">&times;</span>
+                                        <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
+                                            @csrf
+                                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                                            <input type="text" name="nota" value="{{ $avaliacao->pivot->nota ?? old('nota') }}" /><br />
+                                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                                            <textarea name="justificativa" form="formEditarAvaliacao">{{ $avaliacao->pivot->justificativa ?? old('justificativa') }}</textarea><br />
+                                            <button type="submit">Editar avaliação</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
+                            </div>
+                        @else
+                            <br>
+                            <div class="avaliacao">
+                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
+                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
+                            </div>
+                        @endif
+                    @endif
+                @endforeach
+            @endif
+        @endif
+
+        @if(Gate::allows('participou', $monitoria) && !(Gate::allows('criador', $monitoria)))
+            @if(!($avaliacoes->isEmpty()))
+                @foreach($avaliacoes as $avaliacao)
+                    @if(isset($usuario))
+                        @if($avaliacao->id == $usuario->id)
+                            <br>
+                            <div class="avaliacao">
+                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
+                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
+                                <button id="editarAvaliacao">Editar avaliação</button>
+                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
+                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
+                                <div id="modalEditarAvaliacao">
+                                    <div class="modal-content">
+                                        <span class="closeEdit">&times;</span>
+                                        <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
+                                            @csrf
+                                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                                            <input type="text" name="nota" value="{{ $avaliacao->pivot->nota ?? old('nota') }}" /><br />
+                                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                                            <textarea name="justificativa" form="formEditarAvaliacao">{{ $avaliacao->pivot->justificativa ?? old('justificativa') }}</textarea><br />
+                                            <button type="submit">Editar avaliação</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
+                            </div>
+                        @endif
+                    @endif
                 @endforeach
             @endif
         @endif

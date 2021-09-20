@@ -256,4 +256,19 @@ class MonitoriasController extends Controller
 
         return back()->with('sucesso', 'Sua avaliação foi enviada com sucesso!');
     }
+
+    public function editarAvaliacao(Request $request, $id) {
+        $regras = [
+            'nota' => 'required|integer|between:1,10',
+            'justificativa' => 'required|min:5|max:500'
+        ];
+
+        $request->validate($regras);
+
+        $monitoria = Monitoria::where('id', $id)->get()->first();
+        $monitoria->usuarios()->wherePivot('tipo', 'Avaliado')->detach(Auth::user()->id);
+        $monitoria->usuarios()->attach(Auth::user()->id, ['tipo' => 'Avaliado', 'nota' => $request->nota, 'justificativa' => $request->justificativa]);
+
+        return back()->with('sucesso', 'Sua avaliação foi editada com sucesso!');
+    }
 }

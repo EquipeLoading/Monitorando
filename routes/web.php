@@ -113,6 +113,7 @@ Route::prefix('/monitorias')->group(function() {
     })->name('monitorias.cancelar')->middleware('verified');
     Route::post('/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
     Route::post('/avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'avaliacao'])->whereNumber('id')->name('monitorias.avaliar')->middleware('verified');
+    Route::post('/editar-avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarAvaliacao'])->whereNumber('id')->name('monitorias.editar.avaliacao')->middleware('verified');
 }); 
 
 //Rotas de validação de email

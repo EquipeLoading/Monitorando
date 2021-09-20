@@ -845,6 +845,14 @@ body {
     left: 10%;
     top: 10%;
   }
+  
+  #modalEditarAvaliacao {
+    position: fixed; /* Stay in place */
+    display:none;
+    z-index: 1;
+    left: 10%;
+    top: 10%;
+  }
 
   /* Modal Content */
   .modal-content {
