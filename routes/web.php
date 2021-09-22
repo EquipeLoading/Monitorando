@@ -135,10 +135,10 @@ Route::prefix('/email')->group(function() {
 });
 
 Route::prefix('/resetar-senha')->group(function() {
-    Route::get('/esqueci-a-senha', function () {
+    Route::get('/', function () {
         return view('resetarSenha');
     })->middleware('guest')->name('password.request');
-    Route::post('/esqueci-a-senha', function (Request $request) {
+    Route::post('/', function (Request $request) {
         $request->validate(['email' => 'required|email']);
     
         $status = Password::sendResetLink(
