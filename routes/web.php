@@ -51,15 +51,15 @@ Route::prefix('/perfil')->group(function(){
 
 //Rotas de cadastro
 Route::prefix('/cadastro')->group(function() {
-    Route::get('/', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro');
+    Route::get('/', [\App\Http\Controllers\CadastroController::class, 'index'])->name('cadastro')->middleware('guest');
     Route::get('/professor', function() {
         return view('cadastroProfessor');
-    })->name('cadastro.professor');
+    })->name('cadastro.professor')->middleware('guest');
     Route::post('/professor', [\App\Http\Controllers\CadastroController::class, 'cadastroProfessor'])->name('cadastro.professor');
     Route::get('/aluno', function() {
         $turmas = Turma::all();
         return view('cadastroAluno', ['turmas' => $turmas]);
-    })->name('cadastro.aluno');
+    })->name('cadastro.aluno')->middleware('guest');
     Route::post('/aluno', [\App\Http\Controllers\CadastroController::class, 'cadastroAluno'])->name('cadastro.aluno');
 });
 
@@ -134,11 +134,11 @@ Route::prefix('/email')->group(function() {
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
 
-Route::prefix('/reset-password')->group(function() {
-    Route::get('/forgot-password', function () {
+Route::prefix('/resetar-senha')->group(function() {
+    Route::get('/esqueci-a-senha', function () {
         return view('resetarSenha');
     })->middleware('guest')->name('password.request');
-    Route::post('/forgot-password', function (Request $request) {
+    Route::post('/esqueci-a-senha', function (Request $request) {
         $request->validate(['email' => 'required|email']);
     
         $status = Password::sendResetLink(
@@ -149,10 +149,10 @@ Route::prefix('/reset-password')->group(function() {
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
     })->middleware('guest')->name('password.email');
-    Route::get('/reset-password/{token}', function ($token) {
+    Route::get('/esqueci-a-senha/{token}', function ($token) {
         return view('definirNovaSenha', ['token' => $token]);
     })->middleware('guest')->name('password.reset');
-    Route::post('/reset-password', function (Request $request) {
+    Route::post('/esqueci-a-senha', function (Request $request) {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',

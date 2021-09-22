@@ -67,7 +67,8 @@ class MonitoriasController extends Controller
                 'hora_fim' => 'required|after:hora_inicio',
                 'local' => 'required',
                 'descricao' => 'required',
-                'monitores' => 'required|exists:users,prontuario'
+                'monitores' => 'required|exists:users,prontuario',
+                'periodo' => 'integer'
             ];
 
             $request->validate($regras);
@@ -102,6 +103,7 @@ class MonitoriasController extends Controller
                 'disciplina' => $request->disciplina,
                 'monitor' => $monitor,
                 'local' => $request->local,
+                'periodo' => $request->periodo
             ])->save();
 
             if(isset($_POST['monitores'])){
@@ -174,7 +176,8 @@ class MonitoriasController extends Controller
             'hora_fim' => 'required|after:hora_inicio',
             'local' => 'required',
             'descricao' => 'required',
-            'monitores' => 'required|exists:users,prontuario'
+            'monitores' => 'required|exists:users,prontuario',
+            'periodo' => 'integer'
         ];
 
         $request->validate($regras);
@@ -207,6 +210,7 @@ class MonitoriasController extends Controller
             'disciplina' => $request->disciplina,
             'monitor' => $monitor,
             'local' => $request->local,
+            'periodo' => $request->periodo
         ]);
 
         $monitoria->usuarios()->wherePivot('tipo', 'Monitor')->detach();

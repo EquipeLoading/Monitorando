@@ -526,15 +526,11 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                        @else
-                                            <p>Nenhuma monitoria está esperando por sua avaliação</p>
                                         @endif
-                                    @else
-                                        <p>Nenhuma monitoria está esperando por sua avaliação</p>
                                     @endif
                                 @endforeach
                             @else
-                                <p>Não foi encontrado registro de inscrição em nenhuma monitoria</p>
+                                <p>Nenhuma monitoria está esperando sua avaliação</p>
                             @endif   
                             <div id="cardCalendary">
                             </div>
