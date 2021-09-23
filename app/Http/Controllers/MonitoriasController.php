@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Monitoria;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use App\Models\Topico;
+use App\Models\Mensagem;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class MonitoriasController extends Controller
 {
@@ -274,5 +277,108 @@ class MonitoriasController extends Controller
         $monitoria->usuarios()->attach(Auth::user()->id, ['tipo' => 'Avaliado', 'nota' => $request->nota, 'justificativa' => $request->justificativa]);
 
         return back()->with('sucesso', 'Sua avaliação foi editada com sucesso!');
+    }
+
+    public function postarTopico(Request $request, $id) {
+        $filename = null;
+        $usuario = null;
+
+        if(Auth::check()){
+            $usuario = Auth::user()->id;
+        }
+
+        $regras = [
+            'topico' => 'required|min:3|max:100',
+            'mensagem' => 'required|min:5|max:500',
+        ];
+
+        $request->validate($regras);
+
+        /*if($request->hasFile('imagem') && isset($usuario)) {
+            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf,svg']);
+            $foto = $request->file('imagem');
+            $tipoImg = $foto->getClientOriginalExtension();
+            $filename = time().'.'.$tipoImg;
+            $foto->move('fotosForum/', $filename);
+        }*/
+
+        $topicos = new Topico();
+
+        $monitoria = Monitoria::where('id', $id)->get()->first();
+        
+        $topicos->fill([
+            'topico' => $request->topico,
+            'user_id' => $usuario,
+            'monitoria_id' => $monitoria->id,
+        ])->save();
+
+        $topico_id = $topicos->id;
+
+        $mensagens = new Mensagem();
+        $mensagens->fill([
+            'mensagem' => $request->mensagem,
+            'user_id' => $usuario,
+            'imagem' => $request->imagem,
+            'topico_id' => $topico_id
+        ])->save();
+
+        return back()->with('topico', 'Tópico adicionado com sucesso!');
+    }
+
+    public function responderTopico(Request $request, $id, $topico) {
+        $regras = [
+            'resposta' => 'required|min:3|max:500',
+        ];
+
+        $request->validate($regras);
+
+        $mensagem = new Mensagem();
+
+        $mensagem->fill([
+            'mensagem' => $request->resposta,
+            'user_id' => Auth::user()->id,
+            'imagem' => $request->imagem,
+            'topico_id' => $topico
+        ])->save();
+
+        return redirect()->back();
+    }
+
+    public function editarTopico(Request $request, $id, $mensagem) {
+        $regras = [
+            'topico' => 'required|min:3|max:100',
+            'mensagem' => 'required|min:5|max:500',
+        ];
+
+        $request->validate($regras);
+
+        $topico = Topico::where('id', $id)->get()->first();
+        $mensagem = Mensagem::where('id', $mensagem)->get()->first();
+
+        $topico->update([
+            'topico' => $request->topico
+        ]);
+
+        $mensagem->update([
+            'mensagem' => $request->mensagem
+        ]);
+
+        return redirect()->back()->with('editado', 'O tópico foi editado com sucesso!');
+    }
+
+    public function editarMensagem(Request $request, $id) {
+        $regras = [
+            'mensagem' => 'required|min:5|max:500',
+        ];
+
+        $request->validate($regras);
+
+        $mensagem = Mensagem::where('id', $id)->get()->first();
+
+        $mensagem->update([
+            'mensagem' => $request->mensagem
+        ]);
+
+        return redirect()->back()->with('editado', 'A mensagem foi editada com sucesso!');
     }
 }

@@ -26,6 +26,7 @@
                         $("#link").append('<button id="add_field_button" type="button">' +       
                                               '<img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus">' +  
                                           '</button>');
+                        $("#photoProfile").append('<input type="file" class="form-control-file" name="foto" id="avatarFile" aria-describedby="fileHelp">');
                         contador++;
                         edit = true;
                     }
@@ -68,13 +69,19 @@
                     </div>
                     <div id="all-content">
                         <div id="cardProfile">
-                            <div id="photoProfile">
-                                <img id="profile" src="{{asset('assets/svg/profile.svg')}}"/> 
-                                <button><img src="{{asset('assets/svg/edit.svg')}}"/></button>
-                            </div>
-                            <form id="update" method="POST" action="{{ route('profile', ['id' => $usuario->id]) }}">
+                            <form id="update" method="POST" action="{{ route('profile', ['id' => $usuario->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+                                <div id="photoProfile">
+                                    @if(isset($usuario->foto))
+                                        {{$foto}}
+                                        <img id="profile" src=""/> 
+                                    @else
+                                        <img id="profile" src="{{ asset('assets/svg/profile.svg')}}"/> 
+                                    @endif
+                                    <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
+                                    {{ $errors->has('foto') ? $errors->first('foto') : '' }}
+                                </div>    
                                 <div class="editLabel">
                                         <label>Nome</label>
                                         <div class="inputInline">

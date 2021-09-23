@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Response;
 
 class ProfileController extends Controller
 {
@@ -23,19 +23,27 @@ class ProfileController extends Controller
         $monitoriasParticipadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Participou')->get();
         $monitoriasInscrito = $usuarioLogado->monitorias()->wherePivot('tipo', 'Inscrito')->get();
         $monitoriasAvaliadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Avaliado')->get();
+        //$foto = $usuario->foto;
 
         return view('profile',  ['usuario' => $usuario, 'monitorias' => $monitorias, 'turmas' => $turmas, 'perfilUsuario' => $perfilUsuario, 'monitoriasParticipadas' => $monitoriasParticipadas, 'usuarios' => $usuarios, 'monitoriasInscrito' => $monitoriasInscrito, 'monitoriasAvaliadas' => $monitoriasAvaliadas]);
     }
 
     public function atualizarDados(Request $request) {
         $usuario = Auth::user();
+        $conteudo = null;
+
+        /*if($request->hasFile('foto')) {
+            $request->validate(['foto' => 'mimes:jpeg,png,jpg']);
+            $conteudo = $request->foto->openFile()->fread($request->foto->getSize());
+        }*/
+
         if($usuario->tipo == "Comum") {
             $regras = [
                 'nome' => 'required|min:5|max:60',
                 'email' => 'required|email|unique:users,email,'.$usuario->id.',id',
                 'prontuario' => 'required|min:9|max:9|unique:users,prontuario,'.$usuario->id.',id',
                 'turma_id' => 'exists:turmas,numero',
-                'link' => 'required'
+                'link' => 'required',
             ];
     
             $request->validate($regras);
@@ -72,7 +80,8 @@ class ProfileController extends Controller
                     'prontuario' => $request->prontuario,
                     'turma_id' => $turmaId,
                     'email_verified_at' => null,
-                    'linksExternos' => $link
+                    'linksExternos' => $link,
+                    //'foto' => $conteudo
                 ]);
 
                 return redirect()->route('verification.notice');
@@ -83,7 +92,8 @@ class ProfileController extends Controller
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
                     'turma_id' => $turmaId,
-                    'linksExternos' => $link
+                    'linksExternos' => $link,
+                    //'foto' => $conteudo
                 ]);
                 return redirect()->route('profile', ['id' => $usuario->id]);
             }
@@ -121,7 +131,8 @@ class ProfileController extends Controller
                     'prontuario' => $request->prontuario,
                     'disciplinas' => $request->disciplinas,
                     'email_verified_at' => null,
-                    'linksExternos' => $link
+                    'linksExternos' => $link,
+                    //'foto' => $conteudo
                 ]);
 
                 return redirect()->route('verification.notice');
@@ -132,7 +143,8 @@ class ProfileController extends Controller
                     'email' => $request->email,
                     'prontuario' => $request->prontuario,
                     'disciplinas' => $request->disciplinas,
-                    'linksExternos' => $link
+                    'linksExternos' => $link,
+                    //'foto' => $conteudo
                 ]);
 
                 return redirect()->route('profile', ['id' => $usuario->id]);

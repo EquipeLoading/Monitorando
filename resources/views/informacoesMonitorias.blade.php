@@ -24,6 +24,7 @@
         <script>
             $(document).ready(function(){
                 var count = 0;
+                var i = 0;
                 $('#buttonPresenca').click(function(e) {
                     e.preventDefault();
                     if(count == 0){
@@ -91,6 +92,23 @@
                 $(document).on('click',function(e){
                     if(!(($(e.target).closest("#modalEditarAvaliacao").length > 0 ) || ($(e.target).closest("#editarAvaliacao").length > 0))){
                         $("#modalEditarAvaliacao").css('display', 'none');
+                    }
+                });
+
+                $('#adicionarTopico').click(function(e) {
+                    if(i == 0){
+                        $('#forum').append('<form method="POST" id="postarNovoTopico" action="{{ route('monitorias.postar.topico', ['id' => $monitoria->id]) }}" enctype="multipart/form-data">' +
+                                                '@csrf' +
+                                                '<div id="novoTopico">' + 
+                                                    '<label for="topico">Tópico</label>' +
+                                                    '<input type="text" value="{{ old('topico') }}" name="topico">' + 
+                                                    '<textarea name="mensagem" form="postarNovoTopico">{{ old('mensagem') }}</textarea>' + 
+                                                    '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                    '<button type="submit">Criar Tópico</button>' +
+                                                '</div>' +
+                                            '</form>');
+                        i++;
                     }
                 });
             });
@@ -359,9 +377,56 @@
                 @endforeach
             @endif
         @endif
+
+    <div id="forum">
+        <h3>Fórum</h3>
+        @if(Auth::check())
+            <button type="button" id="adicionarTopico">Adicionar Tópico</button>
+        @endif
+        {{ session()->has('topico') ? session('topico') : '' }}
+        {{ $errors->has('topico') ? $errors->first('topico') : '' }}
+        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
+        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
+    </div>
+    <div id="topicos">
+        {{ session()->has('editado') ? session('editado') : '' }}
+        @foreach($topicos as $topico) 
+            @if($topico->monitoria_id == $monitoria->id)
+                <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
+                @if(isset($usuario) && $usuario->id == $topico->user_id)
+                    <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
+                    <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+                    @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
+                        <?php
+                            $mensagemCriador = $mensagem;
+                        ?>
+                    @endforeach
+                    <script>
+                        $(document).ready(function() {
+                            var editar = true;
+                            $("#editarTopico{{$topico->id}}").click(function(e) {
+                                e.preventDefault(); 
+                                $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                        '@csrf' +
+                                                        '<div id="novoTopico">' + 
+                                                            '<label for="topico">Tópico</label>' +
+                                                            '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                            '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                            '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                            '<button type="submit">Editar Tópico</button>' +
+                                                        '</div>' +
+                                                    '</form>');
+                            });
+                    });
+                    </script>
+                @endif
+            @endif
+        @endforeach
+    </div>
     </body>
 
     </html>
-    <?php } ?>
+<?php } ?>
 
 @endsection

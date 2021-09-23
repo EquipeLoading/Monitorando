@@ -51,7 +51,7 @@
             </form>
 
             <p id="camp">{{ isset($erro) && $erro != '' ? $erro : '' }}</p>
-            <p>{{ session()->has('status') ? session('status') : '' }}</p>
+            <p id="camp">{{ session()->has('status') ? session('status') : '' }}</p>
             
         </div>
     </section>

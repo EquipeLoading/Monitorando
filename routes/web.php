@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\FullCalenderController;
+use App\Models\Topico;
+use App\Models\Mensagem;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,14 +72,16 @@ Route::prefix('/monitorias')->group(function() {
     Route::get('/{id}', function($id) {
         $usuario = Auth::user();
         $inscrito = null;
+        $topicos = Topico::where('monitoria_id', $id)->get();
         if(isset($usuario)){
             $usuario = User::where('id', Auth::user()->id)->get()->first();
             $inscrito = $usuario->monitorias()->wherePivot('tipo', 'Inscrito')->get();
         }
         $participantes = Monitoria::find($id)->usuarios()->wherePivot('tipo', 'Participou')->get();
         $avaliacoes = Monitoria::find($id)->usuarios()->wherePivot('tipo', 'Avaliado')->get();
+        $mensagens = Mensagem::all();
 
-        return view('informacoesMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first(), 'usuarios' => User::all(), 'inscrito' => $inscrito, 'erro' => session()->get('erro'), 'participantes' => $participantes, 'avaliacoes' => $avaliacoes]);
+        return view('informacoesMonitorias', ['monitoria' => Monitoria::where('id', $id)->get()->first(), 'usuarios' => User::all(), 'inscrito' => $inscrito, 'erro' => session()->get('erro'), 'participantes' => $participantes, 'avaliacoes' => $avaliacoes, 'topicos' => $topicos, 'mensagens' => $mensagens]);
     })->whereNumber('id')->name('monitorias.informacoes');
     Route::post('/{id}', [\App\Http\Controllers\MonitoriasController::class, 'atribuirPresenca'])->whereNumber('id')->name('monitorias.informacoes');
     Route::get('/ver-todos/{codigo}', function($codigo){
@@ -114,6 +118,27 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/cancelar', [\App\Http\Controllers\MonitoriasController::class, 'cancelar'])->name('monitorias.cancelar');
     Route::post('/avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'avaliacao'])->whereNumber('id')->name('monitorias.avaliar')->middleware('verified');
     Route::post('/editar-avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarAvaliacao'])->whereNumber('id')->name('monitorias.editar.avaliacao')->middleware('verified');
+    Route::post('/postar-topico/{id}', [\App\Http\Controllers\MonitoriasController::class, 'postarTopico'])->whereNumber('id')->name('monitorias.postar.topico')->middleware('verified');
+    Route::post('/editar-topico/{id}/{mensagem}', [\App\Http\Controllers\MonitoriasController::class, 'editarTopico'])->whereNumber('id')->whereNumber('mensagem')->name('monitorias.editar.topico')->middleware('verified');
+    Route::post('/editar-mensagem/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarMensagem'])->whereNumber('id')->name('monitorias.editar.mensagem')->middleware('verified');
+    Route::get('/{id}/forum/{topico}', function($id, $topicoId) {
+        $topico = Topico::where('id', $topicoId)->get()->first();
+        $mensagens = Mensagem::where('topico_id', $topicoId)->get();
+
+        return view('forum', ['topico' => $topico, 'mensagens' => $mensagens, 'monitoria_id' => $id]);
+    })->whereNumber('id')->whereNumber('topico')->name('monitorias.forum')->middleware('verified');
+    Route::post('/{id}/forum/{topico}', [\App\Http\Controllers\MonitoriasController::class, 'responderTopico'])->whereNumber('topico')->whereNumber('id')->name('monitorias.forum')->middleware('verified');
+    Route::get('/excluir-topico/{id}', function($id) {
+        Mensagem::where('topico_id', $id)->delete();
+        Topico::where('id', $id)->delete();
+
+        return redirect()->back();
+    })->whereNumber('id')->name('monitorias.excluir.topico');
+    Route::get('/excluir-mensagem/{id}', function($id) {
+        Mensagem::where('id', $id)->delete();
+
+        return redirect()->back();
+    })->whereNumber('id')->name('monitorias.excluir.mensagem');
 }); 
 
 //Rotas de validação de email
@@ -196,6 +221,7 @@ Route::get('/pesquisar', function(Request $request){
 })->name('pesquisar');
 
 Route::get('/calendario', [\App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario')->middleware('verified');
+
 
 //Rota de fallback
 Route::fallback(function() {
