@@ -43,7 +43,7 @@
                     <label for="manterlogado">@lang('lang.Manter-meLogado')</label>
                 </p>
 
-                <p>
+                <p id="butoes">
                     <button class="button_registro" type="button"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     <button class="button_login" type="submit"> @lang('lang.Entrar') </button>
                 </p>

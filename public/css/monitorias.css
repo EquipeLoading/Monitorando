@@ -20,46 +20,7 @@ body {
 
 /* /---------- NAV BAR ----------/ */
   
-.topnav {
-    overflow: hidden;
-    background-color: #5499C3;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-  
-.topnav a {
-    float: left;
-    color: #ffffff;
-    text-align: center;
-    padding: 2.5vh 2vw;
-    text-decoration: none;
-    font-size: 1em;
-}
-  
-.topnav a:hover {
-    background-color: #ffffff;
-    color: #5499C3;
-}
-  
-.topnav a.active {
-    background-color: #193D6F;
-    color: #ffffff;
-}
 
-.topnav p {
-    float: right;
-    color: #fff;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 10px;
-}
-
-
-#banner{
-    width: 100%;
-}
 
 section{
     margin-left: 3vw;
@@ -96,101 +57,11 @@ hr{
     font-size: 1.5em;
 }
 
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(25, 61, 111);
-    background-color: rgba(25, 61, 111, 0.8);
-    overflow-x: hidden;
-    transition: 0.5s;
-  }
-  
-  .overlay-content {
-    position: relative;
-    top: 15vh;
-    width: 100%;
-    text-align: left;
-    margin-top: 5vh;
-    margin-left: 3vw;
-  }
-  
-  .overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 1.5em;
-    color: #fafafa;
-    display: block;
-    transition: 0.3s;
-   
-  }
-  
-  .overlay a:hover, .overlay a:focus{
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*pode ser transparent também*/
-    color: #f1f1f1;
-  }
-  
-  .overlay .closebtn{
-    position: absolute;
-    top: 20px;
-    margin-left: 82%;
-    margin-right: auto;
-    font-size: 3em;
-    text-decoration: none;
-    outline: none;
-  }
-  
-  .overlay .closebtn:focus{
-    text-decoration: none;
-    outline: none;
-    color: transparent;
-  } 
+
 
 @media(min-width: 813px){
-    .button_new {
-        background-color: #193D6F;
-        border: none;
-        color: #ffffff;
-        text-align: center;
-        font-size: 1em;
-        width: 10vw;
-        height: 5.5vh;
-        margin-right: 3vw;
-        margin-left: auto;
-        cursor: pointer;
-        border-radius: 7vh;
-        display: flex;
-        align-items: center;
-    }
     
-    .button_new a {
-        background-color: none;
-        color: #ffffff;
-        padding: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .button_new a:hover {
-        background-color: #193D6F;
-        color: #ffffff;
-    }
 
-    #profile{
-        border-radius: 7Vh;
-        width: auto;
-        height: 5vh ;
-        background-color: #f0f2f5;
-        margin-right: 3vw ;
-        margin-left: auto ;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        border: transparent;
-    }
 
     text{
         margin-left: auto;
@@ -199,10 +70,7 @@ hr{
         font-weight: 700;
     }
 
-    #profile img{
-        margin-left: .3vw;
-        margin-right: auto;
-    }
+
     .monitoriaButton{
         margin-left: 8vw;
         border-radius: 5vh;
@@ -217,6 +85,7 @@ hr{
         font-weight: bold;
     }
 
+    
     .monitoriaButton a{
         text-decoration: none;
         margin-left: .5vw;
@@ -230,8 +99,25 @@ hr{
     }
 
     #buttons{
-        display: block  ;
+        display: block;
         width: 20vw;
         padding-left: auto;
     }
-  }
+
+  
+  
+    #limit{
+        background-color: #f0f2f5;
+        width: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .users text{
+        white-space: nowrap; 
+        width: 9em; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+}

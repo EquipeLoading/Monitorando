@@ -22,8 +22,18 @@
             
             @if($mostrarBotao == true)
                 <div id="buttons">
-                    <button type="button" class="monitoriaButton"><a href="{{ route('monitorias.cadastro') }}"> Cadastre uma monitoria </a></button>
-                    <button type="button" class="monitoriaButton" ><a href="{{ route('monitorias.cancelar') }}"> Cancele uma monitoria </a></button>
+                    <button type="button" id="addMonitoria" class="monitoriaButton">
+                        <a href="{{ route('monitorias.cadastro') }}">
+                            <img src="{{ asset('assets/svg/plus.svg') }}" alt="Plus">  
+                            <h4>Monitoria</h4> 
+                        </a>
+                    </button>
+                    <button type="button" id="removeMonitoria" class="monitoriaButton" >
+                        <a href="{{ route('monitorias.cancelar') }}">
+                            <img  src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"> 
+                            <h4>Monitoria</h4> 
+                        </a>
+                    </button>
                 </div>
             @endif
 
@@ -44,7 +54,6 @@
             
             <?php
                 if(!isset($search)) { 
-
                     $cont = 0;
                     $usuarioInscrito = false;
             ?>
@@ -162,7 +171,7 @@
                                                 @csrf
                                                 <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
                                                 <button id="details" type="submit">
-                                                    <text>Cancelar Inscrição</text>
+                                                    <text>Cancelar</text>
                                                 </button>
                                             </form>
                                         @else
