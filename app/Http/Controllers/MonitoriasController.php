@@ -48,7 +48,7 @@ class MonitoriasController extends Controller
             $monitoria->num_inscritos += 1;
             $monitoria->save();
 
-            return redirect()->route('monitorias');
+            return redirect()->back();
         }
         else {
             return back()->with('erro', 'Não foi possível se inscrever na monitoria');
@@ -142,6 +142,11 @@ class MonitoriasController extends Controller
             $usuario->monitorias()->detach($request->monitoria_id);
         }
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
+        $topicos = Topico::where('monitoria_id', $request->monitoria_id)->get();
+        foreach($topicos as $topico) {
+            Mensagem::where('topico_id', $topico->id)->delete();
+            $topico->delete();
+        }
         $monitoria->delete();
 
         return redirect()->route('index');
@@ -157,7 +162,7 @@ class MonitoriasController extends Controller
             $monitoria->num_inscritos -= 1;
             $monitoria->save();
 
-            return redirect()->route('monitorias');
+            return redirect()->back();
         } else {
             return back()->with('erro', 'Não foi possível cancelar a inscrição na monitoria');
         }
@@ -177,7 +182,7 @@ class MonitoriasController extends Controller
             'local' => 'required',
             'descricao' => 'required',
             'monitores' => 'required|exists:users,prontuario',
-            'periodo' => 'integer'
+            'periodo' => 'integer|nullable'
         ];
 
         $request->validate($regras);
