@@ -21,6 +21,12 @@
     
 
     <body>
+        @section('links')
+            <a href="{{ route('index') }}"> HOME </a>
+            <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+        @endsection 
         <script>
             $(document).ready(function(){
                 var count = 0;
@@ -114,8 +120,20 @@
             });
         </script>
         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
-        <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
-        <button type="button" id="modalBtn">Cancelar a monitoria</button>
+            <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
+            <button type="button" id="modalBtn">Cancelar a monitoria</button>
+            <div id="modal">
+                <div class="modal-content">
+                    <span class="exit">&times;</span>
+                    <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
+                    <button type="button" class="exit">Não</button>
+                    <form method="POST" action="{{ route('monitorias.cancelar') }}">
+                        @csrf
+                        <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
+                        <button type="submit"> Sim </button>
+                    </form>
+                </div>
+            </div> 
         @endif
 
         <?php
@@ -123,18 +141,6 @@
             $avaliado = false;
         ?>
 
-        <div id="modal">
-            <div class="modal-content">
-                <span class="exit">&times;</span>
-                <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
-                <button type="button" class="exit">Não</button>
-                <form method="POST" action="{{ route('monitorias.cancelar') }}">
-                    @csrf
-                    <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
-                    <button type="submit"> Sim </button>
-                </form>
-            </div>
-        </div> 
         <section>
             <h1>{{ $monitoria->codigo }}</h1>
             <h2>{{$monitoria->disciplina}}</h2>

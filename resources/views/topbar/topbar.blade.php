@@ -61,10 +61,9 @@
 
 
         function hoverTop(count){
-        //     session_start();
-        //     $id = count;
-        //     $_SESSION['dados'] = $id;
-        //    console.log($_SESSION['dados'] + "os dados aqui");
+            $id = count;
+            $_SESSION['dados'] = $id;
+            console.log($_SESSION['dados'] + "os dados aqui");
 
             if(count == 0 ){
                 document.getElementById('home').classList.add("active");
@@ -128,10 +127,7 @@
                             </div>
                         </div>                  
                     </div>
-                    <a class="active" href="{{ route('index') }}"> HOME </a>
-                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>    
+                    @yield('links')
                     <div id="topFilter">
                         <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
                             <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
@@ -140,10 +136,7 @@
                     </div>
                 <?php }else{ ?>
                     
-                    <a class="active" href="{{ route('index') }}"> HOME </a>
-                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                    @yield('links')
                     <div id="buttonRegister">
                         <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     </div>
@@ -242,10 +235,7 @@
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
             <div class="topnav">
-                <a class="active" href="{{ route('index') }}"> HOME </a>
-                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                @yield('links')
                 <div id="buttonRegister">
                     <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                 </div>
@@ -285,10 +275,7 @@
                         </form>
                     </div>
                     <div id="center">
-                        <a id="home" class="active" onclick="hoverTop(0)" href="{{ route('index') }}"> HOME </a>
-                        <a id="monitoria" onclick="hoverTop(1)" href="{{ route('monitorias')}}"> @lang('lang.Monitorias') </a>
-                        <a id="calendario" onclick="hoverTop(2)" href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                        <a id="quemSomos" onclick="hoverTop(3)" href="#quem somos"> @lang('lang.QuemSomos') </a>
+                        @yield('links')
                     </div>
                     
                 </div> 

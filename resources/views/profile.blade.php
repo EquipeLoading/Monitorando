@@ -33,7 +33,7 @@
                     }
                 });
 
-                var max_campos = 10;
+                var max_campos = 3;
                 var wrapper = $("#input_fields_wrap");
                 var add_button = $("#add_field_button");
 
