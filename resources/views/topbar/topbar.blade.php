@@ -236,9 +236,9 @@
                     @endforeach
                 @endif
             @endif
-        @else
+        @else--}}
             @yield('conteudo')
-        @endif --}}
+        {{--@endif --}}
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
             <div class="topnav">
