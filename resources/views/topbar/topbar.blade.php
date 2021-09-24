@@ -113,28 +113,24 @@
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-<<<<<<< HEAD
                     <div id="buttonRegister">
                         <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     </div>
             
             <?php } ?>
-=======
-                    <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     <div id="topFilter">
                         <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
                             <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                             <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
-                <?php } ?>
->>>>>>> 98584fec1d7effc0ae0ab50b9feb5fa1696aba42
+               
             </div>
         </div>
         <div id="background">
             <span id="menuButton" onclick="openNav()"><img src="{{ asset('/assets/svg/menu.svg') }}" alt="Menu" id="menuSvg"></span>          
         <div>
-        @if(session()->has('search'))
+        {{-- @if(session()->has('search'))
             @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
                 <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
             @else
@@ -211,7 +207,7 @@
             @endif
         @else
             @yield('conteudo')
-        @endif
+        @endif --}}
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
             <div class="topnav">
@@ -255,25 +251,15 @@
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="#calendario"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                    
+                    <div id="topFilter">
+                        <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
+                            <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                            <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
+                        </form>
+                    </div>
                 </div> 
             <?php }?>
-<<<<<<< HEAD
         
-=======
-        <div class="topnav">
-            <a class="active" href="{{ route('index') }}"> HOME </a>
-            <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-            <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-            
-        </div> 
-        <div id="topFilter">
-            <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
-                <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
-                <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
-            </form>
-        </div>
         @if(session()->has('search'))
             @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
                 <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
@@ -352,7 +338,6 @@
         @else
             @yield('conteudo')
         @endif
->>>>>>> 98584fec1d7effc0ae0ab50b9feb5fa1696aba42
         
     <?php } ?>
         
