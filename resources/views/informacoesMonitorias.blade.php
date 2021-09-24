@@ -465,26 +465,26 @@
                         <?php
                             $mensagemCriador = $mensagem;
                         ?>
-                    @endforeach
-                    <script>
-                        $(document).ready(function() {
-                            var editar = true;
-                            $("#editarTopico{{$topico->id}}").click(function(e) {
-                                e.preventDefault(); 
-                                $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
-                                                        '@csrf' +
-                                                        '<div id="novoTopico">' + 
-                                                            '<label for="topico">Tópico</label>' +
-                                                            '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                            '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                            '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
-                                                            '<button type="submit">Editar Tópico</button>' +
-                                                        '</div>' +
-                                                    '</form>');
+                        <script>
+                            $(document).ready(function() {
+                                var editar = true;
+                                $("#editarTopico{{$topico->id}}").click(function(e) {
+                                    e.preventDefault(); 
+                                    $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                            '@csrf' +
+                                                            '<div id="novoTopico">' + 
+                                                                '<label for="topico">Tópico</label>' +
+                                                                '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                                '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                                '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                                '<button type="submit">Editar Tópico</button>' +
+                                                            '</div>' +
+                                                        '</form>');
+                                });
                             });
-                    });
-                    </script>
+                        </script>
+                    @endforeach
                 @endif
             @endif
         @endforeach
