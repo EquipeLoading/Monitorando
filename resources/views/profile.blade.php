@@ -26,7 +26,8 @@
                         $("#link").append('<button id="add_field_button" type="button">' +       
                                               '<img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus">' +  
                                           '</button>');
-                        $("#photoProfile").append('<input type="file" class="form-control-file" name="foto" id="avatarFile" aria-describedby="fileHelp">');
+                        $("#photoProfile").append('<button type="submit" name="apagarFoto" class="btn btn-warning">Apagar Foto</button>' +
+                                                  '<input type="file" class="form-control-file" name="foto" id="avatarFile">');
                         contador++;
                         edit = true;
                     }
@@ -59,6 +60,7 @@
         <section>
             <?php
                 $numTurma;
+                $naoEncontrado = false;
             ?>
             
             @if(isset($usuario) && isset($perfilUsuario))
@@ -74,8 +76,7 @@
                                 @method('PUT')
                                 <div id="photoProfile">
                                     @if(isset($usuario->foto))
-                                        {{$foto}}
-                                        <img id="profile" src=""/> 
+                                        <img id="profile" src="{{ $usuario->foto }}"/> 
                                     @else
                                         <img id="profile" src="{{ asset('assets/svg/profile.svg')}}"/> 
                                     @endif
@@ -223,7 +224,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="scroll">
-                                                    @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
+                                                    @foreach ($monitoriasParticipadas->where('codigo', $monitoria->codigo) as $monitoriaCard)
                                                         <a id="{{$monitoriaCard->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $monitoriaCard->id]) }}">
                                                             <div id="card">
                                                             <!--<p>{{ $monitoria->conteudo }}</p> -->
@@ -301,12 +302,12 @@
                                             ?>
                                             @if($cont === 0)
                                                 <?php 
-                                                    $monitoriaCodigo[$cont] = $monitoria->codigo;
+                                                    $monitoriaNome[$cont] = $monitoria->codigo;
                                                     $cont++;
                                                     $repetida = false;
                                                 ?>
                                             @else
-                                                @foreach($monitoriaCodigo as $monitoriaRepetida)
+                                                @foreach($monitoriaNome as $monitoriaRepetida)
                                                     @if($monitoriaRepetida == $monitoria->codigo)
                                                         <?php
                                                             $repetida = true;
@@ -314,7 +315,7 @@
                                                         ?>
                                                     @else
                                                         <?php
-                                                            $monitoriaCodigo[$cont] = $monitoria->codigo;
+                                                            $monitoriaNome[$cont] = $monitoria->codigo;
                                                             $cont++;
                                                             $repetida = false;
                                                         ?>
@@ -332,7 +333,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="scroll">
-                                                    @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
+                                                    @foreach ($monitoriasInscrito->where('codigo', $monitoria->codigo) as $monitoriaCard)
                                                         <a id="{{$monitoriaCard->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $monitoriaCard->id]) }}">
                                                             <div id="card">
                                                             <!--<p>{{ $monitoria->conteudo }}</p> -->
@@ -401,6 +402,8 @@
                                     @endif
                                 </div>
                             </div>
+                            <br>
+                            <br>
                             <h3>Monitorias que estão esperando sua avaliação</h3>
                             @if(!($monitoriasParticipadas->isEmpty()))
                                 <?php
@@ -457,7 +460,7 @@
                                                 </div>
                                             </div>
                                             <div id="scroll">
-                                                @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
+                                                @foreach ($monitoriasParticipadas->where('codigo', $monitoria->codigo) as $monitoriaCard)
                                                     @foreach($monitoriasAvaliadas as $monitoriaAvaliada)
                                                         @if($monitoriaAvaliada->id == $monitoriaCard->id)
                                                             <?php
@@ -533,12 +536,25 @@
                                                     @endif
                                                 @endforeach
                                             </div>
+                                        @else
+                                            <?php
+                                                $naoEncontrado = true;
+                                            ?>
                                         @endif
+                                    @else
+                                        <?php
+                                            $naoEncontrado = true;
+                                        ?>
                                     @endif
                                 @endforeach
                             @else
-                                <p>Nenhuma monitoria está esperando sua avaliação</p>
-                            @endif   
+                                <?php
+                                    $naoEncontrado = true;
+                                ?>
+                            @endif 
+                            @if($naoEncontrado == true)
+                                <p>Não foi encontrada nenhuma monitoria esperando a sua avaliação</p>
+                            @endif
                             <div id="cardCalendary">
                             </div>
                         </div>
@@ -547,7 +563,11 @@
                     <div id="all-content">
                         <div id="cardProfile">
                             <div id="photoProfile">
-                                <img id="profile" src="{{asset('assets/svg/profile.svg')}}"/> 
+                                @if(isset($perfilUsuario->foto))
+                                        <img id="profile" src="{{ $perfilUsuario->foto }}"/> 
+                                @else
+                                    <img id="profile" src="{{asset('assets/svg/profile.svg')}}"/> 
+                                @endif
                             </div>
                             <div class="editLabel">
                                 <label>Nome</label>

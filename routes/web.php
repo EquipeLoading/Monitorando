@@ -110,7 +110,7 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
     Route::get('/cancelar', function() {
         $usuario = Auth::user()->id;
-        $monitorias = User::find($usuario)->monitorias()->wherePivotIn('tipo', ['Criador', 'Monitor'])->get();
+        $monitorias = User::find($usuario)->monitorias()->wherePivotIn('tipo', ['Criador', 'Monitor'])->orderby('codigo', 'asc')->get();
         $monitorias = $monitorias->unique()->values();
 
         return view('cancelarMonitoria', ['monitorias' => $monitorias, 'usuarios' => User::all()]);
