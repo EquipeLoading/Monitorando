@@ -1,0 +1,206 @@
+body {
+    margin: 0;
+    width: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+    background-color: #f0f2f5;
+}
+*{
+    text-decoration: none;
+    flex: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+section{
+    padding: 0 3vw;
+
+}
+
+@media(min-width: 813px){
+    h1, h2{
+        text-align: center;
+        color: #193D6F;
+    }
+
+    h1{
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    h2{
+        margin-top: 0;
+        font-weight: 500;           
+    }
+    h3{
+        font-weight: 400;
+        font-size: .8em;
+        margin-top: 8px;
+        color: #5499C3;
+    }
+
+    #card-inline{
+        display: flex;
+    }
+
+    .card{
+        padding: 2vh 0;
+        min-height: 10vw;
+        width: 15vw;
+        background-color: #fcfcfc;
+        display: grid;
+        align-items: center;
+        text-align: center;
+        border-radius: 1vw;
+        box-shadow: 0 0 .8em rgba(192, 192, 192, 0.1);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card p{
+        margin-bottom: 0;
+        color: #5499C3;
+        font-weight: 600;
+    }
+
+    .card #calendar{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        height: 5vh;
+        filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%);
+    }
+
+    #email{
+        font-size: .8em;
+        margin-top: 0;
+        font-weight: 300;
+    }
+
+    #inscritos{
+        font-size: 2em;
+    }
+    #inscritosNenhum{
+        font-size: 1.2em;
+    }
+
+    form{
+        margin: 0;
+        padding: 0;
+    }
+    .button,.buttonParticipante{
+        background-color: transparent;
+        border-radius: 5vh;
+        height: 4.5vh;
+        border: none;
+        width: 4.5vh;
+        margin: 0;
+        color: #fcfcfc !important;
+        text-align: center;
+        font-size: 1em;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-left: .5vw;
+    }
+
+    .button:hover{
+        transition: .5s;
+        background-color: #5499C3;
+    }
+
+    #trashColor:hover{
+        background-color: #cf4949;
+        transition: .5s;
+
+    }
+
+    .buttonParticipante{
+        width: auto;
+        background: #5499C3;
+
+    }
+
+    h4{
+        padding-left: 1vw;
+        padding-right: 1vw;
+        font-weight: 400;
+    }
+
+
+    #edit{
+        transform: rotate(90deg);
+    }
+
+    #edit, #trash{
+        display: block;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(311deg) brightness(103%) contrast(98%);
+        height: 2vh;
+    }
+    
+    #monitoriaEdit{
+        background-color: rgba(25, 61, 111);
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: auto;
+        height: 4.6vh;
+        border-radius: 5vw;
+        max-width: 15vw;
+        margin-right: 1vw;
+    }
+    h5{
+        color: #fcfcfc;
+        font-size: .9em;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        margin-left: .5vw;
+    }
+
+    #buttons{
+        display: flex;
+        align-items: center;
+    }
+
+    h6{
+        font-size: 1em;
+        background: hsla(0, 0%, 99%, 0.603);
+        box-shadow: 0 0 .8em rgba(192, 192, 192, 0.1);
+        width: 40vw;
+        min-height: 13vh;
+        font-weight: 300;
+        border-radius: 1.5vh;
+        padding: 1vh;
+        margin-bottom: 0;
+    }
+
+    #row{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    #column{
+        width: 45vw;
+        height: 38vh;
+        display: grid;
+        justify-items: end;
+
+    }
+    #monitorando{
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+        margin-bottom: auto;
+        margin-top: 2vh;
+        height: 28vh;
+        filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%);
+
+    }
+
+
+}

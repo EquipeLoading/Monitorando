@@ -23,172 +23,8 @@ body {
 
 
 
-/* /---------- NAV BAR ----------/ */
-  
-.topnav {
-    overflow: hidden;
-    background-color: #5499C3;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    
-}
-
-
-  
-.topnav a {
-    float: left;
-    color: #ffffff;
-    text-align: center;
-    padding: 2.5vh 2vw;
-    text-decoration: none;
-    font-size: 1em;
-}
-  
-.topnav a:hover {
-    background-color: #ffffff;
-    color: #5499C3;
-}
-  
-.topnav a.active {
-    background-color: #193D6F;
-    color: #ffffff;
-}
-
-.topnav p {
-    float: right;
-    color: #fff;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 10px;
-}
-
-
-#banner{
-    width: 100%;
-}
-
 @media(min-width: 813px){
 
-    .button_new {
-        background-color: #193D6F;
-        border: none;
-        color: #ffffff;
-        text-align: center;
-        font-size: 1em;
-        width: 10vw;
-        height: 5.5vh;
-        margin-right: 3vw;
-        margin-left: auto;
-        cursor: pointer;
-        border-radius: 7vh;
-        display: flex;
-        align-items: center;
-    }
-    
-    .button_new a {
-        background-color: none;
-        color: #ffffff;
-        padding: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .button_new a:hover {
-        background-color: #193D6F;
-        color: #ffffff;
-    }
-
-    #profileContainer{
-        position: absolute;
-        width: auto;
-        height: 5vh ;
-        margin-right: 3vw ;
-        margin-left: 85% ;
-        margin-top: 1.5vh;
-        border-radius: 7vh;
-        padding: 1px;
-        display: block;
-        align-items: center;
-        cursor: pointer;
-        border: transparent;
-    }
-
-    .profile{
-        border-radius: 7Vh;
-        width: auto;
-        height: 5vh ;
-        background-color: #f0f2f5;
-        margin-left: auto ;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        border: transparent;
-        overflow: hidden;
-    }
-
-    .collapsible-wrapper {
-        display: flex;
-        overflow: hidden;
-        width: 100%;
-
-    }
-
-    .collapsible-wrapper:after {
-        content: '';
-        height: 10vh;
-        transition: height 0.3s linear, max-height 0s 0.3s linear;
-        
-    }
-      .collapsible {
-        transition: margin-bottom 0.3s cubic-bezier(0, 0, 0, 1);
-        margin-bottom: 0;
-        max-height: 15vh;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        border-bottom-left-radius: 3Vh;
-        border-bottom-right-radius: 3Vh;
-        background-color: #f0f2f5;
-      }
-      .collapsible-wrapper.collapsed > .collapsible {
-        margin-bottom: -2000px;
-        transition: margin-bottom 0.3s cubic-bezier(1, 0, 1, 1),
-                    visibility 0s 0.3s, max-height 0s 0.3s;
-        visibility: hidden;
-        max-height: 0;
-
-      }
-      .collapsible-wrapper.collapsed:after
-      {
-        border-radius: 0;
-        height: 0;
-        transition: height 0.3s linear;
-        max-height: 50px;
-      }
-      
-      .menu-item {
-        align-items: center;
-        display: flex !important;
-        margin: 0;
-        padding: .8vh 1vw !important;
-        color: #5499C3 !important;
-        text-align: end;
-        font-size:  1em !important;
-        line-height: 1.3;
-
-      }
-
-    .menu-item #Perfil{
-        margin-left: auto;
-    }
-
-    #logout{
-          margin-left: auto;
-          height: 2.5vh;
-          filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
-    }
 
     text{
         margin-left: auto;
@@ -196,10 +32,7 @@ body {
         color:#5499C3;
         font-weight: 700;
     }
-    .profile img{
-        margin-left: .3vw;
-        margin-right: auto;
-    }
+
     section{
         padding: 0 3vw;
     }
@@ -213,7 +46,7 @@ body {
         border-radius: 10vh;
         border: transparent;
         width: .4vw;
-        height: 10vh;
+        height: 7vh;
     }
     
     #titleDiscipline{
@@ -262,6 +95,8 @@ body {
         background-color: transparent;
         border: none;
         cursor: pointer;
+        margin: 1vw;
+        width: auto;
     }
 
     #formSearch{
@@ -313,7 +148,7 @@ body {
         border-radius: 10px;
         padding: 5px;
         font-weight: 900;
-        width: 11vw;
+        width: 12vw;
         height: auto;
         margin: 3vh;
         display: block;
@@ -367,20 +202,22 @@ body {
         display: flex;
         align-items: center;
         margin-left: auto;
-        margin-right: auto;
+        margin-right: .5vw;
         margin-top: 0;
     }
     
     #limit text{
         margin-top: auto;
         margin-left: .5vw;
-        margin-right: auto;
+        margin-right: .5vw;
         margin-bottom: auto;
         color: #193D6F;
         font-weight: 300;
+        white-space: nowrap; 
+        width: 9em; 
         overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        text-overflow: ellipsis; 
+     }
     
     #details{
         background-color: #193D6F;
@@ -412,70 +249,98 @@ body {
         font-weight: 300;
     }
 
+    .users text{
+        white-space: nowrap; 
+        width: 7.2em; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+    #buttons{
+        display: flex;
+        margin-left: auto;
+    }
+    .monitoriaButton{
+        border-radius: 5vh;
+        height: 5vh;
+        width: 7vw;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .5);
+        margin-top: 2vh;
+        border: none;
+        cursor: pointer;
+        font-weight: 400;
+        display: block;
+        padding-left: auto;
+        color: #fcfcfc !important;
+
+    }
+
+    #addMonitoria:hover, #removeMonitoria:hover{
+        background-color: #fcfcfc;
+        transition: 0.5s;
+
+    }
+
+    #addMonitoria:hover img, #removeMonitoria:hover img{
+        filter: invert(19%) sepia(9%) saturate(6903%) hue-rotate(185deg) brightness(102%) contrast(94%);
+    }
+
+    #addMonitoria:hover a, #removeMonitoria:hover a{
+        color: #193D6F;
+        transition: 0.5s;
+
+    }
+
+    h4{
+        display: block;
+        margin: 0;
+        padding: 0;
+        margin-right: auto;
+    }
+
+    .monitoriaButton img{
+        height: 2.5vh;
+        margin-right: .5vw;
+        margin-left: auto;
+    }
+
+    .monitoriaButton a{
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #fcfcfc;
+    }
+
+    .monitoriaButton a:hover{
+        color: #193D6F;
+    }
+
+
+
+    #addMonitoria{
+        margin-left: auto;
+        margin-right: 1vw;
+        background-color: #5499C3;
+        transition: 0.7s;
+        color: #fcfcfc;
+
+    }
+
+    .monitoriaButton img{
+        filter: invert(100%) sepia(45%) saturate(2080%) hue-rotate(180deg) brightness(114%) contrast(104%);
+
+    }
+
+    #removeMonitoria{
+        background-color: #cf4949;
+    }
     
 }
 
 
 @media(max-width: 812px){
 
-    .button_new {
-        background-color: #f1f1f1;
-        border: none;
-        color: #193D6F;
-        text-align: center;
-        font-size: 1em;
-        width: 90%;
-        height: 6vh;
-        margin-right: 3vw;
-        cursor: pointer;
-        border-radius: 7vh;
-        display: flex;
-        align-items: center;
-        margin-top: 5vh;
-    }
-    
-    .button_new a {
-        background-color: none;
-        color: #193D6F !important;
-        padding: 0;
-        margin-left: auto;
-        margin-right: auto;     
-        
-    }
 
-    .profile{
-        border-radius: 7Vh;
-        width: 90%;
-        height: 6vh ;
-        background-color: #f0f2f5;
-        margin-right: auto ;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        border: transparent;
-    }
-    .profile img{
-        margin-left: .5vw;
-    }
-    #arrow{
-        margin-left: auto;
-        margin-right: .5vw;
-        filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
-        height: 40%;
-        transform: rotate(90deg);
-    }
-
-    #arrow:after{
-        transition: transform .3s linear;
-        transform: rotate(0deg);
-
-    }
-
-    .profile text{
-        color:#5499C3;
-        font-weight: 700;
-        margin-right: auto;
-    }
 
     .collapsible-wrapper {
         display: flex;
@@ -517,28 +382,8 @@ body {
         transition: height 0.3s linear;
         max-height: 50px;
     }
-      
-    .menu-item {
-        align-items: center;
-        display: flex !important;
-        margin: 0;
-        padding: .8vh 3.5vw !important;
-        color: #5499C3 !important;
-        font-size: 1em !important;
-        text-align: end;
-        line-height: 1.3;
-    }
 
 
-    .menu-item #Perfil{
-        margin-left: auto;
-    }
-
-    #logout{
-        margin-left: auto;
-        height: 2.5vh;
-        filter: invert(63%) sepia(18%) saturate(1128%) hue-rotate(159deg) brightness(85%) contrast(93%);
-    }
 
     section{
         padding: 0 3vw;

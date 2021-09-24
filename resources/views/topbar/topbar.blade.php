@@ -113,20 +113,24 @@
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
                     <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-                    <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
+                    <div id="buttonRegister">
+                        <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
+                    </div>
+            
+            <?php } ?>
                     <div id="topFilter">
                         <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
                             <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                             <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
-                <?php } ?>
+               
             </div>
         </div>
         <div id="background">
             <span id="menuButton" onclick="openNav()"><img src="{{ asset('/assets/svg/menu.svg') }}" alt="Menu" id="menuSvg"></span>          
         <div>
-        @if(session()->has('search'))
+        {{-- @if(session()->has('search'))
             @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
                 <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
             @else
@@ -203,10 +207,18 @@
             @endif
         @else
             @yield('conteudo')
-        @endif
+        @endif --}}
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
-                <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
+            <div class="topnav">
+                <a class="active" href="{{ route('index') }}"> HOME </a>
+                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+                <a href="#calendario"> @lang('lang.Calendario') </a>
+                <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                <div id="buttonRegister">
+                    <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
+                </div>
+            </div> 
             <?php }else{ ?>              
                 <div id="profileContainer">
                     <button class="profile" >
@@ -224,7 +236,7 @@
                                 Perfil
                                 <img src="{{ asset('/assets/svg/profile.svg') }}" alt="Profile" id="Perfil"> 
                             </a>
-                            <form class="menu-item" method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit">
                                     Sair
@@ -234,20 +246,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="topnav">
+                    <a class="active" href="{{ route('index') }}"> HOME </a>
+                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+                    <a href="#calendario"> @lang('lang.Calendario') </a>
+                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                    <div id="topFilter">
+                        <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
+                            <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
+                            <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
+                        </form>
+                    </div>
+                </div> 
             <?php }?>
-        <div class="topnav">
-            <a class="active" href="{{ route('index') }}"> HOME </a>
-            <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-            <a href="#quem somos"> @lang('lang.QuemSomos') </a>
-            
-        </div> 
-        <div id="topFilter">
-            <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
-                <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
-                <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
-            </form>
-        </div>
+        
         @if(session()->has('search'))
             @if(session('pesquisaUsuarios')->isEmpty() && session('pesquisaMonitorias')->isEmpty())
                 <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
