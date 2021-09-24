@@ -151,6 +151,12 @@
                         </script>
                     @endif
                 @endforeach
+        
+                <p class="camp">
+                    <label class="labelFont" for="periodo"> De quantos em quantos dias a monitoria ocorre? </label>
+                    <input class="inputBorder" name="periodo" value="{{ $monitoria->periodo ?? old('periodo') }}" />
+                    {{ $errors->has('periodo') ? $errors->first('periodo') : '' }}
+                </p>
 
                 <p class="camp">
                     <label class="labelFont" for="descricao"> Descrição </label>

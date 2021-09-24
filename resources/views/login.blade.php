@@ -35,7 +35,7 @@
                 </p>
 
                 <p class="link">
-                    <a href="#paracadastro">@lang('lang.RecuperarSenha')</a>
+                    <a href="{{ route('password.request') }}">@lang('lang.RecuperarSenha')</a>
                 </p>
 
                 <p id="check">
@@ -51,6 +51,7 @@
             </form>
 
             <p id="camp">{{ isset($erro) && $erro != '' ? $erro : '' }}</p>
+            <p id="camp">{{ session()->has('status') ? session('status') : '' }}</p>
             
         </div>
     </section>

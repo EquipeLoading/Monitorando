@@ -128,6 +128,12 @@
                 </div>
 
                 <p class="camp">
+                    <label class="labelFont" for="periodo"> De quantos em quantos dias a monitoria ocorre? </label>
+                    <input class="inputBorder" name="periodo" value="{{ old('periodo') }}" />
+                    {{ $errors->has('periodo') ? $errors->first('periodo') : '' }}
+                </p>
+
+                <p class="camp">
                     <label class="labelFont" for="descricao"> Descrição </label>
                     <input class="inputBorder" name="descricao" value="{{ old('descricao') }}" type="text"/>
                     {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}

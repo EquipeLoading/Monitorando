@@ -9,9 +9,9 @@ class Monitoria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['codigo', 'disciplina', 'conteudo', 'data', 'hora_inicio', 'hora_fim', 'local', 'monitor', 'descricao', 'num_inscritos', 'user_id'];
+    protected $fillable = ['codigo', 'disciplina', 'conteudo', 'data', 'hora_inicio', 'hora_fim', 'local', 'monitor', 'descricao', 'num_inscritos', 'user_id', 'periodo'];
 
     public function usuarios() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('nota', 'justificativa');
     }
 }
