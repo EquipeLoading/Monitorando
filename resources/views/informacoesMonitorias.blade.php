@@ -21,14 +21,6 @@
     
 
     <body>
-
-        <section>
-
-            <h1>{{ $monitoria->codigo }}</h1>
-            <h2>{{$monitoria->disciplina}}</h2>
-
-            <div id="card-inline">
-                <div class="card">
         <script>
             $(document).ready(function(){
                 var count = 0;
@@ -112,7 +104,7 @@
                                                     '<input type="text" value="{{ old('topico') }}" name="topico">' + 
                                                     '<textarea name="mensagem" form="postarNovoTopico">{{ old('mensagem') }}</textarea>' + 
                                                     '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem ou um arquivo pdf</small>' +
+                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
                                                     '<button type="submit">Criar Tópico</button>' +
                                                 '</div>' +
                                             '</form>');
@@ -121,11 +113,15 @@
                 });
             });
         </script>
-
         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
-            <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
-            <button type="button" id="modalBtn">Cancelar a monitoria</button>
+        <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
+        <button type="button" id="modalBtn">Cancelar a monitoria</button>
         @endif
+
+        <?php
+            $usuarioInscrito = false;
+            $avaliado = false;
+        ?>
 
         <div id="modal">
             <div class="modal-content">
@@ -138,16 +134,12 @@
                     <button type="submit"> Sim </button>
                 </form>
             </div>
-        </div>
-
-        <?php
-            $usuarioInscrito = false;
-            $avaliado = false;
-        ?>
-
-        @if(isset($inscrito))
-            @foreach($inscrito as $monitoriaInscrita)
-                @if($monitoriaInscrita->id == $monitoria->id)
+        </div> 
+        <section>
+            <h1>{{ $monitoria->codigo }}</h1>
+            <h2>{{$monitoria->disciplina}}</h2>
+            <div id="card-inline">
+                <div class="card">
                     <?php 
                     $date = new DateTime($monitoria->data);
                     $n = $date->getTimestamp();
@@ -220,8 +212,6 @@
            <div id="row">
                 <div>
                     <h6><b>Conteúdo</b>:<br><i>{{ $monitoria->conteudo }}</i></h6>
-
-                    
                     <h6><b>Descrição</b>:<br><i>{{ $monitoria->descricao }}</i></h6>
                 </div>
 
@@ -293,10 +283,7 @@
 
             <p>{{ isset($erro) ? $erro : '' }}</p>
 
-            
-
            
-
         </section>
         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
             <div id="adicionarPresenca">
@@ -457,58 +444,50 @@
         @endif
 
     <div id="forum">
-        <h3>Fórum - Tópicos</h3>
-        @if(Auth::check() == false)
-            <p><a href="{{ route('cadastro') }}">Cadastre-se</a> para visualizar os tópicos existentes ou postar algo no fórum</p>
-        @else
+        <h3>Fórum</h3>
+        @if(Auth::check())
             <button type="button" id="adicionarTopico">Adicionar Tópico</button>
-            {{ session()->has('topico') ? session('topico') : '' }}
-            {{ $errors->has('topico') ? $errors->first('topico') : '' }}
-            {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
-            {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
         @endif
+        {{ session()->has('topico') ? session('topico') : '' }}
+        {{ $errors->has('topico') ? $errors->first('topico') : '' }}
+        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
+        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
     </div>
     <div id="topicos">
-        @if(Auth::check())
-            {{ session()->has('editado') ? session('editado') : '' }}
-            @foreach($topicos as $topico) 
-                @if($topico->monitoria_id == $monitoria->id)
-                    <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
-                    @if(isset($usuario) && $usuario->id == $topico->user_id)
-                        <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
-                        <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                        @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
-                            <?php
-                                $mensagemCriador = $mensagem;
-                            ?>
-                            <script>
-                                var editar = true;
-                                $(document).ready(function() {
-                                    $("#editarTopico{{$topico->id}}").click(function(e) {
-                                        if(editar == true) {
-                                            e.preventDefault(); 
-                                            $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
-                                                                    '@csrf' +
-                                                                    '<div id="novoTopico">' + 
-                                                                        '<label for="topico">Tópico</label>' +
-                                                                        '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                        '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                        '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                        '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem ou um arquivo pdf</small>' +
-                                                                        '<button type="submit" name="apagarAnexo">Apagar anexo</button>' +
-                                                                        '<button type="submit">Editar Tópico</button>' +
-                                                                    '</div>' +
-                                                                '</form>');
-                                            editar = false;
-                                        }
-                                    });
+        {{ session()->has('editado') ? session('editado') : '' }}
+        @foreach($topicos as $topico) 
+            @if($topico->monitoria_id == $monitoria->id)
+                <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
+                @if(isset($usuario) && $usuario->id == $topico->user_id)
+                    <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
+                    <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+                    @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
+                        <?php
+                            $mensagemCriador = $mensagem;
+                        ?>
+                    @endforeach
+                    <script>
+                        $(document).ready(function() {
+                            var editar = true;
+                            $("#editarTopico{{$topico->id}}").click(function(e) {
+                                e.preventDefault(); 
+                                $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                        '@csrf' +
+                                                        '<div id="novoTopico">' + 
+                                                            '<label for="topico">Tópico</label>' +
+                                                            '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                            '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                            '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                            '<button type="submit">Editar Tópico</button>' +
+                                                        '</div>' +
+                                                    '</form>');
                             });
-                            </script>
-                        @endforeach
-                    @endif
+                    });
+                    </script>
                 @endif
-            @endforeach
-        @endif
+            @endif
+        @endforeach
     </div>
     </body>
 

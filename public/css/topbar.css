@@ -29,9 +29,16 @@ body {
         display: flex;
         align-items: center;
         width: 100%;
+        box-shadow: 0 0 1em  rgb(0, 0, 0);
+
         
     }
      
+    #center{
+        margin-left: 8vw;
+        margin-right: auto;
+
+    }
     .topnav a {
         float: left;
         color: #ffffff;
@@ -39,12 +46,17 @@ body {
         padding: 2.5vh 2vw;
         text-decoration: none;
         font-size: 1em;
+        margin-left: auto;
+        
     }
       
       
     .topnav a.active {
-        background-color: #193D6F;
-        color: #ffffff;
+        color: #193D6F;
+        font-weight: 600;
+        border-bottom: 3px solid #193D6F;   
+        transition: .5s;
+        transition-timing-function: linear;
     }
     
     .topnav p {
@@ -206,6 +218,46 @@ body {
         margin-right: auto;
     }
     
+    #topFilterAll{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: stretch;
+    }
+    #searchAll img{
+        height: 3vh;
+        transform: rotate(270deg);
+        filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
+
+    }
+
+    #searchAll{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin: 1vw;
+        width: auto;
+    }
+
+    #formSearchAll{
+        display: flex;
+        margin-left: 2vw;
+        border-radius: 5vh;
+        height: 5.5vh;
+        min-width: 25vw;
+        width: auto;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #inputSearchAll{
+        min-width: 20vw;
+        width: auto;
+        background-color: transparent;
+        border: none;
+    }
     
 }
 
@@ -409,7 +461,3 @@ body {
         align-items: center;
         background-color: #193D6F;
     }
-
-  
-
-
