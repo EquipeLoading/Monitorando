@@ -48,7 +48,6 @@
                     <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                     <input id="inputSearch" type="text" placeholder="Pesquisa.." name="search">
                 </form>
-                <button id="filter">filtrar</button>
             </div>
             
             <?php

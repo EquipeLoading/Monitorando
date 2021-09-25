@@ -70,19 +70,7 @@ body {
         align-items: stretch;
     }
 
-    #filter{
-        margin-left: auto;
-        border-radius: 5vh;
-        height: 5.5vh;
-        width: 6vw;
-        background-color: #fcfcfc;
-        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
-        margin-top: 2vh;
-        border: none;
-        cursor: pointer;
-        color: #193D6F;
-        font-weight: bold;
-    }
+
 
     #search img{
         height: 3vh;
