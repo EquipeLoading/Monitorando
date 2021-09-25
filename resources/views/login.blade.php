@@ -15,6 +15,12 @@
 
 <body>
     <section>
+        @section('links')
+            <a class="active" href="{{ route('index') }}"> HOME </a>
+            <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+        @endsection 
         <img src="{{ asset('/img/banner.jpg') }}" alt="banner_monitorando" id="banner">
         <div id="login">
             <form method="POST" action="{{ route('login') }}">

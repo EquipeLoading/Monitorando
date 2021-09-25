@@ -16,6 +16,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 </head>
 <body>
+    @section('links')
+        <a href="{{ route('index') }}"> HOME </a>
+        <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+        <a class="active" href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+        <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+    @endsection 
   
 <div class="container">
     <br />

@@ -11,14 +11,13 @@ use App\Models\Mensagem;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Disciplina;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class MonitoriasController extends Controller
 {
     
     public function index(Request $request) {
         $mostrarBotao = Gate::allows('professor');
-        $monitorias = Monitoria::all();
+        $monitorias = Monitoria::orderby('codigo', 'asc')->get();
         $usuario = Auth::user();
         if(isset($usuario)){
             $usuario = User::where('id', Auth::user()->id)->get()->first();
@@ -49,13 +48,11 @@ class MonitoriasController extends Controller
             $monitoria->num_inscritos += 1;
             $monitoria->save();
 
-            return redirect()->route('monitorias');
+            return redirect()->back();
         }
         else {
             return back()->with('erro', 'Não foi possível se inscrever na monitoria');
         }
-
-        
     }
 
     public function cadastro(Request $request)  {
@@ -71,7 +68,7 @@ class MonitoriasController extends Controller
                 'local' => 'required',
                 'descricao' => 'required',
                 'monitores' => 'required|exists:users,prontuario',
-                'periodo' => 'integer'
+                'periodo' => 'integer|nullable'
             ];
 
             $request->validate($regras);
@@ -145,6 +142,11 @@ class MonitoriasController extends Controller
             $usuario->monitorias()->detach($request->monitoria_id);
         }
         $monitoria = Monitoria::where('id', $request->monitoria_id)->get()->first();
+        $topicos = Topico::where('monitoria_id', $request->monitoria_id)->get();
+        foreach($topicos as $topico) {
+            Mensagem::where('topico_id', $topico->id)->delete();
+            $topico->delete();
+        }
         $monitoria->delete();
 
         return redirect()->route('index');
@@ -160,7 +162,7 @@ class MonitoriasController extends Controller
             $monitoria->num_inscritos -= 1;
             $monitoria->save();
 
-            return redirect()->route('monitorias');
+            return redirect()->back();
         } else {
             return back()->with('erro', 'Não foi possível cancelar a inscrição na monitoria');
         }
@@ -180,7 +182,7 @@ class MonitoriasController extends Controller
             'local' => 'required',
             'descricao' => 'required',
             'monitores' => 'required|exists:users,prontuario',
-            'periodo' => 'integer'
+            'periodo' => 'integer|nullable'
         ];
 
         $request->validate($regras);
@@ -253,7 +255,7 @@ class MonitoriasController extends Controller
     public function avaliacao(Request $request, $id) {
         $regras = [
             'nota' => 'required|integer|between:1,10',
-            'justificativa' => 'required|min:5|max:500'
+            'justificativa' => 'required|min:5|max:5000'
         ];
 
         $request->validate($regras);
@@ -267,7 +269,7 @@ class MonitoriasController extends Controller
     public function editarAvaliacao(Request $request, $id) {
         $regras = [
             'nota' => 'required|integer|between:1,10',
-            'justificativa' => 'required|min:5|max:500'
+            'justificativa' => 'required|min:5|max:5000'
         ];
 
         $request->validate($regras);
@@ -280,7 +282,7 @@ class MonitoriasController extends Controller
     }
 
     public function postarTopico(Request $request, $id) {
-        $filename = null;
+        $arquivo = null;
         $usuario = null;
 
         if(Auth::check()){
@@ -289,18 +291,16 @@ class MonitoriasController extends Controller
 
         $regras = [
             'topico' => 'required|min:3|max:100',
-            'mensagem' => 'required|min:5|max:500',
+            'mensagem' => 'required|min:5|max:5000',
         ];
 
         $request->validate($regras);
 
-        /*if($request->hasFile('imagem') && isset($usuario)) {
-            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf,svg']);
-            $foto = $request->file('imagem');
-            $tipoImg = $foto->getClientOriginalExtension();
-            $filename = time().'.'.$tipoImg;
-            $foto->move('fotosForum/', $filename);
-        }*/
+        if($request->hasFile('imagem')) {
+            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf']);
+            $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $request->imagem);
+            $arquivo = 'data:'.$tipoArquivo.';base64,'.base64_encode(file_get_contents($request->imagem));
+        }
 
         $topicos = new Topico();
 
@@ -315,69 +315,109 @@ class MonitoriasController extends Controller
         $topico_id = $topicos->id;
 
         $mensagens = new Mensagem();
-        $mensagens->fill([
-            'mensagem' => $request->mensagem,
-            'user_id' => $usuario,
-            'imagem' => $request->imagem,
-            'topico_id' => $topico_id
-        ])->save();
+        if($request->hasFile('imagem')) {
+            $mensagens->fill([
+                'mensagem' => $request->mensagem,
+                'user_id' => $usuario,
+                'imagem' => $arquivo,
+                'topico_id' => $topico_id
+            ])->save();
+        } else {
+            $mensagens->fill([
+                'mensagem' => $request->mensagem,
+                'user_id' => $usuario,
+                'topico_id' => $topico_id
+            ])->save();
+        }
 
         return back()->with('topico', 'Tópico adicionado com sucesso!');
     }
 
     public function responderTopico(Request $request, $id, $topico) {
+        $arquivo = null;
+        
         $regras = [
-            'resposta' => 'required|min:3|max:500',
+            'resposta' => 'required|min:3|max:5000',
         ];
 
         $request->validate($regras);
 
+        if($request->hasFile('imagem')) {
+            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf']);
+            $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $request->imagem);
+            $arquivo = 'data:'.$tipoArquivo.';base64,'.base64_encode(file_get_contents($request->imagem));
+        }
+
         $mensagem = new Mensagem();
 
-        $mensagem->fill([
-            'mensagem' => $request->resposta,
-            'user_id' => Auth::user()->id,
-            'imagem' => $request->imagem,
-            'topico_id' => $topico
-        ])->save();
+        if($request->hasFile('imagem')) {
+            $mensagem->fill([
+                'mensagem' => $request->resposta,
+                'user_id' => Auth::user()->id,
+                'imagem' => $arquivo,
+                'topico_id' => $topico
+            ])->save();
+        } else {
+            $mensagem->fill([
+                'mensagem' => $request->resposta,
+                'user_id' => Auth::user()->id,
+                'topico_id' => $topico
+            ])->save();
+        }
 
         return redirect()->back();
     }
 
-    public function editarTopico(Request $request, $id, $mensagem) {
+    public function editarTopico(Request $request, $id) {
+        $arquivo = null;
+
         $regras = [
             'topico' => 'required|min:3|max:100',
-            'mensagem' => 'required|min:5|max:500',
         ];
 
         $request->validate($regras);
 
         $topico = Topico::where('id', $id)->get()->first();
-        $mensagem = Mensagem::where('id', $mensagem)->get()->first();
 
         $topico->update([
             'topico' => $request->topico
-        ]);
-
-        $mensagem->update([
-            'mensagem' => $request->mensagem
         ]);
 
         return redirect()->back()->with('editado', 'O tópico foi editado com sucesso!');
     }
 
     public function editarMensagem(Request $request, $id) {
+        $arquivo = null;
+
         $regras = [
-            'mensagem' => 'required|min:5|max:500',
+            'mensagem' => 'required|min:5|max:5000',
         ];
 
         $request->validate($regras);
 
+        if($request->hasFile('imagem')) {
+            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf']);
+            $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $request->imagem);
+            $arquivo = 'data:'.$tipoArquivo.';base64,'.base64_encode(file_get_contents($request->imagem));
+        }
+
         $mensagem = Mensagem::where('id', $id)->get()->first();
 
-        $mensagem->update([
-            'mensagem' => $request->mensagem
-        ]);
+        if($request->has('apagarAnexo')){
+            $mensagem->update([
+                'mensagem' => $request->mensagem,
+                'imagem' => null
+            ]);
+        } elseif($request->hasFile('imagem')){
+            $mensagem->update([
+                'mensagem' => $request->mensagem,
+                'imagem' => $arquivo
+            ]);
+        } else {
+            $mensagem->update([
+                'mensagem' => $request->mensagem
+            ]);
+        }
 
         return redirect()->back()->with('editado', 'A mensagem foi editada com sucesso!');
     }

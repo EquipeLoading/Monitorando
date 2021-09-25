@@ -22,44 +22,63 @@
 
     <body>
         <script>
+
             $(document).ready(function(){
-                var count = 0;
                 var i = 0;
-                $('#buttonPresenca').click(function(e) {
-                    $('#buttonPresenca').remove();
+            var count = 0;
+
+                $('.buttonPresenca').click(function(e) {
+                    $('.buttonPresenca').css('display', 'none');
+                    $('#modalAvaliacaoBtn').css('display', 'none');
                     e.preventDefault();
                     if(count == 0){
                         $('#adicionarPresenca').append('<h1>Lista de Presença</h1> <form id="formColumn" action="{{route("monitorias.informacoes", ["id" => $monitoria->id])}}" method="POST">' + 
                                                         '@csrf' +
                                                             '<div id="newField">' + 
                                                                 '<div id="formFlex">' + 
-                                                                    // '<label for="prontuarios[]">Prontuário</label>' +
                                                                     '<input type="text" placeholder="Prontuario.." name="prontuarios[]"/>' + 
                                                                     '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
-
                                                                 '</div>' +  
                                                             '</div>' +
                                                             '<button type="submit" id="presenca"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
-
+                                                            '<button type="button" id="fecharPresenca"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
                                                         '</form>');
+
                         count++;
                     }
                 });
+
+                $('#presenca').on('click', function() {
+                    $("#listaChamada").css('display', 'block');
+                });
+
                 $('#adicionarPresenca').on('click', '#addNewField', function(e) {
                     $('#newField').append(
                         '<div id="newField">' +
                             '<div id="formFlex">' + 
-                                    // '<label for="prontuario[]">Prontuário</label>' +
                                     '<input type="text" placeholder="Prontuario.." name="prontuarios[]">' + 
                                     '<button type="button" class="remove_field"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' + 
                             '</div>' +
                         '</div>');
                 });
+
                 $('#adicionarPresenca').on('click', '.remove_field', function(e) {
+                    count = 0;
                     e.preventDefault(); 
                     $(this).parent('div').remove();
                 });
 
+                $(document).on('click', '#fecharPresenca', function(e) {
+                    count = 0;
+
+                    e.preventDefault();
+                    $("#adicionarPresenca h1").remove();
+                    $("#adicionarPresenca form").remove();
+                    $("#fecharPresenca").remove();
+                    $('.buttonPresenca').css('display', 'block');
+                    $('#modalAvaliacaoBtn').css('display', 'block');
+                });
+                
                 $('#modalBtn').on('click', function() {
                     $("#modal").css('display', 'block');
                 });
@@ -82,12 +101,6 @@
                     $("#modalAvaliacao").css('display', 'none');
                 });
 
-                $(document).on('click',function(e){
-                    if(!(($(e.target).closest("#modalAvaliacao").length > 0 ) || ($(e.target).closest("#modalAvaliacaoBtn").length > 0))){
-                        $("#modalAvaliacao").css('display', 'none');
-                    }
-                });
-
                 $('#editarAvaliacao').on('click', function() {
                     $("#modalEditarAvaliacao").css('display', 'block');
                 });
@@ -103,29 +116,84 @@
                 });
 
                 $('#adicionarTopico').click(function(e) {
+                    $('#adicionarTopico').css('display', 'none');
+                    $('#forumQuest').css('display', 'block');
+
                     if(i == 0){
-                        $('#forum').append('<form method="POST" id="postarNovoTopico" action="{{ route('monitorias.postar.topico', ['id' => $monitoria->id]) }}" enctype="multipart/form-data">' +
+                        $('#forumQuest').append('<form method="POST" id="postarNovoTopico" action="{{ route('monitorias.postar.topico', ['id' => $monitoria->id]) }}" enctype="multipart/form-data">' +
                                                 '@csrf' +
                                                 '<div id="novoTopico">' + 
-                                                    '<label for="topico">Tópico</label>' +
-                                                    '<input type="text" value="{{ old('topico') }}" name="topico">' + 
-                                                    '<textarea name="mensagem" form="postarNovoTopico">{{ old('mensagem') }}</textarea>' + 
-                                                    '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
-                                                    '<button type="submit">Criar Tópico</button>' +
+                                                    '<label for="topico">Título</label>' +
+                                                    '<input id="inputTitleForum" type="text" placeholder="Nome da dúvida" value="{{ old('topico') }}"  name="topico" >' +
+                                                    '<label >Descrição da dúvida</label>' +
+                                                    '<textarea placeholder="Descrição da dúvida" name="mensagem" form="postarNovoTopico">{{ old('mensagem') }}</textarea>' + 
+                                                    '<div class="row">' +
+                                                        '<label id="labelAvatar" for="avatarFile"><h5>Enviar foto</h5></label><input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp" buttonText="Your label here.">' +
+                                                        '<button id="createTopico" type="submit"><h5>Finalizar pergunta</h5></button>' +
+                                                        '<button type="button" id="fecharTopico"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
+                                                    '</div>' +
                                                 '</div>' +
                                             '</form>');
                         i++;
                     }
                 });
+
+                $('#closetButton').on('click', function(){
+                    $("#modalAvaliacao").css('display', 'none');
+
+                })
+
+                $(document).on('click', '#fecharTopico', function(e) {
+                    e.preventDefault();
+                    $("#postarNovoTopico").remove();
+                    $('#adicionarTopico').css('display', 'block');
+                    $('#forumQuest').css('display', 'none');
+
+                    i = 0;
+                });
+
+                $(document).on('click', '#fecharEdicaoTopico', function(e) {
+                    e.preventDefault();
+                    $("#editarTopico").remove();
+                    $('#adicionarTopico').css('display', 'block');
+
+                });
             });
+
+            $(window).load(function() {
+                var display1 = "{{$errors->has('prontuarios')}}";
+                var display2 = "{{session()->has('mensagem')}}";
+
+                if(display1 == 1 || display2 == 1) {
+                    $("#modalLista").css('display', 'block');
+                }
+
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalLista").length > 0 ))){
+                        $("#modalLista").css('display', 'none');
+                    }
+                });
+
+                /*if(display1 == 1){
+                    alert("{{$errors->first('prontuarios')}}");
+                }
+                if(display2 == 1) {
+                    alert("{{session('mensagem')}}");
+                }*/
+            });
+
         </script>
 
+        @section('links')
+            <a href="{{ route('index') }}"> HOME </a>
+            <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+        @endsection 
         <?php
             $usuarioInscrito = false;
             $avaliado = false;
         ?>
-
         
         <section>
             <h1>{{ $monitoria->codigo }}</h1>
@@ -215,8 +283,25 @@
                     </div>
                 </div>
             </div>
+            <div id="modalAvaliacao">
+                <div class="modal-content">
+                    <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
+                        @csrf
+                        <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                        <input type="number" name="nota" value="{{ old('nota') }}" min="1" max="10"/><br />
+                        <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                        <textarea name="justificativa" value="{{ old('justificativa') }}" form="formAvaliacao"></textarea><br />
+                        <div class="row">
+                            <button type="button" id="closetButton">Fechar</button>                      
+                            <button type="submit" id="sendButton">Enviar</button>
+                        </div>
+                    </form>
 
-           <div id="row">
+                </div>
+
+            </div>
+
+           <div class="row">
                 <div>
                     <h6><b>Conteúdo</b>:<br><i>{{ $monitoria->conteudo }}</i></h6>
                     <h6><b>Descrição</b>:<br><i>{{ $monitoria->descricao }}</i></h6>
@@ -226,40 +311,17 @@
                     <img src="{{ asset('assets/png/Monitorando2.png') }}" alt="Logo monitorando" id="monitorando">  
                     <div id="buttons">
 
+                        
+
                         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
                             <div id="adicionarPresenca">
-                                <button id="buttonPresenca" type="button"><h5>Lista de presença</h5></button>
-                                {{ $errors->has('prontuarios') ? $errors->first('prontuarios') : '' }}
+                                <button class="buttonPresenca" type="button"><h5>Lista de presença</h5></button>
                             </div>
+                            <div id="modalLista">
+                                {{ $errors->has('prontuarios') ? $errors->first('prontuarios') : '' }}
                                 {{ session()->has('mensagem') ? session('mensagem') : '' }}
-                            @if(!($participantes->isEmpty()))
-                                <h2>Usuários que participaram da monitoria</h2>
-                                <table border="1">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Prontuário</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($participantes as $participante)
-                                            <tr>
-                                                <td>{{$participante->nome}}</td>
-                                                <td>{{$participante->prontuario}}</td>
-                                                <td><a href="{{ route('profile', ['id' => $participante->id]) }}">Visitar Perfil</a></td>
-                                                <td>
-                                                    <form action="{{ route('monitorias.presenca', ['monitoriaId' => $monitoria->id, 'usuarioId' => $participante->id]) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit">Remover</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @endif
+                            </div>
+                            
                         @endif
 
                         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
@@ -274,14 +336,32 @@
                                     <img src="{{ asset('/assets/svg/trash.svg') }}" alt="Local" id="trash">
                                 </button> 
                             </div>                     
+                        @endif       
+                        
+                        @if(Gate::allows('participou', $monitoria))
+                            @foreach($avaliacoes as $avaliacao)
+                                @if(isset($usuario))
+                                    @if($avaliacao->id == $usuario->id)
+                                        <?php
+                                            $avaliado = true;
+                                            break;
+                                        ?>
+                                    @endif
+                                @endif
+                            @endforeach
+                            @if($avaliado == false)
+                                <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
+                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
+                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
+                                    
+                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
+                            @endif
                         @endif
-        
-                        
-                        
-                        <?php
-                            $usuarioInscrito = false;
-                        ?>
-        
+
+                        @if(Auth::check())
+                            <button type="button" id="adicionarTopico"  class="buttonParticipante">Fazer pergunta</button>
+                        @endif
+
                         @if(isset($inscrito))
                             @foreach($inscrito as $monitoriaInscrita)
                                 @if($monitoriaInscrita->id == $monitoria->id)
@@ -317,11 +397,124 @@
                                 </button>
                             </form>
                         @endif
-        
+
+                        <?php
+                            $usuarioInscrito = false;
+                        ?>
                     </div>
                 </div>
            </div>
 
+           <div class="row">
+                <div>
+                    <div id="forum">
+                        <h2><b>Fórum</b><h2>
+                        
+                        {{ session()->has('topico') ? session('topico') : '' }}
+                        {{ $errors->has('topico') ? $errors->first('topico') : '' }}
+                        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
+                        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
+                    
+                        <div id="topicos">
+                            {{ session()->has('editado') ? session('editado') : '' }}
+                            @if($topicos->isEmpty())
+                                <h2>Sem perguntas</h2>
+                            @else
+                                @foreach($topicos as $topico ) 
+                                        <?php
+                                            $nome = null;
+                                            $user = $topico->user_id;
+                                        ?>
+                                        @foreach($usuarios as $users)
+                                            @if($users->id == $user)
+                                            <?php $nome = $users->nome; ?>
+                                            @endif
+                                        @endforeach
+                                        @if($topico->monitoria_id == $monitoria->id)
+                                                <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}">
+                                                    <div class="row">
+                                                        <div>
+                                                            <h5>{{$nome}}</h5>
+                                                            <h4>{{$topico->topico}}</h4>
+                                                        </div>
+                                                        <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
+                                                    </div>
+                                                </a>
+
+                                                @if(isset($usuario) && $usuario->id == $topico->user_id)
+                                                    <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
+                                                    <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+                                                    @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
+                                                        <?php
+                                                            $mensagemCriador = $mensagem;
+                                                        ?>
+                                                    @endforeach
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            var editar = true;
+                                                            $("#editarTopico{{$topico->id}}").click(function(e) {
+                                                                e.preventDefault(); 
+                                                                $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                                                        '@csrf' +
+                                                                                        '<div id="novoTopico">' + 
+                                                                                            '<label for="topico">Tópico</label>' +
+                                                                                            '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                                            '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                                                            '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                                                            '<button type="button" id="fecharResposta">Fechar</button>' +
+                                                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                                                            '<button type="submit">Editar Tópico</button>' +
+                                                                                        '</div>' +
+                                                                                    '</form>');
+                                                            });
+                                                        });
+                                                    </script>
+                                                @endif
+                                        @endif           
+                                @endforeach
+                            @endif
+                            
+
+                        </div>
+                    </div>       
+                </div>
+
+                <div id="right">
+                    <div id="forumQuest">
+                    </div>
+                    @if(Gate::allows('criador', $monitoria))
+                        <div id="listaChamada">
+                            @if(!($participantes->isEmpty()))
+                                <h2><b>Lista de Presença</b></h2>
+                                    <div class="row">
+                                        <h2>Nome</h2>
+                                        <h2 id="titleProntuario">Prontuário</h2>  
+                                        <br>
+                                    </div>
+                                    <tbody>
+                                        @foreach($participantes as $participante)
+                                        <div class="row">
+                                                <a id="avatarChamada" href="{{ route('profile', ['id' => $participante->id]) }}">
+                                                    <img id="profile" src="{{ asset('assets/svg/profile.svg')}}"/> 
+                                                    <h3>{{$participante->nome}}</h3>
+                                                    <h3 id="prontuario">{{$participante->prontuario}}</h3>
+
+                                                </a>
+                                                <form action="{{ route('monitorias.presenca', ['monitoriaId' => $monitoria->id, 'usuarioId' => $participante->id]) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>
+                                                </form>
+                                        </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </div>
+                    @endif
+                </div>
+
+
+           </div>
             <p>{{ isset($erro) ? $erro : '' }}</p>
 
            
@@ -330,38 +523,6 @@
         <?php
             $usuario = Auth::user();
         ?>
-
-        @if(Gate::allows('participou', $monitoria))
-            @foreach($avaliacoes as $avaliacao)
-                @if(isset($usuario))
-                    @if($avaliacao->id == $usuario->id)
-                        <?php
-                            $avaliado = true;
-                            break;
-                        ?>
-                    @endif
-                @endif
-            @endforeach
-            @if($avaliado == false)
-                <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
-                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
-                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
-                <div id="modalAvaliacao">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
-                            @csrf
-                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
-                            <input type="text" name="nota" value="{{ old('nota') }}" /><br />
-                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
-                            <textarea name="justificativa" value="{{ old('justificativa') }}" form="formAvaliacao"></textarea><br />
-                            <button type="submit">Enviar avaliação</button>
-                        </form>
-                    </div>
-                </div>
-                {{ session()->has('sucesso') ? session('sucesso') : '' }}
-            @endif
-        @endif
 
         @if(Gate::allows('criador', $monitoria))
             @if(!($avaliacoes->isEmpty()))
@@ -450,53 +611,7 @@
             @endif
         @endif
 
-        <div id="forum">
-            <h3>Fórum</h3>
-            @if(Auth::check())
-                <button type="button" id="adicionarTopico">Adicionar Tópico</button>
-            @endif
-            {{ session()->has('topico') ? session('topico') : '' }}
-            {{ $errors->has('topico') ? $errors->first('topico') : '' }}
-            {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
-            {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
-        </div>
         
-        <div id="topicos">
-            {{ session()->has('editado') ? session('editado') : '' }}
-            @foreach($topicos as $topico) 
-                @if($topico->monitoria_id == $monitoria->id)
-                    <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
-                    @if(isset($usuario) && $usuario->id == $topico->user_id)
-                        <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
-                        <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                        @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
-                            <?php
-                                $mensagemCriador = $mensagem;
-                            ?>
-                        @endforeach
-                        <script>
-                            $(document).ready(function() {
-                                var editar = true;
-                                $("#editarTopico{{$topico->id}}").click(function(e) {
-                                    e.preventDefault(); 
-                                    $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
-                                                            '@csrf' +
-                                                            '<div id="novoTopico">' + 
-                                                                '<label for="topico">Tópico</label>' +
-                                                                '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
-                                                                '<button type="submit">Editar Tópico</button>' +
-                                                            '</div>' +
-                                                        '</form>');
-                                });
-                        });
-                        </script>
-                    @endif
-                @endif
-            @endforeach
-        </div>
     </body>
 
     </html>

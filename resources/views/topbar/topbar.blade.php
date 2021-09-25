@@ -60,40 +60,19 @@
         });
 
 
-        function hoverTop(count){
-        //     session_start();
-        //     $id = count;
-        //     $_SESSION['dados'] = $id;
-        //    console.log($_SESSION['dados'] + "os dados aqui");
-
-            if(count == 0 ){
-                document.getElementById('home').classList.add("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.remove("active");
-            } else if(count == 1){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.add("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.remove("active");
-                count = 1;
-            } else if(count == 2){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.add("active");
-                document.getElementById('quemSomos').classList.remove("active");
-            } else if(count == 3){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.add("active");
+        $(document).ready(
+            function() { 
+                $("html").niceScroll();
             }
-
-        }
+        );
     </script>
     
 <head>
+    <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/topbar.css') }}">
+    <meta name="theme-color" content="#193D6F">
+
 </head>
 
 <body>
@@ -128,10 +107,7 @@
                             </div>
                         </div>                  
                     </div>
-                    <a class="active" href="{{ route('index') }}"> HOME </a>
-                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>    
+                    @yield('links')
                     <div id="topFilter">
                         <form id="formSearch" action="{{ route('pesquisar') }}" method="GET">
                             <button id="search" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
@@ -140,10 +116,7 @@
                     </div>
                 <?php }else{ ?>
                     
-                    <a class="active" href="{{ route('index') }}"> HOME </a>
-                    <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                    @yield('links')
                     <div id="buttonRegister">
                         <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                     </div>
@@ -155,7 +128,7 @@
                             <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
-               
+                    
             </div>
         </div>
         <div id="background">
@@ -243,10 +216,7 @@
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
             <div class="topnav">
-                <a class="active" href="{{ route('index') }}"> HOME </a>
-                <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                <a href="#calendario"> @lang('lang.Calendario') </a>
-                <a href="#quem somos"> @lang('lang.QuemSomos') </a>
+                @yield('links')
                 <div id="buttonRegister">
                     <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
                 </div>
@@ -279,17 +249,16 @@
                     </div>
                 </div>
                 <div class="topnav">
+                    
                     <div id="topFilterAll">
                         <form id="formSearchAll" action="{{ route('pesquisar') }}" method="GET">
                             <button id="searchAll" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                             <input id="inputSearchAll" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
+                    
                     <div id="center">
-                        <a id="home" class="active" onclick="hoverTop(0)" href="{{ route('index') }}"> HOME </a>
-                        <a id="monitoria" onclick="hoverTop(1)" href="{{ route('monitorias')}}"> @lang('lang.Monitorias') </a>
-                        <a id="calendario" onclick="hoverTop(2)" href="#calendario"> @lang('lang.Calendario') </a>
-                        <a id="quemSomos" onclick="hoverTop(3)" href="#quem somos"> @lang('lang.QuemSomos') </a>
+                        @yield('links')
                     </div>
                     
                 </div> 
