@@ -78,7 +78,7 @@
                 $('#modalBtn').on('click', function() {
                     $("#modal").css('display', 'block');
                 });
-                
+
                 $('.exit').on('click', function() {
                     $("#modal").css('display', 'none');
                 });
@@ -130,8 +130,8 @@
                                                     '<div class="row">' +
                                                         '<label id="labelAvatar" for="avatarFile"><h5>Enviar foto</h5></label><input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp" buttonText="Your label here.">' +
                                                         // '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
-                                                        '<button id="createTopico" type="submit"><h5>Fazer pergunta</h5></button>' +
-                                                        '<button type="button" id="fecharTopico">Fechar</button>' +
+                                                        '<button id="createTopico" type="submit"><h5>Finalizar pergunta</h5></button>' +
+                                                        '<button type="button" id="fecharTopico"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
                                                     '</div>' +
                                                 '</div>' +
                                             '</form>');
@@ -314,10 +314,10 @@
                             </div>                     
                         @endif       
                         
-                        <?php
-                            $usuarioInscrito = false;
-                        ?>
-        
+                        @if(Auth::check())
+                            <button type="button" id="adicionarTopico"  class="buttonParticipante">Fazer pergunta</button>
+                        @endif
+
                         @if(isset($inscrito))
                             @foreach($inscrito as $monitoriaInscrita)
                                 @if($monitoriaInscrita->id == $monitoria->id)
@@ -353,7 +353,10 @@
                                 </button>
                             </form>
                         @endif
-        
+
+                        <?php
+                            $usuarioInscrito = false;
+                        ?>
                     </div>
                 </div>
            </div>
@@ -362,9 +365,7 @@
                 <div>
                     <div id="forum">
                         <h2><b>Fórum</b><h2>
-                        @if(Auth::check())
-                            <button type="button" id="adicionarTopico">Adicionar Tópico</button>
-                        @endif
+                        
                         {{ session()->has('topico') ? session('topico') : '' }}
                         {{ $errors->has('topico') ? $errors->first('topico') : '' }}
                         {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
@@ -396,8 +397,8 @@
                                                                             '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
                                                                             '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
                                                                             '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
                                                                             '<button type="button" id="fecharResposta">Fechar</button>' +
+                                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
                                                                             '<button type="submit">Editar Tópico</button>' +
                                                                         '</div>' +
                                                                     '</form>');

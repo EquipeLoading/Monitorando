@@ -144,6 +144,9 @@ section{
         height: 2vh;
     }
     
+    #monitoriaEdit{
+        margin-right: 0 !important;
+    }
     #monitoriaEdit, .buttonPresenca, #labelAvatar{
         background-color: rgba(25, 61, 111);
         display: flex;
@@ -153,7 +156,7 @@ section{
         height: 4.6vh;
         border-radius: 5vw;
         max-width: 15vw;
-        margin-right: 1vw;
+        margin-right: .5vw;
     }
 
     .buttonPresenca,#labelAvatar{
@@ -324,13 +327,11 @@ section{
         z-index: 2;
     }
     
-
-    #AddNewField, .remove_field, #presenca, #fecharPresenca, #listaChamada form button, #createTopico{
+    #AddNewField, .remove_field, #presenca, #fecharPresenca, #listaChamada form button, #createTopico, #fecharTopico{
         margin-left: .5vw;
         width: 4vh;
         background-color: #5499C3;
         box-shadow: 0 0 .8em rgba(192, 192, 192, 0.3);
-
         height: 4vh;
         border-radius: 5vh;
     }
@@ -339,13 +340,17 @@ section{
         background-color: #cf4949;
     }
 
-    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img {
+    #fecharTopico{
+        margin-right: 0 !important;
+    }
+
+    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img, #fecharTopico img {
         /* filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%); */
         filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(311deg) brightness(103%) contrast(98%);
 
     }
 
-    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img{
+    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img, #fecharTopico img{
         display: block;
         margin: 0 auto;
         height: 2vh;
@@ -356,7 +361,7 @@ section{
         margin-bottom: .5vh;
     }
 
-    #fecharPresenca{
+    #fecharPresenca, #fecharTopico{
         margin-right: .5vw;
         transform: rotate(45deg);
         background-color: #cf4949;
@@ -429,7 +434,7 @@ section{
 
     #inputTitleForum{
         height: 4vh;
-        width: 35vw;
+        width: 40vw;
     }
 
     #inputTitleForum, textarea{
@@ -440,8 +445,8 @@ section{
         box-shadow: 0 0 .8em rgb(99, 98, 98, .1);
         border-radius: 10px;
         padding: 5px;
-        min-width: 15vw;
-        max-width: 30vw;
+        min-width: 40vw;
+        max-width: 40vw;
     }
 
     label{
@@ -467,6 +472,10 @@ section{
     #labelAvatar {
        margin-left: 0;
        height: 4vh;
+    }
+
+    #adicionarTopico{
+        cursor: pointer;
     }
 
     #modalLista {
