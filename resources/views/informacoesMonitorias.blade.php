@@ -21,42 +21,50 @@
     
 
     <body>
-        @section('links')
-            <a href="{{ route('index') }}"> HOME </a>
-            <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
-        @endsection 
         <script>
             $(document).ready(function(){
                 var count = 0;
                 var i = 0;
-                $('#buttonPresenca').click(function(e) {
+                $(document).on('click', '#buttonPresenca', function(e) {
                     e.preventDefault();
                     if(count == 0){
                         $('#buttonPresenca').remove();
-                        $('#adicionarPresenca').append('<form action="{{route("monitorias.informacoes", ["id" => $monitoria->id])}}" method="POST">' + 
+                        $('#adicionarPresenca').append('<form id="formColumn" action="{{route("monitorias.informacoes", ["id" => $monitoria->id])}}" method="POST">' + 
                                                             '@csrf' +
                                                             '<div id="newField">' + 
-                                                                '<label for="prontuarios[]">Prontuário</label>' +
-                                                                '<input type="text" name="prontuarios[]"/>' + 
-                                                                '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
+                                                                '<div id="formFlex">' + 
+                                                                    //'<label for="prontuarios[]">Prontuário</label>' +
+                                                                    '<input type="text" placeholder="Prontuario.."  name="prontuarios[]"/>' + 
+                                                                    '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
+                                                                '</div>' +
                                                             '</div>' +  
-                                                            '<button type="submit">Atribuir Presença</button>' +
+                                                            '<button type="submit" id="presenca"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
                                                         '</form>');
+                        $("#adicionarPresenca").append('<button type="button" id="fecharPresenca">Fechar</button>');
                         count++;
                     }
                 });
                 $('#adicionarPresenca').on('click', '#addNewField', function(e) {
-                    $('#newField').append('<div id="newField">' + 
-                                        '<label for="prontuario[]">Prontuário</label>' +
-                                        '<input type="text" name="prontuarios[]">' + 
-                                        '<button type="button" class="remove_field"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' + 
-                                    '</div>');
+                    $('#newField').append(
+                        '<div id="newField">' +
+                            '<div id="formFlex">' + 
+                                    // '<label for="prontuario[]">Prontuário</label>' +
+                                    '<input type="text" placeholder="Prontuario.." name="prontuarios[]">' + 
+                                    '<button type="button" class="remove_field"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' + 
+                            '</div>' +
+                        '</div>');
                 });
                 $('#adicionarPresenca').on('click', '.remove_field', function(e) {
                     e.preventDefault(); 
                     $(this).parent('div').remove();
+                });
+
+                $(document).on('click', '#fecharPresenca', function(e) {
+                    e.preventDefault();
+                    $('#formColumn').remove(); 
+                    $("#adicionarPresenca").append('<button id="buttonPresenca" type="button">Atribuir presenças na monitoria</button>');
+                    $("#fecharPresenca").remove();
+                    count = 0;
                 });
 
                 $('#modalBtn').on('click', function() {
@@ -119,28 +127,13 @@
                 });
             });
         </script>
-        @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
-            <button type="button"><a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">Editar dados</a></button>
-            <button type="button" id="modalBtn">Cancelar a monitoria</button>
-            <div id="modal">
-                <div class="modal-content">
-                    <span class="exit">&times;</span>
-                    <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
-                    <button type="button" class="exit">Não</button>
-                    <form method="POST" action="{{ route('monitorias.cancelar') }}">
-                        @csrf
-                        <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
-                        <button type="submit"> Sim </button>
-                    </form>
-                </div>
-            </div> 
-        @endif
 
         <?php
             $usuarioInscrito = false;
             $avaliado = false;
         ?>
 
+        
         <section>
             <h1>{{ $monitoria->codigo }}</h1>
             <h2>{{$monitoria->disciplina}}</h2>
@@ -205,13 +198,28 @@
                 </div>
 
                 <div class="card">
-                    <img src="{{ asset('/assets/svg/user-group.svg') }}" alt="Calendário" id="calendar">
-                    <h3>Participantes</h3>
-                    @if($monitoria->num_inscritos == "0")
-                        <p id="inscritosNenhum"> Nenhum participante </p>
-                    @else
-                        <p id="inscritos">{{ $monitoria->num_inscritos }}</p>
-                    @endif
+                        <img src="{{ asset('/assets/svg/user-group.svg') }}" alt="Calendário" id="calendar">
+                        <h3>Participantes</h3>
+                        @if($monitoria->num_inscritos == "0")
+                            <p id="inscritosNenhum"> Nenhum participante </p>
+                        @else
+                            <p id="inscritos">{{ $monitoria->num_inscritos }}</p>
+                        @endif
+                </div>
+
+            </div>
+
+            <div id="modal">
+                <div class="modal-content">
+                    <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
+                    <div id="modalButton">
+                        <button type="button" class="exit buttonModal">Não</button>
+                        <form method="POST" class="formModal" action="{{ route('monitorias.cancelar') }}">
+                            @csrf
+                            <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
+                            <button type="submit" id="bttYes" > Sim </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -224,25 +232,59 @@
                 <div id="column">
                     <img src="{{ asset('assets/png/Monitorando2.png') }}" alt="Logo monitorando" id="monitorando">  
                     <div id="buttons">
+
                         @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
-                        <div id="monitoriaEdit">
-                            <h5>Monitoria</h5>
-                            <button type="button" class="button">
-                                <a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">
-                                    <img src="{{ asset('/assets/svg/edit.svg') }}" alt="Local" id="edit">
-                                </a>
-                            </button>
-                            <form method="POST" action="{{ route('monitorias.cancelar') }}">
-                                @csrf
-                                <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
-                                
-                                <button type="submit" class="button" id="trashColor">
-                                    <img src="{{ asset('/assets/svg/trash.svg') }}" alt="Local" id="trash">
+                            <div id="adicionarPresenca">
+                                <button id="buttonPresenca" type="button"><h5>Lista de presença</h5></button>
+                                {{ $errors->has('prontuarios') ? $errors->first('prontuarios') : '' }}
+                            </div>
+                                {{ session()->has('mensagem') ? session('mensagem') : '' }}
+                            @if(!($participantes->isEmpty()))
+                                <h2>Usuários que participaram da monitoria</h2>
+                                <table border="1">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Prontuário</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($participantes as $participante)
+                                            <tr>
+                                                <td>{{$participante->nome}}</td>
+                                                <td>{{$participante->prontuario}}</td>
+                                                <td><a href="{{ route('profile', ['id' => $participante->id]) }}">Visitar Perfil</a></td>
+                                                <td>
+                                                    <form action="{{ route('monitorias.presenca', ['monitoriaId' => $monitoria->id, 'usuarioId' => $participante->id]) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit">Remover</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        @endif
+
+                        @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
+                            <div id="monitoriaEdit">
+                                <h5>Monitoria</h5>
+                                <button type="button" class="button">
+                                    <a href="{{ route('monitorias.editar', ['id' => $monitoria->id]) }}">
+                                        <img src="{{ asset('/assets/svg/edit.svg') }}" alt="Local" id="edit">
+                                    </a>
                                 </button>
-                            </form>
-                        </div>
+                                <button type="button" class="button" id="modalBtn">
+                                    <img src="{{ asset('/assets/svg/trash.svg') }}" alt="Local" id="trash">
+                                </button> 
+                            </div>                     
                         @endif
         
+                        
+                        
                         <?php
                             $usuarioInscrito = false;
                         ?>
@@ -291,41 +333,7 @@
 
            
         </section>
-        @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
-            <div id="adicionarPresenca">
-                <button id="buttonPresenca" type="button">Atribuir presenças na monitoria</button>
-                {{ $errors->has('prontuarios') ? $errors->first('prontuarios') : '' }}
-            </div>
-            {{ session()->has('mensagem') ? session('mensagem') : '' }}
-            @if(!($participantes->isEmpty()))
-                <h2>Usuários que participaram da monitoria</h2>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Prontuário</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($participantes as $participante)
-                            <tr>
-                                <td>{{$participante->nome}}</td>
-                                <td>{{$participante->prontuario}}</td>
-                                <td><a href="{{ route('profile', ['id' => $participante->id]) }}">Visitar Perfil</a></td>
-                                <td>
-                                    <form action="{{ route('monitorias.presenca', ['monitoriaId' => $monitoria->id, 'usuarioId' => $participante->id]) }}" method="POST">
-                                        @csrf
-                                        <button type="submit">Remover</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @endif
-        @endif
+        
         <?php
             $usuario = Auth::user();
         ?>
@@ -449,47 +457,53 @@
             @endif
         @endif
 
-    <div id="forum">
-        <h3>Fórum</h3>
-        @if(Auth::check())
-            <button type="button" id="adicionarTopico">Adicionar Tópico</button>
-        @endif
-        {{ session()->has('topico') ? session('topico') : '' }}
-        {{ $errors->has('topico') ? $errors->first('topico') : '' }}
-        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
-        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
-    </div>
-    <div id="topicos">
-        {{ session()->has('editado') ? session('editado') : '' }}
-        @foreach($topicos as $topico) 
-            @if($topico->monitoria_id == $monitoria->id)
-                <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
-                @if(isset($usuario) && $usuario->id == $topico->user_id)
-                    <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
-                    <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+        <div id="forum">
+            <h3>Fórum</h3>
+            @if(Auth::check())
+                <button type="button" id="adicionarTopico">Adicionar Tópico</button>
+            @endif
+            {{ session()->has('topico') ? session('topico') : '' }}
+            {{ $errors->has('topico') ? $errors->first('topico') : '' }}
+            {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
+            {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
+        </div>
+        
+        <div id="topicos">
+            {{ session()->has('editado') ? session('editado') : '' }}
+            @foreach($topicos as $topico) 
+                @if($topico->monitoria_id == $monitoria->id)
+                    <h4><a href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}"> {{$topico->topico}} </a></h4>
+                    @if(isset($usuario) && $usuario->id == $topico->user_id)
+                        <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
+                        <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+                        @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
+                            <?php
+                                $mensagemCriador = $mensagem;
+                            ?>
+                        @endforeach
                         <script>
                             $(document).ready(function() {
                                 var editar = true;
                                 $("#editarTopico{{$topico->id}}").click(function(e) {
-                                    if(editar == true){
-                                        e.preventDefault(); 
-                                        $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
-                                                                '@csrf' +
-                                                                '<div id="novoTopico">' + 
-                                                                    '<label for="topico">Tópico</label>' +
-                                                                    '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                    '<button type="submit">Editar Tópico</button>' +
-                                                                '</div>' +
-                                                            '</form>');
-                                        editar = false;
-                                    }
+                                    e.preventDefault(); 
+                                    $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                            '@csrf' +
+                                                            '<div id="novoTopico">' + 
+                                                                '<label for="topico">Tópico</label>' +
+                                                                '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                                '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
+                                                                '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
+                                                                '<button type="submit">Editar Tópico</button>' +
+                                                            '</div>' +
+                                                        '</form>');
                                 });
-                            });
+                        });
                         </script>
+                    @endif
                 @endif
-            @endif
-        @endforeach
-    </div>
+            @endforeach
+        </div>
     </body>
 
     </html>
