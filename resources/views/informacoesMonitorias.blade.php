@@ -21,6 +21,12 @@
     
 
     <body>
+        @section('links')
+            <a href="{{ route('index') }}"> HOME </a>
+            <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
+            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+        @endsection 
         <script>
             $(document).ready(function(){
                 var count = 0;
