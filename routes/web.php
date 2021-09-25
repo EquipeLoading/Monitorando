@@ -119,7 +119,7 @@ Route::prefix('/monitorias')->group(function() {
     Route::post('/avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'avaliacao'])->whereNumber('id')->name('monitorias.avaliar')->middleware('verified');
     Route::post('/editar-avaliacao/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarAvaliacao'])->whereNumber('id')->name('monitorias.editar.avaliacao')->middleware('verified');
     Route::post('/postar-topico/{id}', [\App\Http\Controllers\MonitoriasController::class, 'postarTopico'])->whereNumber('id')->name('monitorias.postar.topico')->middleware('verified');
-    Route::post('/editar-topico/{id}/{mensagem}', [\App\Http\Controllers\MonitoriasController::class, 'editarTopico'])->whereNumber('id')->whereNumber('mensagem')->name('monitorias.editar.topico')->middleware('verified');
+    Route::post('/editar-topico/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarTopico'])->whereNumber('id')->whereNumber('mensagem')->name('monitorias.editar.topico')->middleware('verified');
     Route::post('/editar-mensagem/{id}', [\App\Http\Controllers\MonitoriasController::class, 'editarMensagem'])->whereNumber('id')->name('monitorias.editar.mensagem')->middleware('verified');
     Route::get('/{id}/forum/{topico}', function($id, $topicoId) {
         $topico = Topico::where('id', $topicoId)->get()->first();

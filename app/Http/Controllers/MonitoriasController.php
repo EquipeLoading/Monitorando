@@ -368,44 +368,20 @@ class MonitoriasController extends Controller
         return redirect()->back();
     }
 
-    public function editarTopico(Request $request, $id, $mensagem) {
+    public function editarTopico(Request $request, $id) {
         $arquivo = null;
 
         $regras = [
             'topico' => 'required|min:3|max:100',
-            'mensagem' => 'required|min:5|max:5000',
         ];
 
         $request->validate($regras);
 
-        if($request->hasFile('imagem')) {
-            $request->validate(['imagem' => 'mimes:jpeg,png,jpg,pdf']);
-            $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $request->imagem);
-            $arquivo = 'data:'.$tipoArquivo.';base64,'.base64_encode(file_get_contents($request->imagem));
-        }
-
         $topico = Topico::where('id', $id)->get()->first();
-        $mensagem = Mensagem::where('id', $mensagem)->get()->first();
 
         $topico->update([
             'topico' => $request->topico
         ]);
-
-        if($request->has('apagarAnexo')){
-            $mensagem->update([
-                'mensagem' => $request->mensagem,
-                'imagem' => null
-            ]);
-        } elseif($request->hasFile('imagem')){
-            $mensagem->update([
-                'mensagem' => $request->mensagem,
-                'imagem' => $arquivo
-            ]);
-        } else {
-            $mensagem->update([
-                'mensagem' => $request->mensagem
-            ]);
-        }
 
         return redirect()->back()->with('editado', 'O tópico foi editado com sucesso!');
     }

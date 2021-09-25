@@ -467,24 +467,17 @@
                 @if(isset($usuario) && $usuario->id == $topico->user_id)
                     <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
                     <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                    @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
-                        <?php
-                            $mensagemCriador = $mensagem;
-                        ?>
                         <script>
                             $(document).ready(function() {
                                 var editar = true;
                                 $("#editarTopico{{$topico->id}}").click(function(e) {
                                     if(editar == true){
                                         e.preventDefault(); 
-                                        $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                        $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
                                                                 '@csrf' +
                                                                 '<div id="novoTopico">' + 
                                                                     '<label for="topico">Tópico</label>' +
                                                                     '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                    '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                    '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
                                                                     '<button type="submit">Editar Tópico</button>' +
                                                                 '</div>' +
                                                             '</form>');
@@ -493,7 +486,6 @@
                                 });
                             });
                         </script>
-                    @endforeach
                 @endif
             @endif
         @endforeach
