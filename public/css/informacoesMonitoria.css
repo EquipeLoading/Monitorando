@@ -149,7 +149,6 @@ section{
     #monitoriaEdit{
         margin-right: 0 !important;
     }
-
     #monitoriaEdit, .buttonPresenca, #labelAvatar{
         background-color: rgba(25, 61, 111);
         display: flex;
@@ -533,7 +532,6 @@ section{
         border-radius: 5vh;
         padding: 0 .7vh;
         margin-bottom: .5vh;
-
     }
 
     #listForum h5{
