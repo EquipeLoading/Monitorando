@@ -342,7 +342,7 @@ section{
         z-index: 2;
     }
     
-    #AddNewField, .remove_field, #presenca, #fecharPresenca, #listaChamada form button, #createTopico, #fecharTopico{
+    #AddNewField, .remove_field, #presenca, #fecharPresenca, #listaChamada form button, #createTopico, #fecharTopico, #fecharEdicaoTopico{
         margin-left: .5vw;
         width: 4vh;
         background-color: #5499C3;
@@ -351,32 +351,58 @@ section{
         border-radius: 5vh;
     }
 
-    .remove_field, #listaChamada form button{
+    #editarTopico, #excluirTopico, .buttonTopicoEdit, #saveEditForum{
+        margin-left: .5vw;
+        width: 4vh;
+        background-color: #5499C3;
+        box-shadow: 0 0 .8em rgba(192, 192, 192, 0.3);
+        height: 4vh;
+        border-radius: 5vh;
+        border: none;
+        cursor: pointer;
+    }
+    #saveEditForum{
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .remove_field, #listaChamada form button, #excluirTopico{
         background-color: #cf4949;
     }
+
+    #excluirTopico{
+        display: flex;
+        align-items: center;
+    }
+
 
     #fecharTopico{
         margin-right: 0 !important;
     }
 
-    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img, #fecharTopico img {
+    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img {
         /* filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%); */
         filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(311deg) brightness(103%) contrast(98%);
 
     }
 
-    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img, #fecharTopico img{
+    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img{
         display: block;
-        margin: 0 auto;
+        margin: auto;
         height: 2vh;
     } 
+
+    .buttonTopicoEdit img{
+        transform: rotate(90deg);
+
+    }
 
     #presenca, #fecharPresenca{
         margin-top: auto;
         margin-bottom: 1vh;
     }
 
-    #fecharPresenca, #fecharTopico{
+    #fecharPresenca, #fecharTopico, #fecharEdicaoTopico{
         margin-right: .5vw;
         transform: rotate(45deg);
         background-color: #cf4949;
@@ -431,6 +457,7 @@ section{
         align-items: center;
         margin: 0;
     }
+
     #avatarChamada img{
         margin-right: .2vw;
     }
@@ -471,7 +498,7 @@ section{
         max-width: 5vw !important;
     }
 
-    #inputTitleForum, textarea{
+    #inputTitleForum, textarea, #inputEditForum{
         margin: .5vh 0;
         border: none;
         flex: none;
@@ -490,8 +517,6 @@ section{
 
     #novoTopico .row{
         margin: .3vw .5vh;
-        justify-content: space-between;
-        align-items: center;
     }
 
     #createTopico{
@@ -521,7 +546,7 @@ section{
     #listForum{
         align-items: center;
         text-align: start;
-        
+        width: 33.5vw;
     }
 
     #listForum .row{
@@ -607,4 +632,11 @@ section{
         width: 3vw;
         padding: 1.2vh;
     }
+
+    #topicos .row{
+        display: flex;
+        /* justify-content: flex-end; */
+        align-items: center;
+    }
+
 }

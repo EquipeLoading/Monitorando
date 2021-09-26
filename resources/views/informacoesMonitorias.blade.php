@@ -414,47 +414,52 @@
                                         @endforeach
                                         <div id="topico{{$topico->id}}">
                                             @if($topico->monitoria_id == $monitoria->id)
-                                                    <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}">
-                                                        <div class="row">
-                                                            <div>
-                                                                <h5>{{$nome}}</h5>
-                                                                <h4>{{$topico->topico}}</h4>
+                                                    <div class="row">
+                                                        <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}">
+                                                            <div class="row">
+                                                                <div>
+                                                                    <h5>{{$nome}}</h5>
+                                                                    <h4>{{$topico->topico}}</h4>
+                                                                </div>
+                                                                <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
                                                             </div>
-                                                            <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
-                                                        </div>
-                                                    </a>
-                                                    <?php
-                                                        $usuario = Auth::user();
-                                                    ?>
-                                                    @if(isset($usuario) && $usuario->id == $topico->user_id)
-                                                        <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
-                                                        <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                                                        <script>
-                                                            $(document).ready(function() {
-                                                                var editar = true;
-                                                                $("#editarTopico{{$topico->id}}").click(function(e) {
-                                                                    if(editar == true){
-                                                                        e.preventDefault(); 
-                                                                        $("#topico{{$topico->id}}").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
-                                                                                                '@csrf' +
-                                                                                                '<div id="novoTopico">' + 
-                                                                                                    '<label for="topico">Tópico</label>' +
-                                                                                                    '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                                                    '<button type="button" id="fecharEdicaoTopico">Fechar</button>' +
-                                                                                                    '<button type="submit">Editar Tópico</button>' +
-                                                                                                '</div>' +
-                                                                                            '</form>');
-                                                                        editar = false;
-                                                                    }
+                                                        </a>
+                                                        <?php
+                                                            $usuario = Auth::user();
+                                                        ?>
+                                                        @if(isset($usuario) && $usuario->id == $topico->user_id)
+                                                            <button id="editarTopico{{$topico->id}}" class="buttonTopicoEdit"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>
+                                                            <a id="excluirTopico" href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>
+                                                            <script>
+                                                                $(document).ready(function() {
+                                                                    var editar = true;
+                                                                    $("#editarTopico{{$topico->id}}").click(function(e) {
+                                                                        if(editar == true){
+                                                                            e.preventDefault(); 
+                                                                            $('#editarTopico{{$topico->id}}').css('display', 'none')
+                                                                            $("#forum").append('<form method="POST" id="editarForum" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
+                                                                                                    '@csrf' +
+                                                                                                    '<div id="novoTopico">' + 
+                                                                                                        '<label for="topico">Título</label>' +
+                                                                                                        '<input id="inputEditForum"type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                                                        '<div class="row"><button id="saveEditForum" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
+                                                                                                        '<button type="button" id="fecharEdicaoTopico"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button></div>' +
+                                                                                                    '</div>' +
+                                                                                                '</form>');
+                                                                            editar = false;
+                                                                        }
+                                                                    });
+                                                                    $(document).on('click', '#fecharEdicaoTopico', function(e) {
+                                                                        e.preventDefault();
+                                                                        $("#editarForum").remove();
+                                                                        $('#editarTopico{{$topico->id}}').css('display', 'block')
+
+                                                                        editar = true;
+                                                                    });
                                                                 });
-                                                                $(document).on('click', '#fecharEdicaoTopico', function(e) {
-                                                                    e.preventDefault();
-                                                                    $("#editarTopico").remove();
-                                                                    editar = true;
-                                                                });
-                                                            });
-                                                        </script>
-                                                    @endif
+                                                            </script>
+                                                        @endif
+                                                    </div>
                                             @endif       
                                         </div>    
                                 @endforeach
