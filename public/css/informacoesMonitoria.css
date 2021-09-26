@@ -81,6 +81,7 @@ section{
     #inscritos{
         font-size: 2em;
     }
+    
     #inscritosNenhum{
         font-size: 1.2em;
     }
@@ -89,6 +90,7 @@ section{
         margin: 0;
         padding: 0;
     }
+
     .button,.buttonParticipante{
         background-color: transparent;
         border-radius: 5vh;
@@ -198,14 +200,13 @@ section{
 
     }
 
-
     .row{
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
     }
     #column{
-        width: 45vw;
+        width: 52vw;
         height: 38vh;
         display: grid;
         justify-items: end;
@@ -221,7 +222,20 @@ section{
         filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%);
 
     }
-
+    #modalAvaliacao{
+        display: none;
+        position: absolute;
+        z-index: 100;
+        background-color: #fcfcfc;
+        border-radius: 3vh;
+        min-width: 20vw;
+        box-shadow: 0 2px .8em rgba(192, 192, 192, 0.6);
+        margin-top: 15%;
+        margin-right: 50%;
+        margin-left: 30%;
+        text-align: start;
+        padding: 1.5vh;
+    }
     #modal, #modalLista{
         display: none;
         position: fixed;
@@ -314,6 +328,7 @@ section{
         height: 4vh;
         border: none;
         margin: .5vh 0 ;
+        min-width: 10vw;
         margin-left: .5vw;
     }
 
@@ -358,7 +373,7 @@ section{
 
     #presenca, #fecharPresenca{
         margin-top: auto;
-        margin-bottom: .5vh;
+        margin-bottom: 1vh;
     }
 
     #fecharPresenca, #fecharTopico{
@@ -367,7 +382,8 @@ section{
         background-color: #cf4949;
     }
 
-    #listaChamada, #forum{
+
+    #listaChamada, #forum, #forumQuest{
         font-size: 1em;
         background: hsla(0, 0%, 99%, 0.603);
         box-shadow: 0 0 .8em rgba(192, 192, 192, 0.1);
@@ -380,11 +396,16 @@ section{
         /* margin-top: 4vh; */
     }
 
-    #listaChamada{
+    #forumQuest{
+        margin-bottom: 1vh;
+        display: none;
+    }
+
+    #listaChamada, #forumQuest{
         padding: 1.5vh;
         min-width: 20vw;
         max-width: 30vw;
-
+        margin-left: auto;
     }
 
     #listaChamada .row{
@@ -417,6 +438,7 @@ section{
     #prontuario{
         margin-left: auto !important;
         margin-right: 1vw !important;
+        text-transform: uppercase;
     }
 
     #titleProntuario{
@@ -434,7 +456,19 @@ section{
 
     #inputTitleForum{
         height: 4vh;
-        width: 40vw;
+        width: 30vw;
+    }
+
+    input{
+        margin: .5vh .5vw;
+        border: none;
+        flex: none;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .1);
+        border-radius: 10px;
+        padding: 5px;
+        min-height: 5vh;
+        max-width: 5vw !important;
     }
 
     #inputTitleForum, textarea{
@@ -445,8 +479,9 @@ section{
         box-shadow: 0 0 .8em rgb(99, 98, 98, .1);
         border-radius: 10px;
         padding: 5px;
-        min-width: 40vw;
-        max-width: 40vw;
+        min-width: 30vw;
+        min-height: 5vh;
+        max-width: 30vw;
     }
 
     label{
@@ -483,4 +518,88 @@ section{
         margin-left: 3%;
     }
 
+    #listForum{
+        align-items: center;
+        text-align: start;
+        
+    }
+
+    #listForum .row{
+        display: flex;
+        align-items: center;
+        height: auto;
+        background-color: #f0f2f5;
+        border-radius: 5vh;
+        padding: 0 .7vh;
+        margin-bottom: .5vh;
+    }
+
+    #listForum h5{
+        color: #193D6F;
+        font-weight: 300;
+        font-size: .5em;
+        margin-bottom: .1vh;
+    }
+
+    #listForum h4, #listForum a{
+        font-size: .8em;
+        padding-left: .5vw;
+        margin-top: 0;
+        margin-bottom: .5vh;
+    }
+
+    #listForum h4{
+        color: #a0a0a0c4;
+    }
+
+    #listForum img{
+        height: 2vh;
+        filter: invert(15%) sepia(38%) saturate(3257%) hue-rotate(197deg) brightness(100%) contrast(85%);
+    }
+
+    #sendButton, #closetButton, #modalAvaliacaoBtn{
+        box-shadow: 0 0 .8em rgba(192, 192, 192, 0.4);
+        background-color: #5499C3;
+        border-radius: 5vh;
+        height: 4.5vh;
+        border: none;
+        width: 6vw;
+        margin: 0;
+        margin-top: .5vh;
+        color: #fcfcfc !important;
+        text-align: center;
+        font-size: 1em;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-left: .5vw;
+        cursor: pointer;
+    }
+
+    #modalAvaliacaoBtn{
+        margin-top: 0;
+        width: auto;
+    }
+
+    input:out-of-range{
+        /* border-color: ; */
+        border: 2px solid #cf4949;
+    }
+
+    input[type=number]{
+        overflow-x: hidden;
+    }
+
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    #closetButton{
+        background-color: #cf4949;
+    }
+
+    #formAvaliacao .row{
+        justify-content: flex-end;
+    }
 }
