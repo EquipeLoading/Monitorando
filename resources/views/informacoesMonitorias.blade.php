@@ -152,7 +152,7 @@
                     }
                 });
 
-                if("{{ session()->has('topico') }}" == 1 || "{{ $errors->has('topico') }}" == 1 || "{{ $errors->has('mensagem') }}" == 1 || "{{ $errors->has('imagem') }}" == 1) {
+                if("{{ session()->has('topico') }}" == 1 || "{{ $errors->has('topico') }}" == 1 || "{{ $errors->has('mensagem') }}" == 1 || "{{ $errors->has('imagem') }}" == 1 || "{{ session()->has('editado') }}" == 1) {
                     $("#modalForum").css('display', 'block');
                 }
                 $(document).on('click',function(e){
@@ -395,11 +395,10 @@
                             <p>{{ $errors->has('topico') ? $errors->first('topico') : '' }}</p>
                             <p>{{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}</p>
                             <p>{{ $errors->has('imagem') ? $errors->first('imagem') : '' }}</p>
+                            <p>{{ session()->has('editado') ? session('editado') : '' }}</p>
                         </div>
                     
                         <div id="topicos">
-                            
-                            {{ session()->has('editado') ? session('editado') : '' }}
                             @if($topicos->isEmpty())
                                 <h2>Sem perguntas</h2>
                             @else
