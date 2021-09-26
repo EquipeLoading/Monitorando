@@ -142,13 +142,25 @@
                         $("#modalLista").css('display', 'none');
                     }
                 });
-                /*if(display1 == 1){
-                    alert("{{$errors->first('prontuarios')}}");
+                
+                if("{{ $errors->has('nota')}}" == 1 || "{{ $errors->has('justificativa')}}" == 1 || "{{ session()->has('sucesso')}}" == 1) {
+                    $("#modalAvaliacaoFeedback").css('display', 'block');
                 }
-                if(display2 == 1) {
-                    alert("{{session('mensagem')}}");
-                }*/
-            });
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalAvaliacaoFeedback").length > 0 ))){
+                        $("#modalAvaliacaoFeedback").css('display', 'none');
+                    }
+                });
+
+                if("{{ session()->has('topico') }}" == 1 || "{{ $errors->has('topico') }}" == 1 || "{{ $errors->has('mensagem') }}" == 1 || "{{ $errors->has('imagem') }}" == 1) {
+                    $("#modalForum").css('display', 'block');
+                }
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalForum").length > 0 ))){
+                        $("#modalForum").css('display', 'none');
+                    }
+                });
+            }); 
         </script>
 
         @section('links')
@@ -318,10 +330,11 @@
                             @endforeach
                             @if($avaliado == false)
                                 <button id="modalAvaliacaoBtn">Avaliar Monitoria</button><br/>
-                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
-                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
-                                    
-                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
+                                <div id="modalAvaliacaoFeedback">
+                                    <p>{{ $errors->has('nota') ? $errors->first('nota') : '' }}</p>
+                                    <p>{{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}</p>
+                                    <p>{{ session()->has('sucesso') ? session('sucesso') : '' }}</p>
+                                </div>
                             @endif
                         @endif
 
@@ -377,11 +390,12 @@
                 <div>
                     <div id="forum">
                         <h2><b>Fórum</b><h2>
-                        
-                        {{ session()->has('topico') ? session('topico') : '' }}
-                        {{ $errors->has('topico') ? $errors->first('topico') : '' }}
-                        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
-                        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
+                        <div id="modalForum">
+                            <p>{{ session()->has('topico') ? session('topico') : '' }}</p>
+                            <p>{{ $errors->has('topico') ? $errors->first('topico') : '' }}</p>
+                            <p>{{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}</p>
+                            <p>{{ $errors->has('imagem') ? $errors->first('imagem') : '' }}</p>
+                        </div>
                     
                         <div id="topicos">
                             
@@ -416,18 +430,13 @@
                                                     @if(isset($usuario) && $usuario->id == $topico->user_id)
                                                         <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
                                                         <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                                                        @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
-                                                            <?php
-                                                                $mensagemCriador = $mensagem;
-                                                            ?>
-                                                        @endforeach
                                                         <script>
                                                             $(document).ready(function() {
                                                                 var editar = true;
                                                                 $("#editarTopico{{$topico->id}}").click(function(e) {
                                                                     if(editar == true){
                                                                         e.preventDefault(); 
-                                                                        $("#topico{{$topico->id}}").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                                        $("#topico{{$topico->id}}").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
                                                                                                 '@csrf' +
                                                                                                 '<div id="novoTopico">' + 
                                                                                                     '<label for="topico">Tópico</label>' +
@@ -527,8 +536,6 @@
                                 <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
                                 <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
                                 <button id="editarAvaliacao">Editar avaliação</button>
-                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
-                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
                                 <div id="modalEditarAvaliacao">
                                     <div class="modal-content">
                                         <span class="closeEdit">&times;</span>
@@ -542,7 +549,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
                             </div>
                         @else
                             <br>
@@ -566,8 +572,6 @@
                                 <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
                                 <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
                                 <button id="editarAvaliacao">Editar avaliação</button>
-                                {{ $errors->has('nota') ? $errors->first('nota') : '' }}
-                                {{ $errors->has('justificativa') ? $errors->first('justificativa') : '' }}
                                 <div id="modalEditarAvaliacao">
                                     <div class="modal-content">
                                         <span class="closeEdit">&times;</span>
@@ -581,7 +585,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                {{ session()->has('sucesso') ? session('sucesso') : '' }}
                             </div>
                         @endif
                     @endif
