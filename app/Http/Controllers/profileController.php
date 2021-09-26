@@ -64,7 +64,7 @@ class ProfileController extends Controller
             }
 
             $turmas = Turma::all();
-            $turmaId = 0;
+            $turmaId = null;
             foreach($turmas as $turma) {
                 if($turma->numero == $request->turma_id){
                     $turmaId = $turma->id;
@@ -75,9 +75,14 @@ class ProfileController extends Controller
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'prontuario' => $request->prontuario,
-                'turma_id' => $turmaId,
                 'linksExternos' => $link,
             ]);
+
+            if(isset($turmaId)){
+                User::where('id', $usuario->id)->update([
+                    'turma_id' => $turmaId
+                ]);
+            }
 
             if($request->email != $usuario->email){
                 event(new Registered($usuario));

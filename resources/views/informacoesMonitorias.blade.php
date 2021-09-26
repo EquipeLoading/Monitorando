@@ -22,11 +22,9 @@
 
     <body>
         <script>
-
             $(document).ready(function(){
                 var i = 0;
-            var count = 0;
-
+                var count = 0;
                 $('.buttonPresenca').click(function(e) {
                     $('.buttonPresenca').css('display', 'none');
                     $('#modalAvaliacaoBtn').css('display', 'none');
@@ -43,15 +41,12 @@
                                                             '<button type="submit" id="presenca"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
                                                             '<button type="button" id="fecharPresenca"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
                                                         '</form>');
-
                         count++;
                     }
                 });
-
                 $('#presenca').on('click', function() {
                     $("#listaChamada").css('display', 'block');
                 });
-
                 $('#adicionarPresenca').on('click', '#addNewField', function(e) {
                     $('#newField').append(
                         '<div id="newField">' +
@@ -61,16 +56,13 @@
                             '</div>' +
                         '</div>');
                 });
-
                 $('#adicionarPresenca').on('click', '.remove_field', function(e) {
                     count = 0;
                     e.preventDefault(); 
                     $(this).parent('div').remove();
                 });
-
                 $(document).on('click', '#fecharPresenca', function(e) {
                     count = 0;
-
                     e.preventDefault();
                     $("#adicionarPresenca h1").remove();
                     $("#adicionarPresenca form").remove();
@@ -82,43 +74,34 @@
                 $('#modalBtn').on('click', function() {
                     $("#modal").css('display', 'block');
                 });
-
                 $('.exit').on('click', function() {
                     $("#modal").css('display', 'none');
                 });
-
                 $(document).on('click',function(e){
                     if(!(($(e.target).closest("#modal").length > 0 ) || ($(e.target).closest("#modalBtn").length > 0))){
                         $("#modal").css('display', 'none');
                     }
                 });
-
                 $('#modalAvaliacaoBtn').on('click', function() {
                     $("#modalAvaliacao").css('display', 'block');
                 });
-
                 $('.close').on('click', function() {
                     $("#modalAvaliacao").css('display', 'none');
                 });
-
                 $('#editarAvaliacao').on('click', function() {
                     $("#modalEditarAvaliacao").css('display', 'block');
                 });
-
                 $('.closeEdit').on('click', function() {
                     $("#modalEditarAvaliacao").css('display', 'none');
                 });
-
                 $(document).on('click',function(e){
                     if(!(($(e.target).closest("#modalEditarAvaliacao").length > 0 ) || ($(e.target).closest("#editarAvaliacao").length > 0))){
                         $("#modalEditarAvaliacao").css('display', 'none');
                     }
                 });
-
                 $('#adicionarTopico').click(function(e) {
                     $('#adicionarTopico').css('display', 'none');
                     $('#forumQuest').css('display', 'block');
-
                     if(i == 0){
                         $('#forumQuest').append('<form method="POST" id="postarNovoTopico" action="{{ route('monitorias.postar.topico', ['id' => $monitoria->id]) }}" enctype="multipart/form-data">' +
                                                 '@csrf' +
@@ -137,43 +120,28 @@
                         i++;
                     }
                 });
-
                 $('#closetButton').on('click', function(){
                     $("#modalAvaliacao").css('display', 'none');
-
                 })
-
                 $(document).on('click', '#fecharTopico', function(e) {
                     e.preventDefault();
                     $("#postarNovoTopico").remove();
                     $('#adicionarTopico').css('display', 'block');
                     $('#forumQuest').css('display', 'none');
-
                     i = 0;
                 });
-
-                $(document).on('click', '#fecharEdicaoTopico', function(e) {
-                    e.preventDefault();
-                    $("#editarTopico").remove();
-                    $('#adicionarTopico').css('display', 'block');
-
-                });
             });
-
             $(window).load(function() {
                 var display1 = "{{$errors->has('prontuarios')}}";
                 var display2 = "{{session()->has('mensagem')}}";
-
                 if(display1 == 1 || display2 == 1) {
                     $("#modalLista").css('display', 'block');
                 }
-
                 $(document).on('click',function(e){
                     if(!(($(e.target).closest("#modalLista").length > 0 ))){
                         $("#modalLista").css('display', 'none');
                     }
                 });
-
                 /*if(display1 == 1){
                     alert("{{$errors->first('prontuarios')}}");
                 }
@@ -181,7 +149,6 @@
                     alert("{{session('mensagem')}}");
                 }*/
             });
-
         </script>
 
         @section('links')
@@ -422,7 +389,7 @@
                             @if($topicos->isEmpty())
                                 <h2>Sem perguntas</h2>
                             @else
-                                @foreach($topicos as $topico ) 
+                                @foreach($topicos as $topico) 
                                         <?php
                                             $nome = null;
                                             $user = $topico->user_id;
@@ -432,49 +399,56 @@
                                             <?php $nome = $users->nome; ?>
                                             @endif
                                         @endforeach
-                                        @if($topico->monitoria_id == $monitoria->id)
-                                                <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}">
-                                                    <div class="row">
-                                                        <div>
-                                                            <h5>{{$nome}}</h5>
-                                                            <h4>{{$topico->topico}}</h4>
+                                        <div id="topico{{$topico->id}}">
+                                            @if($topico->monitoria_id == $monitoria->id)
+                                                    <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria->id, 'topico' => $topico->id]) }}">
+                                                        <div class="row">
+                                                            <div>
+                                                                <h5>{{$nome}}</h5>
+                                                                <h4>{{$topico->topico}}</h4>
+                                                            </div>
+                                                            <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
                                                         </div>
-                                                        <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
-                                                    </div>
-                                                </a>
-                                                <?php
-                                                        // $usuario = Auth::user();
-                                                ?>
-                                                @if(isset($usuario) && $usuario->id == $topico->user_id)
-                                                    <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
-                                                    <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
-                                                    @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
-                                                        <?php
-                                                            $mensagemCriador = $mensagem;
-                                                        ?>
-                                                    @endforeach
-                                                    <script>
-                                                        $(document).ready(function() {
-                                                            var editar = true;
-                                                            $("#editarTopico{{$topico->id}}").click(function(e) {
-                                                                e.preventDefault(); 
-                                                                $("#topicos").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
-                                                                                        '@csrf' +
-                                                                                        '<div id="novoTopico">' + 
-                                                                                            '<label for="topico">Tópico</label>' +
-                                                                                            '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                                            '<textarea name="mensagem" form="editarTopico">{{ $mensagemCriador->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                                            '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                                            '<button type="button" id="fecharResposta">Fechar</button>' +
-                                                                                            '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem válida</small>' +
-                                                                                            '<button type="submit">Editar Tópico</button>' +
-                                                                                        '</div>' +
-                                                                                    '</form>');
+                                                    </a>
+                                                    <?php
+                                                        $usuario = Auth::user();
+                                                    ?>
+                                                    @if(isset($usuario) && $usuario->id == $topico->user_id)
+                                                        <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
+                                                        <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>
+                                                        @foreach($mensagens->where('topico_id', $topico->id) as $mensagem)
+                                                            <?php
+                                                                $mensagemCriador = $mensagem;
+                                                            ?>
+                                                        @endforeach
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                var editar = true;
+                                                                $("#editarTopico{{$topico->id}}").click(function(e) {
+                                                                    if(editar == true){
+                                                                        e.preventDefault(); 
+                                                                        $("#topico{{$topico->id}}").append('<form method="POST" id="editarTopico" action="{{ route('monitorias.editar.topico', ['id' => $topico->id, 'mensagem' => $mensagemCriador->id]) }}" enctype="multipart/form-data">' +
+                                                                                                '@csrf' +
+                                                                                                '<div id="novoTopico">' + 
+                                                                                                    '<label for="topico">Tópico</label>' +
+                                                                                                    '<input type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                                                    '<button type="button" id="fecharEdicaoTopico">Fechar</button>' +
+                                                                                                    '<button type="submit">Editar Tópico</button>' +
+                                                                                                '</div>' +
+                                                                                            '</form>');
+                                                                        editar = false;
+                                                                    }
+                                                                });
+                                                                $(document).on('click', '#fecharEdicaoTopico', function(e) {
+                                                                    e.preventDefault();
+                                                                    $("#editarTopico").remove();
+                                                                    editar = true;
+                                                                });
                                                             });
-                                                        });
-                                                    </script>
-                                                @endif
-                                        @endif           
+                                                        </script>
+                                                    @endif
+                                            @endif       
+                                        </div>    
                                 @endforeach
                             @endif
                             
