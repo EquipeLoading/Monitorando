@@ -399,6 +399,7 @@
                         @endif
 
                         <?php
+                            // $usuario = Auth::user();
                             $usuarioInscrito = false;
                         ?>
                     </div>
@@ -416,6 +417,7 @@
                         {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
                     
                         <div id="topicos">
+                            
                             {{ session()->has('editado') ? session('editado') : '' }}
                             @if($topicos->isEmpty())
                                 <h2>Sem perguntas</h2>
@@ -440,7 +442,9 @@
                                                         <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
                                                     </div>
                                                 </a>
-
+                                                <?php
+                                                        // $usuario = Auth::user();
+                                                ?>
                                                 @if(isset($usuario) && $usuario->id == $topico->user_id)
                                                     <button type="button" id="editarTopico{{$topico->id}}">Editar Tópico</button>
                                                     <button type="button" id="excluirTopico"><a href="{{ route('monitorias.excluir.topico', ['id' => $topico->id]) }}">Excluir tópico</a></button>

@@ -5,7 +5,6 @@
     font-family: "Delius", cursive;
     margin: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
-    background-color: #f0f2f5;
 }
 *:focus {
     outline: none;
@@ -13,6 +12,8 @@
 
 body{
     width: 100%;
+    background-color: #f0f2f5;
+
 }
 
 section{

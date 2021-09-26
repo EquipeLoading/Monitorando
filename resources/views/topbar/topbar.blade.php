@@ -60,11 +60,6 @@
         });
 
 
-        $(document).ready(
-            function() { 
-                $("html").niceScroll();
-            }
-        );
     </script>
     
 <head>
