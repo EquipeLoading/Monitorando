@@ -342,8 +342,8 @@
                         
                         @if(Gate::allows('participou', $monitoria))
                             @foreach($avaliacoes as $avaliacao)
-                                @if(isset($usuario))
-                                    @if($avaliacao->id == $usuario->id)
+                                @if(Auth::check())
+                                    @if($avaliacao->id == Auth::user()->id)
                                         <?php
                                             $avaliado = true;
                                             break;
