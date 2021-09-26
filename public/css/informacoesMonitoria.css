@@ -236,7 +236,7 @@ section{
         text-align: start;
         padding: 1.5vh;
     }
-    #modal, #modalLista{
+    #modal, #modalLista, #modalAvaliacaoFeedback, #modalForum{
         display: none;
         position: fixed;
         z-index: 9999;
@@ -513,9 +513,9 @@ section{
         cursor: pointer;
     }
 
-    #modalLista {
+    #modalLista, #modalAvaliacaoFeedback, #modalForum {
         margin-right: 0%;
-        margin-left: 3%;
+        margin-left: 0%;
     }
 
     #listForum{
