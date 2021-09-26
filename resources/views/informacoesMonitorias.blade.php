@@ -255,7 +255,7 @@
                     <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
                         @csrf
                         <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
-                        <input type="number" name="nota" value="{{ old('nota') }}" min="1" max="10"/><br />
+                        <input id="inputNumber" type="number" name="nota" value="{{ old('nota') }}" min="1" max="10"/><br />
                         <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
                         <textarea name="justificativa" value="{{ old('justificativa') }}" form="formAvaliacao"></textarea><br />
                         <div class="row">

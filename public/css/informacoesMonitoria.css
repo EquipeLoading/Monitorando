@@ -602,4 +602,9 @@ section{
     #formAvaliacao .row{
         justify-content: flex-end;
     }
+
+    #inputNumber{
+        width: 3vw;
+        padding: 1.2vh;
+    }
 }
