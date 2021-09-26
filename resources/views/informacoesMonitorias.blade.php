@@ -436,13 +436,12 @@
                                                                     $("#editarTopico{{$topico->id}}").click(function(e) {
                                                                         if(editar == true){
                                                                             e.preventDefault(); 
-                                                                            $('#editarTopico{{$topico->id}}').css('display', 'none')
                                                                             $("#forum").append('<form method="POST" id="editarForum" action="{{ route('monitorias.editar.topico', ['id' => $topico->id]) }}" enctype="multipart/form-data">' +
                                                                                                     '@csrf' +
                                                                                                     '<div id="novoTopico">' + 
                                                                                                         '<label for="topico">Título</label>' +
-                                                                                                        '<input id="inputEditForum"type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
-                                                                                                        '<div class="row"><button id="saveEditForum" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
+                                                                                                        '<div class="row"><input id="inputEditForum"type="text" value="{{ $topico->topico ?? old('topico') }}" name="topico">' + 
+                                                                                                        '<button id="saveEditForum" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
                                                                                                         '<button type="button" id="fecharEdicaoTopico"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button></div>' +
                                                                                                     '</div>' +
                                                                                                 '</form>');
@@ -452,8 +451,6 @@
                                                                     $(document).on('click', '#fecharEdicaoTopico', function(e) {
                                                                         e.preventDefault();
                                                                         $("#editarForum").remove();
-                                                                        $('#editarTopico{{$topico->id}}').css('display', 'block')
-
                                                                         editar = true;
                                                                     });
                                                                 });

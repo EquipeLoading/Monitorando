@@ -362,7 +362,7 @@ section{
         cursor: pointer;
     }
     #saveEditForum{
-        margin-left: auto;
+        margin-left: .5vw;
         margin-right: 0;
     }
 
@@ -391,6 +391,10 @@ section{
         margin: auto;
         height: 2vh;
     } 
+
+    #fecharEdicaoTopico{
+        margin-left: 1vw;
+    }
 
     .buttonTopicoEdit img{
         transform: rotate(90deg);
@@ -511,6 +515,10 @@ section{
         max-width: 30vw;
     }
 
+    #inputEditForum{
+        min-width: 33.5vw ;
+    }
+
     label{
         margin-left: .3vw;
     }
@@ -575,6 +583,10 @@ section{
 
     #listForum h4{
         color: #a0a0a0c4;
+        width: 29vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     #listForum img{

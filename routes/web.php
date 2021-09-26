@@ -124,8 +124,10 @@ Route::prefix('/monitorias')->group(function() {
     Route::get('/{id}/forum/{topico}', function($id, $topicoId) {
         $topico = Topico::where('id', $topicoId)->get()->first();
         $mensagens = Mensagem::where('topico_id', $topicoId)->get();
+        $usuarios = User::all();
+        $todosTopicos = Topico::all();
 
-        return view('forum', ['topico' => $topico, 'mensagens' => $mensagens, 'monitoria_id' => $id]);
+        return view('forum', ['topico' => $topico, 'mensagens' => $mensagens, 'monitoria_id' => $id, 'usuarios' => $usuarios, 'todosTopicos' => $todosTopicos]);
     })->whereNumber('id')->whereNumber('topico')->name('monitorias.forum')->middleware('verified');
     Route::post('/{id}/forum/{topico}', [\App\Http\Controllers\MonitoriasController::class, 'responderTopico'])->whereNumber('topico')->whereNumber('id')->name('monitorias.forum')->middleware('verified');
     Route::get('/excluir-topico/{id}', function($id) {

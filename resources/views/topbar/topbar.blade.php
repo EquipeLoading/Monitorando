@@ -46,7 +46,6 @@
                     $(this).css('transition', 'border-radius 0s');
                     $('#arrow').css('transform', 'rotate(-90deg)');
                     $('#arrow').css('transition', 'transform .3s linear');
-
                     border--;
                 } else{
                     $('#arrow').css('transform', 'rotate(90deg)');
@@ -58,7 +57,6 @@
                 $(this).next().toggleClass("collapsed");
             });
         });
-
 
     </script>
     
@@ -210,7 +208,7 @@
     @yield('conteudo')
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
-            <div class="topnav">
+            <div class="topnav noLogin">
                 @yield('links')
                 <div id="buttonRegister">
                     <button class="button_new"><a href="{{ route('cadastro') }}"> @lang('lang.Registre-se') </a></button>
@@ -339,5 +337,7 @@
         @endif
         
     <?php } ?>
-        
+    <footer>
+        <img src="{{ asset('assets/svg/footer.svg') }}">
+    </footer>
 </body>

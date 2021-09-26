@@ -9,7 +9,7 @@
             <meta charset="utf-8" />
             <title> Monitorando - {{ $topico->topico }} </title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('/css/forum.css') }}">
             <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <!-- mediaquery -->
@@ -44,65 +44,94 @@
                     });
                 });
             </script>
-            <div id="mensagens">
-                {{ session()->has('editado') ? session('editado') : '' }}
-                {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
-                {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
-                {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
-                <h3>{{ $topico->topico }}</h3>
-                @foreach($mensagens as $mensagem)
-                    <div id="mensagem{{$mensagem->id}}">
-                        <p>{{ $mensagem->mensagem }}</p>
-                        <?php
-                            $tipoArquivo = null;
-                            if(isset($mensagem->imagem)){
-                                $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $mensagem->imagem);
-                            }
-                        ?>
-                        @if(isset($tipoArquivo))
-                            @if($tipoArquivo == "application/pdf")
-                                <iframe src="{{ $mensagem->imagem }}" height="200" width="300"></iframe>
-                            @else
-                                <img src="{{ $mensagem->imagem }}" />
-                            @endif
-                        @endif
-                        @if($mensagem->user_id == Auth::user()->id)
-                            <button type="button" id="editarResposta{{$mensagem->id}}">Editar mensagem</button>
-                            <button type="button" id="excluirResposta{{$mensagem->id}}"><a href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}">Excluir mensagem</a></button>
-                            <script>
-                                $(document).ready(function() {
-                                    $(document).on('click', "#editarResposta{{$mensagem->id}}", function(e) {
-                                        e.preventDefault(); 
-                                        $("#mensagem{{$mensagem->id}}").append('<form method="POST" id="editarMensagem" action="{{ route('monitorias.editar.mensagem', ['id' => $mensagem->id]) }}" enctype="multipart/form-data">' +
-                                                                '@csrf' +
-                                                                '<div id="forumMensagem">' + 
-                                                                    '<textarea name="mensagem" form="editarMensagem">{{ $mensagem->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                    '<input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp">' +
-                                                                    '<small id="fileHelp" class="form-text text-muted"><br/>Insira uma imagem ou um arquivo pdf</small>' +
-                                                                    '<button type="submit" name="apagarAnexo">Apagar anexo</button>' +
-                                                                    '<button type="submit">Editar Mensagem</button>' +
-                                                                    '<button type="button" id="fecharEdicao{{$mensagem->id}}">Fechar</button>' +
-                                                                '</div>' +
-                                                            '</form>');
-                                        $("#editarResposta{{$mensagem->id}}").remove();
-                                        $("#excluirResposta{{$mensagem->id}}").remove();
-                                    });
-                                    $(document).on('click', '#fecharEdicao{{$mensagem->id}}', function(e) {
-                                        e.preventDefault();
-                                        $("#editarMensagem").remove();
-                                        $("#mensagem{{$mensagem->id}}").append('<button type="button" id="editarResposta{{$mensagem->id}}">Editar mensagem</button>');
-                                        $("#mensagem{{$mensagem->id}}").append('<button type="button" id="excluirResposta{{$mensagem->id}}"><a href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}">Excluir mensagem</a></button>');
-                                    });
-                                });
-                            </script>
-                        @endif
+
+            <section>
+                <div class="row">
+                    <div id="mensagens">
+                        {{ session()->has('editado') ? session('editado') : '' }}
+                        {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
+                        {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
+                        {{ $errors->has('imagem') ? $errors->first('imagem') : '' }}
+                        
+                        
+                        <h3>{{ $topico->topico }}</h3>
+                        
+                        <div>
+                            @foreach($mensagens as $mensagem)
+                                <div id="mensagem{{$mensagem->id}}">
+                                    <h4>{{ $mensagem->mensagem }}</h4>
+                                    <?php
+                                        $tipoArquivo = null;
+                                        if(isset($mensagem->imagem)){
+                                            $tipoArquivo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $mensagem->imagem);
+                                        }
+                                    ?>
+                                    @if(isset($tipoArquivo))
+                                        @if($tipoArquivo == "application/pdf")
+                                            <iframe src="{{ $mensagem->imagem }}" height="200" width="300"></iframe>
+                                        @else
+                                            <img height="200" width="300" src="{{ $mensagem->imagem }}" />
+                                        @endif
+                                    @endif
+                                    <div class="row">
+                                        @if($mensagem->user_id == Auth::user()->id)
+                                        <button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>
+                                        <a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>
+                                        <script>
+                                            $(document).ready(function() {
+                                                $(document).on('click', "#editarResposta{{$mensagem->id}}", function(e) {
+                                                    e.preventDefault(); 
+                                                    $("#mensagem{{$mensagem->id}}").append('<form method="POST" id="editarMensagem" class="column" action="{{ route('monitorias.editar.mensagem', ['id' => $mensagem->id]) }}" enctype="multipart/form-data">' +
+                                                                            '@csrf' +
+                                                                            '<div id="forumMensagem">' + 
+                                                                                '<label >Editar texto</label>' +
+                                                                                '<textarea name="mensagem" form="editarMensagem">{{ $mensagem->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                                                '<div class="row"><label id="labelAvatar" for="avatarFile"><h5>Enviar foto</h5></label><input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp" buttonText="Your label here.">' +
+                                                                                '<button id="marginButton" class="button trash" type="submit" name="apagarAnexo"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' +
+                                                                                '<button class="button trash cancel" type="button" id="fecharEdicao{{$mensagem->id}}"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
+                                                                                '<button class="button" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button></div>' +
+                                                                            
+                                                                            '</div>' +
+                                                                        '</form>');
+                                                    $("#editarResposta{{$mensagem->id}}").remove();
+                                                    $("#excluirResposta{{$mensagem->id}}").remove();
+                                                });
+                                                $(document).on('click', '#fecharEdicao{{$mensagem->id}}', function(e) {
+                                                    e.preventDefault();
+                                                    $("#editarMensagem").remove();
+                                                    $("#mensagem{{$mensagem->id}}").append('<div class="row"><button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>' +
+                                                        '<a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>'
+                                                    );
+                                                });
+                                            });
+                                        </script>
+                                    
+                                    </div>
+                                    @endif
+                                    
+                                </div>
+                            @endforeach
+                        </div>
+                        <div id="novaResposta">
+                            <button id="adicionarResposta" type="button" class="button">Responder</button>
+                            {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
+                        </div>
+    
                     </div>
-                @endforeach
-            </div>
-            <div id="novaResposta">
-                <button id="adicionarResposta" type="button">Adicionar uma resposta</button>
-                {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
-            </div>
+                    <div>
+                        @foreach($todosTopicos as $topicos)
+                            @if($topicos->monitoria_id == $monitoria_id)
+                                @foreach($usuarios as $usuario)
+                                    @if($usuario->id == $topicos->user_id)
+                                        <p>{{ $usuario->nome }}</p>
+                                    @endif
+                                @endforeach
+                                <p>{{ $topicos->topico }}</p>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </section>
         </body>
 
     </html>

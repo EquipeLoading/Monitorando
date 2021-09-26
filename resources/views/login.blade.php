@@ -21,7 +21,7 @@
             <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
             <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
         @endsection 
-        <img src="{{ asset('/img/banner.jpg') }}" alt="banner_monitorando" id="banner">
+        <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
         <div id="login">
             <form method="POST" action="{{ route('login') }}">
                 @csrf

@@ -1,0 +1,136 @@
+section{
+    padding: 0 3vw;
+
+}
+
+@media(min-width: 813px){
+
+    #mesagens{
+        width: 25vw !important;
+    }
+    #mensagens img, iframe{
+        height: 30vh ;
+        width: auto;
+        background-color: hsla(203, 48%, 55%, 0.5);
+        min-width: 19.5vw;
+        border-radius: 1vh;
+        padding: 1vh;
+
+    }
+
+    #mensagens h3, #mensagens h4{
+        background-color: hsla(203, 48%, 55%, 0.5);
+        max-width: 20vw;
+        border-radius: 1.8vh;
+        border-top-left-radius: 0;
+        padding: .5vh;
+        color: #fcfcfc;
+        font-weight: 400;
+        margin-bottom: .2vh;
+        position: relative;
+    }
+    #mensagens h4{
+        margin-top: .2vh    ;
+        border-radius: 1vh;
+    }
+
+    .row{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        max-width: 20vw;
+    }
+    }
+
+    .column{
+        display: table-caption;
+    }
+
+    .button{
+        margin-left: .5vw;
+        width: 4vh;
+        background-color: #5499C3;
+        box-shadow: 0 0 .8em rgba(192, 192, 192, 0.5);
+        height: 4vh;
+        border-radius: 5vh;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: .5vh;
+        cursor: pointer;
+    }
+
+    .button img{
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(311deg) brightness(103%) contrast(98%);
+        display: block;
+        margin: auto;
+        height: 2vh !important;
+        min-width: auto !important;
+        background-color: transparent !important;
+    }
+
+    #adicionarResposta{
+        width: auto;
+        color: #fcfcfc;
+    }
+
+    .trash{
+        background-color: #cf4949;
+
+    }
+
+    .cancel{
+        transform: rotate(45deg);
+    }
+
+    textarea{
+        max-width: 20vw;
+        min-width: 20vw;
+        min-height: 5vh;
+        border-radius: 1vh;
+        border: none;
+        flex: none;
+        background-color: rgba(84, 153, 195, 0.3);
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .1);
+        padding: 5px;
+        margin: .5vh 0;
+    }
+
+    #editarMensagem{
+        margin-left: .5vw;
+        margin-top: 1vh;
+        background-color: #fcfcfc;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .1);
+        padding: 5px;
+        border-radius: 1vh;
+    }
+
+    #labelAvatar{
+        background-color: rgba(25, 61, 111);
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: auto;
+        height: 4.6vh;
+        border-radius: 5vw;
+        max-width: 15vw;
+        margin-right: .5vw;
+        border: none;
+        color: #fcfcfc;
+        cursor: pointer;
+        font-size: 1em;
+        padding: 0 1vw;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    #forumMensagem .row{
+        width: 20vw;
+    }
+
+    #marginButton{
+        margin-left: auto;
+    }

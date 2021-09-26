@@ -25,7 +25,7 @@
         <script>
             var i = 0;
         </script>
-        <img src="{{ asset('/img/banner.jpg') }}" alt="banner_monitorando" id="banner">
+        <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
 
         <?php
             $cont = 0;

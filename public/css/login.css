@@ -346,6 +346,10 @@ a {
         text-align: justify;
         margin-bottom: 2vh;
     }
+
+    footer{
+        margin-top: 12vh;
+    }
 }
 
 
