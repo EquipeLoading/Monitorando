@@ -3,35 +3,66 @@ section{
 
 }
 
+.direita{
+    justify-content: flex-end !important;
+}
+
 @media(min-width: 813px){
 
-    #mesagens{
-        width: 25vw !important;
+    #mensagens{
+        width: 35vw ;
+        margin-left: auto;
     }
+
     #mensagens img, iframe{
-        height: 30vh ;
-        width: auto;
+        height: auto ;
         background-color: hsla(203, 48%, 55%, 0.5);
         min-width: 19.5vw;
         border-radius: 1vh;
         padding: 1vh;
+        margin: .2vh 0;
 
     }
 
     #mensagens h3, #mensagens h4{
+        font-size: 1em;
         background-color: hsla(203, 48%, 55%, 0.5);
         max-width: 20vw;
-        border-radius: 1.8vh;
+        border-radius: 1.5vh;
         border-top-left-radius: 0;
-        padding: .5vh;
+        padding: .6vh;
         color: #fcfcfc;
         font-weight: 400;
         margin-bottom: .2vh;
         position: relative;
     }
+    .border{
+        border-radius: 1.5vh !important;
+        border-top-left-radius: 0 !important;
+    }
+
     #mensagens h4{
-        margin-top: .2vh    ;
+        margin-top: .2vh;
         border-radius: 1vh;
+    }
+
+    #esquerda h4{
+        margin-right: auto;
+        border-radius: 1vh;
+        
+
+    }
+    #direita h4{
+        margin-left: auto;
+        border-top-right-radius: 0;
+        background-color: hsla(215, 63%, 27%, 0.7);
+        text-align: right;
+        padding-right: .5vw;
+    }
+
+    h4 b, h3 b{
+        font-weight: 400;
+        font-size: .8em;
     }
 
     .row{
@@ -97,7 +128,7 @@ section{
         margin: .5vh 0;
     }
 
-    #editarMensagem{
+    #editarMensagem, #formResposta{
         margin-left: .5vw;
         margin-top: 1vh;
         background-color: #fcfcfc;
@@ -131,7 +162,7 @@ section{
         width: 20vw;
     }
 
-    #marginButton{
+    .marginButton{
         margin-left: auto;
     }
 
@@ -198,6 +229,7 @@ section{
         padding: 1vh;
         margin-bottom: 0;
         margin-left: auto;
+        margin-right: auto;
         margin-top: 3vh;
         /* margin-top: 4vh; */
     }
