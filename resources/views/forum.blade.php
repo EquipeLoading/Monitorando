@@ -121,7 +121,7 @@
                                         </div>
 
                                     @else
-                                        @if(isset($mensagemCriadora) && ($mensagemCriadora->user_id == $mensagem->user_id))
+                                        @if($mensagem->user_id == $topico->user_id)
                                             <div id="esquerda" >
                                                 @foreach($usuarios as $usuario)
                                                     @if($usuario->id == $mensagem->user_id)
@@ -249,9 +249,9 @@
 
                         @foreach($todosTopicos as $topicos)
                             @if($topicos->monitoria_id == $monitoria_id)
-                                    <div id="topico{{$topico->id}}">
+                                    <div id="topico{{$topicos->id}}">
                                             <div class="row">
-                                                <a id="listForum">
+                                                <a id="listForum" href="{{ route('monitorias.forum', ['id' => $monitoria_id, 'topico' => $topicos->id]) }}">
                                                     <div class="row">
                                                         <div>
                                                             @foreach($usuarios as $usuario)
@@ -259,7 +259,7 @@
                                                                     <h5>{{ $usuario->nome }}</h5>
                                                                 @endif
                                                             @endforeach
-                                                            <h4>{{$topico->topico}}</h4>
+                                                            <h4>{{$topicos->topico}}</h4>
                                                         </div>
                                                         <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
                                                     </div>
