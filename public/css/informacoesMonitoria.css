@@ -19,6 +19,7 @@ section{
 }
 
 @media(min-width: 813px){
+
     h1, h2{
         text-align: center;
         color: #193D6F;
@@ -28,10 +29,12 @@ section{
         padding-bottom: 0;
         margin-bottom: 0;
     }
+
     h2{
         margin-top: 0;
         font-weight: 500;           
     }
+
     h3{
         font-weight: 400;
         font-size: .8em;
@@ -116,13 +119,11 @@ section{
     #trashColor:hover{
         background-color: #cf4949;
         transition: .5s;
-
     }
 
     .buttonParticipante{
         width: auto;
         background: #5499C3;
-
     }
 
     h4{
@@ -136,7 +137,7 @@ section{
         transform: rotate(90deg);
     }
 
-    #edit, #trash{
+    #edit, #trash #editarAvaliacao img, #trash{
         display: block;
         margin-top: auto;
         margin-bottom: auto;
@@ -149,6 +150,7 @@ section{
     #monitoriaEdit{
         margin-right: 0 !important;
     }
+
     #monitoriaEdit, .buttonPresenca, #labelAvatar{
         background-color: rgba(25, 61, 111);
         display: flex;
@@ -169,6 +171,7 @@ section{
         padding: 0 1vw;
         margin-left: auto;
     }
+
     h5{
         color: #fcfcfc;
         font-size: .9em;
@@ -205,6 +208,7 @@ section{
         justify-content: space-between;
         align-items: flex-start;
     }
+
     #column{
         width: 52vw;
         height: 38vh;
@@ -212,6 +216,7 @@ section{
         justify-items: end;
 
     }
+
     #monitorando{
         display: block;
         margin-left: auto;
@@ -222,21 +227,23 @@ section{
         filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%);
 
     }
-    #modalAvaliacao{
+
+    #modalAvaliacao, #modalEditarAvaliacao, #modal, .modalGlobal{
         display: none;
-        position: absolute;
+        position: fixed;
         z-index: 100;
         background-color: #fcfcfc;
         border-radius: 3vh;
         min-width: 20vw;
         box-shadow: 0 2px .8em rgba(192, 192, 192, 0.6);
-        margin-top: 15%;
+        margin-bottom: auto;
         margin-right: 50%;
         margin-left: 30%;
         text-align: start;
         padding: 1.5vh;
     }
-    #modal, #modalLista, #modalAvaliacaoFeedback, #modalForum{
+
+    #modalLista, #modalAvaliacaoFeedback, #modalForum{
         display: none;
         position: fixed;
         z-index: 9999;
@@ -257,13 +264,6 @@ section{
         padding: 0
     } 
 
-    #bttYes{
-        display: block;
-        margin-top: auto;
-        margin-right: auto;
-        text-align: center;
-        color: #fcfcfc !important;
-    }
 
     #modalButton{
         display: flex;
@@ -273,27 +273,6 @@ section{
         align-items: center;
     }
 
-    .formModal{
-        background-color: #5499C3 !important;
-    
-    }
-
-    .buttonModal, .formModal{
-        border: none;
-        min-width: 4vw !important;
-        height: 2.5vh;
-        background-color: #cf4949;
-        border-radius: 3vw;
-        align-items: center;
-        justify-content: center;
-        font-size: .8em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 1vw;
-        color: #fcfcfc;
-        cursor: pointer;
-    }
 
     #formColumn{
         display: flex;
@@ -351,7 +330,7 @@ section{
         border-radius: 5vh;
     }
 
-    #editarTopico, #excluirTopico, .buttonTopicoEdit, #saveEditForum{
+    #editarTopico, #excluirTopico, .buttonTopicoEdit, #saveEditForum, #editarAvaliacao, #editGlobal{
         margin-left: .5vw;
         width: 4vh;
         background-color: #5499C3;
@@ -361,6 +340,7 @@ section{
         border: none;
         cursor: pointer;
     }
+
     #saveEditForum{
         margin-left: .5vw;
         margin-right: 0;
@@ -380,13 +360,13 @@ section{
         margin-right: 0 !important;
     }
 
-    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img {
+    #AddNewField img, .remove_field img, #presenca img, #fecharPresenca img, #listaChamada form img, #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img, #editarAvaliacao img {
         /* filter: invert(55%) sepia(8%) saturate(3122%) hue-rotate(159deg) brightness(103%) contrast(71%); */
         filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(311deg) brightness(103%) contrast(98%);
 
     }
 
-    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img{
+    #presenca img, #fecharPresenca img, #listaChamada form img,  #createTopico img, #fecharTopico img, #excluirTopico img, .buttonTopicoEdit img, #fecharEdicaoTopico img, #saveEditForum img, #editarAvaliacao img{
         display: block;
         margin: auto;
         height: 2vh;
@@ -396,7 +376,7 @@ section{
         margin-left: 1vw;
     }
 
-    .buttonTopicoEdit img{
+    .buttonTopicoEdit img, #editarAvaliacao img{
         transform: rotate(90deg);
 
     }
@@ -413,7 +393,7 @@ section{
     }
 
 
-    #listaChamada, #forum, #forumQuest{
+    #listaChamada, #forum, #forumQuest, .notas{
         font-size: 1em;
         background: hsla(0, 0%, 99%, 0.603);
         box-shadow: 0 0 .8em rgba(192, 192, 192, 0.1);
@@ -424,6 +404,25 @@ section{
         padding: 1vh;
         margin-bottom: 0;
         /* margin-top: 4vh; */
+    }
+
+    .notas{
+        display: grid;
+        align-items: center;
+        margin-left: 3vw;
+    }
+    .notas h3, .avaliacao h5{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-size: 2em;
+        color: #193D6F;
+        margin-top: 0;
+    }
+    .notas h3 img, .avaliacao h5 img{
+        display: block;
+        margin-right: .5vw ;
+        height: 3vh;
     }
 
     #forumQuest{
@@ -537,6 +536,7 @@ section{
     input[type="file"] {
         display: none;
     }
+
     #labelAvatar {
        margin-left: 0;
        height: 4vh;
@@ -551,13 +551,13 @@ section{
         margin-left: 0%;
     }
 
-    #listForum{
+    #listForum, .avaliacao{
         align-items: center;
         text-align: start;
         width: 33.5vw;
     }
 
-    #listForum .row{
+    #listForum .row, .avaliacao{
         display: flex;
         align-items: center;
         height: auto;
@@ -565,6 +565,11 @@ section{
         border-radius: 5vh;
         padding: 0 .7vh;
         margin-bottom: .5vh;
+    }
+
+    .avaliacao{
+        padding: 1vh;
+        border-radius: 1.5vh;
     }
 
     #listForum h5{
@@ -594,7 +599,7 @@ section{
         filter: invert(15%) sepia(38%) saturate(3257%) hue-rotate(197deg) brightness(100%) contrast(85%);
     }
 
-    #sendButton, #closetButton, #modalAvaliacaoBtn{
+    #sendButton, #closetButton, #modalAvaliacaoBtn, #closetButtonAvaliation, #saveButtonAvaliation, #bttYes, #noRemove{
         box-shadow: 0 0 .8em rgba(192, 192, 192, 0.4);
         background-color: #5499C3;
         border-radius: 5vh;
@@ -632,22 +637,60 @@ section{
         margin: 0;
     }
 
-    #closetButton{
+    #closetButton, #closetButtonAvaliation, #noRemove{
         background-color: #cf4949;
     }
 
-    #formAvaliacao .row{
+    #formAvaliacao .row, #formEditarAvaliacao .row{
         justify-content: flex-end;
     }
 
-    #inputNumber{
+    #inputNumber, .inputNumberClass{
         width: 3vw;
         padding: 1.2vh;
     }
 
     #topicos .row{
         display: flex;
-        /* justify-content: flex-end; */
+        align-items: center;
+    }
+
+    .notas h3{
+        margin-bottom: 0;
+    }
+
+    .avaliacao h5{
+        font-size: 1em;
+        margin-top: .5vh;
+        margin-bottom: 0;
+        justify-content: flex-start;
+    }
+
+    .avaliacao h5 img{
+        height: 1em;
+    }
+
+    .avaliacao h4{
+        margin-left: .5vw;
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: auto !important;
+        width: 33.5em; 
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+
+    .beetwen{
+        align-items: center;
+        min-height: 5.5vh;
+    }
+
+    .baixo{
+        align-items: flex-end;
+    }
+
+    .meio{
         align-items: center;
     }
 

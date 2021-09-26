@@ -100,7 +100,6 @@
                         @foreach ($monitorias->where('codigo', $monitoria->codigo) as $monitoriaCard)
                             <a id="{{$monitoriaCard->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $monitoriaCard->id]) }}">
                                 <div id="card">
-                                <!--<p>{{ $monitoria->conteudo }}</p> -->
                                     <?php 
                                         $monitoringTime = $monitoriaCard->data;
                                         $monitoringT = explode('T',$monitoringTime);
@@ -194,7 +193,6 @@
                                             </button>
                                         </form>
                                     @endif
-                                    <!-- <p>{{ $monitoria->descricao }}</p> -->
                                 </div>
                             </a>
                         @endforeach
@@ -206,66 +204,77 @@
                     <p>Nenhuma monitoria foi encontrada</p>
                 @endif
                 @foreach ($posts as $post)
-                    <div id="content-all">
-                        <a id="{{$post->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $post->id]) }}">
+                    <?php
+                        $count = 0;
+                    ?>
+                    @if($count === 0)
+                        <?php $count++;?>
+
+                        <div id="content">
+                            <hr>
+                            <div >
+                                <h3 id="titleDiscipline">{{ $post->codigo }}</h3>
+                                <h3 id="nameDiscipline">{{ $post->disciplina }}</h3>   
+                            </div>
+                        </div>
+                    @endif
+                    <div id="scroll">
+                         <a id="{{$post->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $post->id]) }}">
                             <div id="card">
-                                <?php 
-                                    $date = new DateTime($post->data);
-                                    $n = $date->getTimestamp();
-                                    $data = date('D', $n);
-                                    $semana = array(
-                                        'Sun' => 'Domingo',
-                                        'Mon' => 'Segunda-Feira',
-                                        'Tue' => 'Terça-Feira',
-                                        'Wed' => 'Quarta-Feira',
-                                        'Thu' => 'Quinta-Feira',
-                                        'Fri' => 'Sexta-Feira',
-                                        'Sat' => 'Sábado'
-                                    );
-                
-                                ?>
-                                <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
-                                <p id="hour">{{$post->hora_inicio." - ".$post->hora_fim}} </p>
-                                <p>{{ $post->conteudo }}</p>
-                                <p class="users"> 
                                     <?php 
-                                        $monitoringMonitor = $post->monitor;
-                                        $monitoringM = explode(' e ', $monitoringMonitor);
-                                        $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                        $monitoringM = $monitoringM[0];
-                                        $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
-                                        $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                        $date = new DateTime($post->data);
+                                        $n = $date->getTimestamp();
+                                        $data = date('D', $n);
+                                        $semana = array(
+                                            'Sun' => 'Domingo',
+                                            'Mon' => 'Segunda-Feira',
+                                            'Tue' => 'Terça-Feira',
+                                            'Wed' => 'Quarta-Feira',
+                                            'Thu' => 'Quinta-Feira',
+                                            'Fri' => 'Sexta-Feira',
+                                            'Sat' => 'Sábado'
+                                        );
+                    
                                     ?>
-                                    <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                    @if(isset($monitor1))
-                                        <text>{{ $monitor1->nome }}</text>    
-                                    @else
-                                        <text>{{ $monitoringMonitor }}</text>    
-                                    @endif
-                                </p>
-                                <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-                                    <p class="users">
+                                    <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                                    <p id="hour">{{$post->hora_inicio." - ".$post->hora_fim}} </p>
+                                    <p class="users"> 
+                                        <?php 
+                                            $monitoringMonitor = $post->monitor;
+                                            $monitoringM = explode(' e ', $monitoringMonitor);
+                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                            $monitoringM = $monitoringM[0];
+                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                        ?>
                                         <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        @if(isset($monitor2))
-                                            <text>{{ $monitor2->nome }}</text>
+                                        @if(isset($monitor1))
+                                            <text>{{ $monitor1->nome }}</text>    
                                         @else
-                                            <text>{{ $monitoringM }}</text>    
+                                            <text>{{ $monitoringMonitor }}</text>    
                                         @endif
                                     </p>
-                                <?php } else{?>   
-                                    <p id="blank"></p>
-                                <?php }?>
-                                <p>{{ $post->local }}</p> 
-                                <p id="limit">
-                                    <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                                    <text>Participantes {{ $post->num_inscritos }}</text>
-                                </p>
-                                <p>{{ $post->descricao }}</p>
+                                    <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                        <p class="users">
+                                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                            @if(isset($monitor2))
+                                                <text>{{ $monitor2->nome }}</text>
+                                            @else
+                                                <text>{{ $monitoringM }}</text>    
+                                            @endif
+                                        </p>
+                                    <?php } else{?>   
+                                        <p id="blank"></p>
+                                    <?php }?>
+                                    <p id="limit">
+                                        <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                        <text>Participantes {{ $post->num_inscritos }}</text>
+                                    </p>
                             </div>
                         </a>
                     </div>
-                    
                 @endforeach 
+                
             <?php } ?>
         </section>
 

@@ -88,6 +88,10 @@
                 $('.close').on('click', function() {
                     $("#modalAvaliacao").css('display', 'none');
                 });
+                $('#closetButtonAvaliation').on('click', function() {
+                    $("#modalEditarAvaliacao").css('display', 'none');
+                });
+                
                 $('#editarAvaliacao').on('click', function() {
                     $("#modalEditarAvaliacao").css('display', 'block');
                 });
@@ -256,7 +260,7 @@
                 <div class="modal-content">
                     <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
                     <div id="modalButton">
-                        <button type="button" class="exit buttonModal">Não</button>
+                        <button type="button" class="exit buttonModal" id="noRemove">Não</button>
                         <form method="POST" class="formModal" action="{{ route('monitorias.cancelar') }}">
                             @csrf
                             <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
@@ -281,6 +285,22 @@
 
                 </div>
 
+            </div>
+
+            <div id="modalEditarAvaliacao">
+                <div class="modal-content">
+                    <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
+                        @csrf
+                        <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
+                        <input class="inputNumberClass" type="number" name="nota" value="{{ $avaliacao->pivot->nota ?? old('nota') }}" min="1" max="10"/><br />
+                        <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
+                        <textarea name="justificativa" form="formEditarAvaliacao">{{ $avaliacao->pivot->justificativa ?? old('justificativa') }}</textarea><br />
+                        <div class="row">
+                            <button type="button" id="closetButtonAvaliation">Fechar</button>                      
+                            <button type="submit" id="saveButtonAvaliation">Salvar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
            <div class="row">
@@ -531,68 +551,56 @@
                     $media /= $cont;
                     $media = number_format($media, 1);
                 ?>
-                <h3>Média das notas das avaliações: {{ $media }}</h3>
-                @foreach($avaliacoes as $avaliacao)
-                    @if(isset($usuario))
-                        @if($avaliacao->id == $usuario->id)
-                            <br>
-                            <div class="avaliacao">
-                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
-                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
-                                <button id="editarAvaliacao">Editar avaliação</button>
-                                <div id="modalEditarAvaliacao">
-                                    <div class="modal-content">
-                                        <span class="closeEdit">&times;</span>
-                                        <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
-                                            @csrf
-                                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
-                                            <input type="text" name="nota" value="{{ $avaliacao->pivot->nota ?? old('nota') }}" /><br />
-                                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
-                                            <textarea name="justificativa" form="formEditarAvaliacao">{{ $avaliacao->pivot->justificativa ?? old('justificativa') }}</textarea><br />
-                                            <button type="submit">Editar avaliação</button>
-                                        </form>
+                <div class="notas">
+                        <h2><b>Notas</b><h2>
+                        <h3><img src="{{ asset('assets/svg/star.svg')}}"/> • {{ $media }}</h3>
+                        @foreach($avaliacoes as $avaliacao)
+                            @if(isset($usuario))
+                                @if($avaliacao->id == $usuario->id)
+                                    <div class="row meio">
+                                        <div class="avaliacao">
+                                            <div class="column beetwen">
+                                                 <h5><img src="{{ asset('assets/svg/star.svg')}}"/>  •ﾠ{{ $avaliacao->pivot->nota }}</h5>
+                                                 <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
+                                             </div>
+                                        </div>
+                                        <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
                                     </div>
-                                </div>
-                            </div>
-                        @else
-                            <br>
-                            <div class="avaliacao">
-                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
-                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
-                            </div>
-                        @endif
-                    @endif
-                @endforeach
+                                @else
+                                   <div class="avaliacao">
+                                        <div class="column beetwen">
+                                            <h5><img src="{{ asset('assets/svg/star.svg')}}"/>  •ﾠ{{ $avaliacao->pivot->nota }}</h5>
+                                            <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
+                                        </div>
+                                   </div>
+                                @endif
+                            @endif
+                        @endforeach
+                </div>
             @endif
         @endif
 
         @if(Gate::allows('participou', $monitoria) && !(Gate::allows('criador', $monitoria)))
             @if(!($avaliacoes->isEmpty()))
-                @foreach($avaliacoes as $avaliacao)
-                    @if(isset($usuario))
-                        @if($avaliacao->id == $usuario->id)
-                            <br>
-                            <div class="avaliacao">
-                                <p><b>Nota:</b> {{ $avaliacao->pivot->nota }}</p>
-                                <p><b>Comentário: </b>{{ $avaliacao->pivot->justificativa }}</p>
-                                <button id="editarAvaliacao">Editar avaliação</button>
-                                <div id="modalEditarAvaliacao">
-                                    <div class="modal-content">
-                                        <span class="closeEdit">&times;</span>
-                                        <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
-                                            @csrf
-                                            <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
-                                            <input type="text" name="nota" value="{{ $avaliacao->pivot->nota ?? old('nota') }}" /><br />
-                                            <label for="justificativa">Por que você atribuiu essa nota? Existe alguma sugestão de melhoria para essa monitoria?</label>
-                                            <textarea name="justificativa" form="formEditarAvaliacao">{{ $avaliacao->pivot->justificativa ?? old('justificativa') }}</textarea><br />
-                                            <button type="submit">Editar avaliação</button>
-                                        </form>
+                <div class="notas">
+                    @foreach($avaliacoes as $avaliacao)
+                        @if(isset($usuario))
+                            @if($avaliacao->id == $usuario->id)
+                                <div class="row meio">
+                                    <div class="avaliacao">
+                                        <div class="column beetwen">
+                                            <h5><img src="{{ asset('assets/svg/star.svg')}}"/>  •ﾠ{{ $avaliacao->pivot->nota }}</h5>
+                                            <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
+                                        </div>
                                     </div>
+                                    <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
                                 </div>
-                            </div>
+                            @else
+                              
+                            @endif
                         @endif
-                    @endif
-                @endforeach
+                    @endforeach
+                </div>
             @endif
         @endif
 

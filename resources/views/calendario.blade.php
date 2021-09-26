@@ -34,37 +34,37 @@
    
 <script>
 
-$(document).ready(function () {
-    var calendar = $('#calendar').fullCalendar({
-        header:{
-            left:'prev,next today',
-            center:'title',
-            right:'month'
-            //right:'month,agendaWeek,agendaDay'
-        },
-        events: [
-            <?php if(isset($data)){ ?>
-                <?php for($i = 0; $i < count($data); $i++) { ?>
-                {
-                    <?php
-                        $id = 0;
-                        foreach($data as $d) {
-                            if($d->id == $data[$i]['id']) {
-                                $id = $d->id;
+    $(document).ready(function () {
+        var calendar = $('#calendar').fullCalendar({
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month'
+                //right:'month,agendaWeek,agendaDay'
+            },
+            events: [
+                <?php if(isset($data)){ ?>
+                    <?php for($i = 0; $i < count($data); $i++) { ?>
+                    {
+                        <?php
+                            $id = 0;
+                            foreach($data as $d) {
+                                if($d->id == $data[$i]['id']) {
+                                    $id = $d->id;
+                                }
                             }
-                        }
-                    ?>
-                    url: '{{ route('monitorias.informacoes', ['id' =>$id]) }}',
-                    title: '<?php echo $data[$i]['disciplina']; ?>',
-                    start: '<?php echo $data[$i]['data']; ?>',
-                    end: '<?php echo $data[$i]['data']; ?>'
-                },
+                        ?>
+                        url: '{{ route('monitorias.informacoes', ['id' =>$id]) }}',
+                        title: '<?php echo $data[$i]['disciplina']; ?>',
+                        start: '<?php echo $data[$i]['data']; ?>',
+                        end: '<?php echo $data[$i]['data']; ?>'
+                    },
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-        ],
-    });
+            ],
+        });
 
-});
+    });
   
 </script>
   
