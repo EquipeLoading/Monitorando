@@ -99,6 +99,7 @@
                         $("#modalEditarAvaliacao").css('display', 'none');
                     }
                 });
+
                 $('#adicionarTopico').click(function(e) {
                     $('#adicionarTopico').css('display', 'none');
                     $('#forumQuest').css('display', 'block');
@@ -120,9 +121,11 @@
                         i++;
                     }
                 });
+
                 $('#closetButton').on('click', function(){
                     $("#modalAvaliacao").css('display', 'none');
                 })
+
                 $(document).on('click', '#fecharTopico', function(e) {
                     e.preventDefault();
                     $("#postarNovoTopico").remove();
@@ -409,7 +412,7 @@
                                         ?>
                                         @foreach($usuarios as $users)
                                             @if($users->id == $user)
-                                            <?php $nome = $users->nome; ?>
+                                                <?php $nome = $users->nome; ?>
                                             @endif
                                         @endforeach
                                         <div id="topico{{$topico->id}}">

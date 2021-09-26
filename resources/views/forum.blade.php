@@ -46,7 +46,7 @@
             </script>
 
             <section>
-                <div class="row">
+                <div class="row principal">
                     <div id="mensagens">
                         {{ session()->has('editado') ? session('editado') : '' }}
                         {{ $errors->has('mensagem') ? $errors->first('mensagem') : '' }}
@@ -118,15 +118,28 @@
                         </div>
     
                     </div>
-                    <div>
+                    <div id="forum">
+                        <h2>Fórum</h2>
+
                         @foreach($todosTopicos as $topicos)
                             @if($topicos->monitoria_id == $monitoria_id)
-                                @foreach($usuarios as $usuario)
-                                    @if($usuario->id == $topicos->user_id)
-                                        <p>{{ $usuario->nome }}</p>
-                                    @endif
-                                @endforeach
-                                <p>{{ $topicos->topico }}</p>
+                                    <div id="topico{{$topico->id}}">
+                                            <div class="row">
+                                                <a id="listForum">
+                                                    <div class="row">
+                                                        <div>
+                                                            @foreach($usuarios as $usuario)
+                                                                @if($usuario->id == $topicos->user_id)
+                                                                    <h5>{{ $usuario->nome }}</h5>
+                                                                @endif
+                                                            @endforeach
+                                                            <h4>{{$topico->topico}}</h4>
+                                                        </div>
+                                                        <img src="{{ asset('assets/svg/right-arrow.svg') }}" alt="Right Arrow">  
+                                                    </div>
+                                                </a>
+                                            </div>
+                                    </div>  
                             @endif
                         @endforeach
                     </div>
