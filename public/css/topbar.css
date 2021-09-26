@@ -10,6 +10,9 @@ body {
     font-family: "Delius", cursive;
     text-decoration: none;
     flex: none;
+    transition: .5s;
+    word-wrap: break-word;
+
 }
 
 *:focus {
@@ -29,13 +32,13 @@ body {
         display: flex;
         align-items: center;
         width: 100%;
-        box-shadow: 0 0 1em  rgb(0, 0, 0);
+        box-shadow: 0 0 1em  rgba(95, 95, 95, 0.3);
 
         
     }
      
     #center{
-        margin-left: 8vw;
+        margin-left: 7vw;
         margin-right: auto;
 
     }
@@ -116,7 +119,7 @@ body {
 
     .profile{
         border-radius: 7Vh;
-        width: 11.5vw;
+        min-width: 11.5vw;
         height: 5vh ;
         background-color: #f0f2f5;
         margin-left: auto ;
@@ -208,10 +211,12 @@ body {
     }
 
     text{
-        margin-left: auto;
-        margin-right: .5vw;
+        margin-left: 1vw;
+        margin-right: 1vw;
         color:#5499C3;
         font-weight: 700;
+    
+        text-overflow: ellipsis;
     }
     .profile img{
         margin-left: .3vw;

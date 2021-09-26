@@ -114,14 +114,13 @@ h1{
         align-items: center;
     }
     #add_field_button, #imgTrash{
-        width: 2.5vw;
+        width: 4.5vh;
         height: 4.5vh;
-        border-radius: 4.5vh;
+        border-radius: 5vh;
         margin-left: 1.1vw;
         border: none;
         background-color: #5499C3;
         box-shadow: 0 0 .8em rgb(99, 98, 98, .5);
-        /* font-size: 2em; */
         cursor: pointer;
         color:#fcfcfc;
         display: flex;
@@ -130,7 +129,6 @@ h1{
 
     #imgTrash{
         background-color: #cf4949;
-
     }
 
     #add_field_button img, #imgTrash img{

@@ -60,39 +60,19 @@
         });
 
 
-        function hoverTop(count){
-            $id = count;
-            $_SESSION['dados'] = $id;
-            console.log($_SESSION['dados'] + "os dados aqui");
-
-            if(count == 0 ){
-                document.getElementById('home').classList.add("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.remove("active");
-            } else if(count == 1){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.add("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.remove("active");
-                count = 1;
-            } else if(count == 2){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.add("active");
-                document.getElementById('quemSomos').classList.remove("active");
-            } else if(count == 3){
-                document.getElementById('home').classList.remove("active");
-                document.getElementById('monitoria').classList.remove("active");
-                document.getElementById('calendario').classList.remove("active");
-                document.getElementById('quemSomos').classList.add("active");
+        $(document).ready(
+            function() { 
+                $("html").niceScroll();
             }
-
-        }
+        );
     </script>
     
 <head>
+    <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/topbar.css') }}">
+    <meta name="theme-color" content="#193D6F">
+
 </head>
 
 <body>
@@ -148,7 +128,7 @@
                             <input id="inputSearch" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
-               
+                    
             </div>
         </div>
         <div id="background">
@@ -229,9 +209,10 @@
                     @endforeach
                 @endif
             @endif
-        @else--}}
-            @yield('conteudo')
-        {{--@endif --}}
+        @else
+           
+        @endif --}}
+    @yield('conteudo')
     <?php }else{ ?>   
         <?php if(empty($name)){ ?>
             <div class="topnav">
@@ -268,12 +249,14 @@
                     </div>
                 </div>
                 <div class="topnav">
+                    
                     <div id="topFilterAll">
                         <form id="formSearchAll" action="{{ route('pesquisar') }}" method="GET">
                             <button id="searchAll" type="submit"><img src="{{ asset('assets/svg/search.svg')}}"></button>
                             <input id="inputSearchAll" type="text" placeholder="Pesquisa.." name="pesquisa">
                         </form>
                     </div>
+                    
                     <div id="center">
                         @yield('links')
                     </div>
