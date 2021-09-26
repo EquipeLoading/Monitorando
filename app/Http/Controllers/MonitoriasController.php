@@ -317,14 +317,14 @@ class MonitoriasController extends Controller
         $mensagens = new Mensagem();
         if($request->hasFile('imagem')) {
             $mensagens->fill([
-                'mensagem' => $request->mensagem,
+                'mensagem' => 'primeira mensagem: '.$request->mensagem,
                 'user_id' => $usuario,
                 'imagem' => $arquivo,
                 'topico_id' => $topico_id
             ])->save();
         } else {
             $mensagens->fill([
-                'mensagem' => $request->mensagem,
+                'mensagem' => 'primeira mensagem: '.$request->mensagem,
                 'user_id' => $usuario,
                 'topico_id' => $topico_id
             ])->save();
