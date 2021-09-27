@@ -69,7 +69,7 @@
             <section>
                 <?php
                     $numTurma;
-                    $naoEncontrado = false;
+                    $naoEncontrado = true;
                 ?>
                 
                 @section('links')
@@ -448,21 +448,9 @@
                                                              @endif
                                                          @endforeach
                                                      </div>
-                                                 @else
-                                                     <?php
-                                                         $naoEncontrado = true;
-                                                     ?>
                                                  @endif
-                                             @else
-                                                 <?php
-                                                     $naoEncontrado = true;
-                                                 ?>
                                              @endif
                                          @endforeach
-                                     @else
-                                         <?php
-                                             $naoEncontrado = true;
-                                         ?>
                                      @endif 
                                      @if($naoEncontrado == true)
                                          <p>Não foi encontrada nenhuma monitoria esperando a sua avaliação</p>
