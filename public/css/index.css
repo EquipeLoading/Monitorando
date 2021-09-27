@@ -231,6 +231,10 @@ body {
         box-shadow: 0 0 1em rgb(83, 95, 109);
     
     }
+
+    .buttonCancelarMonitoria{
+        margin-top: auto;
+    }
     
     #details text, .buttonCancelarMonitoria text{
         margin-top: auto;
@@ -316,6 +320,11 @@ body {
 
     #addMonitoria h4, #removeMonitoria h4{
         color: #fcfcfc !important;
+
+    }
+
+    #addMonitoria:hover h4, #removeMonitoria:hover h4{
+        color: #193D6F !important;
 
     }
 

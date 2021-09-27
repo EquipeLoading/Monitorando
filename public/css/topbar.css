@@ -12,7 +12,7 @@ body {
     flex: none;
     transition: .5s;
     word-wrap: break-word;
-
+    border: none;
 }
 
 footer{
@@ -228,7 +228,7 @@ input{
     form{
         margin-top: 0 !important;
     }
-    form button{
+    .collapsible-wrapper form button{
         background-color: transparent;
         border: none;
         padding: 0 !important;
