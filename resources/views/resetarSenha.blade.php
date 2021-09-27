@@ -12,18 +12,25 @@
 
 <body>
     <script>
-            $(document).ready(function(){
-                $('#sendSenha').on('click', function() {
-                        $(".modalResetSenha").css('display', 'block');
-                    });
-                });
+        $(window).load(function() {
+                
+            if("{{ session()->has('status') }}" == 1 || "{{ $errors->has('email') }}" == 1) {
+                $(".modalResetSenha").css('display', 'block');
+            }
+
+            $(document).on('click', function(e){
+                if(!(($(e.target).closest(".modalResetSenha").length > 0 ))){
+                    $(".modalResetSenha").css('display', 'none');
+                }
+            });
+
+        }); 
     </script>
     <div id="topBar">
         <h1>Monitorando</h1>
     </div>
 
     <div class="modalResetSenha">
-        aaa
         {{ session()->has('status') ? session('status') : '' }}
         {{ $errors->has('email') ? $errors->first('email') : '' }}
     </div>

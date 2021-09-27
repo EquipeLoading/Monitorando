@@ -69,7 +69,7 @@
             <section>
                 <?php
                     $numTurma;
-                    $naoEncontrado = false;
+                    $naoEncontrado = true;
                 ?>
                 
                 @section('links')
@@ -314,51 +314,52 @@
                                          <hr>
                                          <h3>Monitorias que estão<br>esperando sua avaliação</h3>
                                     </div>
-                                     @if(!($monitoriasParticipadas->isEmpty()))
-                                         <?php
-                                             $cont = 0;
-                                             $avaliado = true;
-                                         ?>
-                                         @foreach($monitoriasParticipadas as $monitoria)
-                                             @foreach($monitoriasAvaliadas as $monitoriaAvaliada)
-                                                 @if($monitoriaAvaliada->id == $monitoria->id)
-                                                     <?php
-                                                         $avaliado = false;
-                                                         break;
-                                                     ?>
-                                                 @else
-                                                     <?php
-                                                         $avaliado = true;
-                                                     ?>
-                                                 @endif
-                                             @endforeach
-                                             <?php
-                                                 $repetida = false;
-                                             ?>
-                                             @if($cont === 0)
-                                                 <?php 
-                                                     $monitoriaCod[$cont] = $monitoria->codigo;
-                                                     $cont++;
-                                                     $repetida = false;
-                                                 ?>
-                                             @else
-                                                 @foreach($monitoriaCod as $monitoriaRepetida)
-                                                     @if($monitoriaRepetida == $monitoria->codigo)
-                                                         <?php
-                                                             $repetida = true;
-                                                             break;
-                                                         ?>
-                                                     @else
-                                                         <?php
-                                                             $monitoriaCod[$cont] = $monitoria->codigo;
-                                                             $cont++;
-                                                             $repetida = false;
-                                                         ?>
-                                                     @endif
-                                                 @endforeach
-                                             @endif
-                                             @if($avaliado == true)
-                                                 @if($repetida == false)
+                                     <div class="content">
+                                        @if(!($monitoriasParticipadas->isEmpty()))
+                                        <?php
+                                            $cont = 0;
+                                            $avaliado = true;
+                                        ?>
+                                        @foreach($monitoriasParticipadas as $monitoria)
+                                            @foreach($monitoriasAvaliadas as $monitoriaAvaliada)
+                                                @if($monitoriaAvaliada->id == $monitoria->id)
+                                                    <?php
+                                                        $avaliado = false;
+                                                        break;
+                                                    ?>
+                                                @else
+                                                    <?php
+                                                        $avaliado = true;
+                                                    ?>
+                                                @endif
+                                            @endforeach
+                                            <?php
+                                                $repetida = false;
+                                            ?>
+                                            @if($cont === 0)
+                                                <?php 
+                                                    $monitoriaCod[$cont] = $monitoria->codigo;
+                                                    $cont++;
+                                                    $repetida = false;
+                                                ?>
+                                            @else
+                                                @foreach($monitoriaCod as $monitoriaRepetida)
+                                                    @if($monitoriaRepetida == $monitoria->codigo)
+                                                        <?php
+                                                            $repetida = true;
+                                                            break;
+                                                        ?>
+                                                    @else
+                                                        <?php
+                                                            $monitoriaCod[$cont] = $monitoria->codigo;
+                                                            $cont++;
+                                                            $repetida = false;
+                                                        ?>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                            @if($avaliado == true)
+                                                @if($repetida == false)
                                                     <div class="column cardPerfil">
                                                         <div id="content-all">
                                                             <div id="content">
@@ -441,8 +442,8 @@
                                                                                 <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
                                                                             </p>
                                                                             <button id="details" class="buttonVisualizar" type="submit">
-                                                                               <text>visualizar</text>
-                                                                           </button>
+                                                                                <text>visualizar</text>
+                                                                            </button>
                                                                         </div>
                                                                     </a>
                                                                     <?php 
@@ -452,25 +453,14 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                 @else
-                                                     <?php
-                                                         $naoEncontrado = true;
-                                                     ?>
-                                                 @endif
-                                             @else
-                                                 <?php
-                                                     $naoEncontrado = true;
-                                                 ?>
-                                             @endif
-                                         @endforeach
-                                     @else
-                                         <?php
-                                             $naoEncontrado = true;
-                                         ?>
-                                     @endif 
-                                     @if($naoEncontrado == true)
-                                         <p>Não foi encontrada nenhuma monitoria esperando a sua avaliação</p>
-                                     @endif
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    @endif 
+                                    @if($naoEncontrado == true)
+                                        <p>Não foi encontrada nenhuma monitoria esperando a sua avaliação</p>
+                                    @endif
+                                     </div>
                                  </div>
                                 <div class="cardHistory">
                                         <div class="content">
