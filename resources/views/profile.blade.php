@@ -442,6 +442,9 @@
                                                                          </p>
                                                                      </div>
                                                                  </a>
+                                                                 <?php 
+                                                                    $naoEncontrado = false;
+                                                                 ?>
                                                              @endif
                                                          @endforeach
                                                      </div>

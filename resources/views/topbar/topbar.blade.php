@@ -285,123 +285,159 @@
                    </section>
                 @endif
                 @if(!session('pesquisaMonitorias')->isEmpty())
-                    
-                    <section>
-                            <div id="content-all">
-                                <div id="content">
-                                    <hr>
-                                    <div >
-                                        <h3 id="titleDiscipline">{{ $monitoria->codigo }}</h3>
-                                        <h3 id="nameDiscipline">{{ $monitoria->disciplina }}</h3>   
-                                    </div>
-                                </div>
-                                <button><a href="{{ route('monitorias.verTodas', ['codigo' => $monitoria->codigo]) }}">ver todos</a></button>
-                            </div>
-
-                    <div id="scroll">
-                        @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
-                            <div id="content-all">
-                                <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
-                                    <div id="card">
-                                        <?php 
-                                            $date = new DateTime($resultadoMonitorias->data);
-                                            $n = $date->getTimestamp();
-                                            $data = date('D', $n);
-                                            $semana = array(
-                                                'Sun' => 'Domingo',
-                                                'Mon' => 'Segunda-Feira',
-                                                'Tue' => 'Terça-Feira',
-                                                'Wed' => 'Quarta-Feira',
-                                                'Thu' => 'Quinta-Feira',
-                                                'Fri' => 'Sexta-Feira',
-                                                'Sat' => 'Sábado'
-                                            );
-                        
-                                        ?>
-                                        <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
-                                        <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
-                                        <p class="users"> 
-                                            <?php 
-                                                $monitoringMonitor = $resultadoMonitorias->monitor;
-                                                $monitoringM = explode(' e ', $monitoringMonitor);
-                                                $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                                $monitoringM = $monitoringM[0];
-                                                $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
-                                                $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+    
+                        <section>
+                            <?php
+                                $cont = 0;
+                            ?>
+                            @foreach(session('pesquisaMonitorias') as $monitoria)
+                                <?php
+                                    $repetida = false;
+                                ?>
+                                @if($cont === 0)
+                                    <?php 
+                                        $monitoriaCodigo[$cont] = $monitoria->codigo;
+                                        $cont++;
+                                        $repetida = false;
+                                    ?>
+                                @else
+                                    @foreach($monitoriaCodigo as $monitoriaRepetida)
+                                        @if($monitoriaRepetida == $monitoria->codigo)
+                                            <?php
+                                                $repetida = true;
+                                                break;
                                             ?>
-                                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                            @if(isset($monitor1))
-                                                <text>{{ $monitor1->nome }}</text>    
-                                            @else
-                                                <text>{{ $monitoringMonitor }}</text>    
-                                            @endif
-                                        </p>
-                                        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-                                            <p class="users">
-                                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                                @if(isset($monitor2))
-                                                    <text>{{ $monitor2->nome }}</text>
-                                                @else
-                                                    <text>{{ $monitoringM }}</text>    
-                                                @endif
-                                            </p>
-                                        <?php } else{?>   
-                                            <p id="blank"></p>
-                                        <?php }?>
-                                        <p id="limit">
-                                            <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                                            <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
-                                        </p>
-                                        @if(isset($inscrito))
-                                        @foreach($inscrito as $monitoriaInscrita)
-                                            @if($monitoriaInscrita->id == $monitoriaCard->id)
-                                                <?php 
-                                                    $usuarioInscrito = true;
-                                                    break; 
-                                                ?>
-                                            @else
-                                                <?php
-                                                    $usuarioInscrito = false;
-                                                ?>
-                                            @endif
-                                        @endforeach
-                                        @if($usuarioInscrito == true)
-                                            <form method="POST" action="{{ route('cancelamentoInscricao') }}">
-                                                @csrf
-                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                <button id="details" type="submit">
-                                                    <text>Cancelar</text>
-                                                </button>
-                                            </form>
                                         @else
-                                            <form method="POST" action="{{ route('inscricao') }}">
-                                                @csrf
-                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                <button id="details" type="submit">
-                                                    <text>Inscrever-se</text>
-                                                </button>
-                                            </form>
+                                            <?php
+                                                $monitoriaCodigo[$cont] = $monitoria->codigo;
+                                                $cont++;
+                                                $repetida = false;
+                                            ?>
                                         @endif
-                                        @else
-                                            <form method="POST" action="{{ route('inscricao') }}">
-                                                @csrf
-                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                                <button id="details" type="submit">
-                                                    <text>Inscrever-se</text>
-                                                </button>
-                                            </form>
-                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                            @if($repetida == false) 
+                                @foreach(session('pesquisaMonitorias') as $monitoria)
+                                    <div id="content-all">
+                                        <div id="content">
+                                            <hr>
+                                            <div >
+                                                <h3 id="titleDiscipline">{{ $monitoria->codigo }}</h3>
+                                                <h3 id="nameDiscipline">{{ $monitoria->disciplina }}</h3>   
+                                            </div>
+                                        </div>
+                                        <button><a href="{{ route('monitorias.verTodas', ['codigo' => $monitoria->codigo]) }}">ver todos</a></button>
                                     </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                    </section>
+                            
+                            
+    
+                                    <div id="scroll">
+                                        @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
+                                            <div id="content-all">
+                                                <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
+                                                    <div id="card">
+                                                        <?php 
+                                                            $date = new DateTime($resultadoMonitorias->data);
+                                                            $n = $date->getTimestamp();
+                                                            $data = date('D', $n);
+                                                            $semana = array(
+                                                                'Sun' => 'Domingo',
+                                                                'Mon' => 'Segunda-Feira',
+                                                                'Tue' => 'Terça-Feira',
+                                                                'Wed' => 'Quarta-Feira',
+                                                                'Thu' => 'Quinta-Feira',
+                                                                'Fri' => 'Sexta-Feira',
+                                                                'Sat' => 'Sábado'
+                                                            );
+                                        
+                                                        ?>
+                                                        <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                                                        <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
+                                                        <p class="users"> 
+                                                            <?php 
+                                                                $monitoringMonitor = $resultadoMonitorias->monitor;
+                                                                $monitoringM = explode(' e ', $monitoringMonitor);
+                                                                $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                                                $monitoringM = $monitoringM[0];
+                                                                $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                                                $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                                            ?>
+                                                            <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                                            @if(isset($monitor1))
+                                                                <text>{{ $monitor1->nome }}</text>    
+                                                            @else
+                                                                <text>{{ $monitoringMonitor }}</text>    
+                                                            @endif
+                                                        </p>
+                                                        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                                            <p class="users">
+                                                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                                                @if(isset($monitor2))
+                                                                    <text>{{ $monitor2->nome }}</text>
+                                                                @else
+                                                                    <text>{{ $monitoringM }}</text>    
+                                                                @endif
+                                                            </p>
+                                                        <?php } else{?>   
+                                                            <p id="blank"></p>
+                                                        <?php }?>
+                                                        <p id="limit">
+                                                            <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                                            <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
+                                                        </p>
+                                                        @if(isset($inscrito))
+                                                        @foreach($inscrito as $monitoriaInscrita)
+                                                            @if($monitoriaInscrita->id == $resultadoMonitorias->id)
+                                                                <?php 
+                                                                    $usuarioInscrito = true;
+                                                                    break; 
+                                                                ?>
+                                                            @else
+                                                                <?php
+                                                                    $usuarioInscrito = false;
+                                                                ?>
+                                                            @endif
+                                                        @endforeach
+                                                        @if($usuarioInscrito == true)
+                                                            <form method="POST" action="{{ route('cancelamentoInscricao') }}">
+                                                                @csrf
+                                                                <input type="hidden" name="monitoria_id" value="{{ $resultadoMonitorias->id }}" />
+                                                                <button id="details" type="submit">
+                                                                    <text>Cancelar</text>
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            <form method="POST" action="{{ route('inscricao') }}">
+                                                                @csrf
+                                                                <input type="hidden" name="monitoria_id" value="{{ $resultadoMonitorias->id }}" />
+                                                                <button id="details" type="submit">
+                                                                    <text>Inscrever-se</text>
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                        @else
+                                                            <form method="POST" action="{{ route('inscricao') }}">
+                                                                @csrf
+                                                                <input type="hidden" name="monitoria_id" value="{{ $resultadoMonitorias->id }}" />
+                                                                <button id="details" type="submit">
+                                                                    <text>Inscrever-se</text>
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            @endif
+                        </section>
+                    @endif
                 @endif
+            @else
+                @yield('conteudo')
             @endif
-        @else
-            @yield('conteudo')
-        @endif
         
     <?php } ?>
     <footer>
