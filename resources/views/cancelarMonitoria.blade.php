@@ -29,6 +29,8 @@
             $('#noButton').on('click', function() {
                     $(".modal-content").css('display', 'none');
                 });
+            });
+            
         </script>
         <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
 
@@ -151,28 +153,21 @@
                             <script>
                                 var modal{{$monitoriaCard->id}} = document.getElementById('modal-{{$monitoriaCard->id}}');
                                 var modalBtn{{$monitoriaCard->id}} = document.getElementById('modalBtn-{{$monitoriaCard->id}}');
-                                var closeBtn1 = document.getElementsByClassName("exit-1");
-                                var closeBtn2 = document.getElementsByClassName("exit-2");
+                                var closeBtn = document.getElementsByClassName("exit-2");
                                 
                                 modalBtn{{$monitoriaCard->id}}.addEventListener('click', function() {
                                     modal{{$monitoriaCard->id}}.style.display = "block";
                                 });
     
-                                closeBtn1[i].addEventListener('click', function() {
+                                closeBtn[i].addEventListener('click', function() {
                                     modal{{$monitoriaCard->id}}.style.display = "none";
                                 });
-    
-                                closeBtn2[i].addEventListener('click', function() {
-                                    modal{{$monitoriaCard->id}}.style.display = "none";
-                                });
-                                i++;
-    
-                                $(document).ready(function (){
-                                    $(document).on('click',function(e){
-                                        if(!(($(e.target).closest(modal{{$monitoriaCard->id}}).length > 0 ) || ($(e.target).closest(modalBtn{{$monitoriaCard->id}}).length > 0))){
-                                            $("#modal-{{$monitoriaCard->id}}").css('display', 'none');
-                                        }
-                                    });
+                                i = i + 2;
+
+                                $(window).on('click',function(e){
+                                    if(!(($(e.target).closest(modal{{$monitoriaCard->id}}).length > 0 ) || ($(e.target).closest(modalBtn{{$monitoriaCard->id}}).length > 0))){
+                                        $("#modal-{{$monitoriaCard->id}}").css('display', 'none');
+                                    }
                                 });
     
                                 /*$(document).ready(function() {
