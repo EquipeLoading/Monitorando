@@ -231,7 +231,22 @@ section{
     }
 
 
-    #modalAvaliacao, #modalEditarAvaliacaoMonitoria, #modalRemoverMonitoria, .modalGlobal{
+    #modalAvaliacao{
+        display: none;
+        position: fixed;
+        z-index: 100;
+        background-color: #fcfcfc;
+        border-radius: 3vh;
+        min-width: 20vw;
+        box-shadow: 0 2px .8em rgba(192, 192, 192, 0.6);
+        margin-left: 25% !important;
+        margin-top: 13%;
+        margin-right: 50%;
+        text-align: start;
+        padding: 1.5vh;
+    }
+
+     #modalEditarAvaliacaoMonitoria, #modalRemoverMonitoria, .modalGlobal{
         display: none;
         position: fixed;
         z-index: 100;
@@ -260,6 +275,12 @@ section{
         margin-left: 37%;
         text-align: center;
         transition: .5s;
+    }
+
+    #modalForum{
+        margin-left: 34% !important;
+        margin-top: -20% !important;
+
     }
 
     form button{
