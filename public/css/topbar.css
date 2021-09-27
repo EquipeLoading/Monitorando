@@ -20,10 +20,14 @@ footer{
     background-color: rgb(84, 153, 195);
     height: auto;
     margin-top: 5vh;
+
 }
 
 footer img{
     width: 100%;
+    margin-top: 2vh;
+    height: 15vh;
+    object-fit: cover;
 }
 
 ::-webkit-scrollbar{
@@ -585,4 +589,82 @@ input{
         display: block;
         align-items: center;
         background-color: #193D6F;
+    }
+
+    .rowFooter{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 2vh;
+    }
+
+    #comecoFooter{
+        height: 20vh;
+        width: 20vw;
+        display: flex;
+        align-items: center;
+    }
+
+    #meioFooter{
+        height: 20vh;
+        width: 30vw;
+        background-color: black;
+    }
+
+    #fimFooter{
+        height: 20vh;
+        width: auto;
+
+    }
+
+    #logoFooter{
+        display: flex;
+        height: 17vh;
+        margin-bottom: auto;
+        object-fit: contain;
+    }
+
+    .textFooter h2{
+        color: #fcfcfc;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1em;
+        margin-bottom: .5vh;
+    }
+
+    .textFooter h3{
+        color: #fcfcfc;
+        align-items: center;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.2em;
+        margin-bottom: .2vh;
+    }
+
+    .logosFooter{
+        display: flex;
+        justify-content: center;    
+    }
+
+    .textFooter a{
+        display: flex;
+        align-items: center;
+        color: #fcfcfc;
+
+    }
+
+    .textFooter img{
+        width: auto;
+        height: 3vh;
+        object-fit: contain;
+        margin-top: auto;
+        margin-right: .5vw;
+    }
+
+    .textFooter #blog #email{
+        filter: invert(99%) sepia(21%) saturate(5%) hue-rotate(170deg) brightness(104%) contrast(100%);
+
+
     }

@@ -441,6 +441,27 @@
         
     <?php } ?>
     <footer>
+        <div class="rowFooter">
+            <div id="comecoFooter">
+                <img id="logoFooter" src="{{ asset('/assets/png/monitorando2.png') }}">
+            </div>
+            <div class="textFooter ">
+                <h2>Canais</h2>
+                <h3 class="logosFooter"><a href="https://www.youtube.com/channel/UC4h1uvG3epGzdxZNYYyVrBQ" target="_Blank"><img id="youtube" src="{{ asset('/assets/svg/youtube.svg') }}">Monitorando</a></h3>
+                <h3 class="logosFooter"><a href="https://blogmonitorando.blogspot.com" target="_Blank"><img id="blog" src="{{ asset('/assets/svg/blog.svg') }}">Monitorando</a></h3>
+                <h3 class="logosFooter"><img id="email" src="{{ asset('/assets/svg/email.svg') }}">equipe.loading06@gmail.com</h3>
+
+            </div>
+            <div class="textFooter">
+                <h2>Equipe</h2>
+                <h3>Ana Beatriz Silva Nascimento</h3>
+                <h3>Fernanda Cesar da Silva</h3>
+                <h3>Gustavo Angelozi Frederico</h3>
+                <h3>Larissa Yumi Ohashi</h3>
+                <h3>Mariana Souza Santos</h3>
+                <h3>Wilson de Souza Oliveira Junior</h3>
+            </div>
+        </div>
         <img src="{{ asset('assets/svg/footer.svg') }}">
     </footer>
 </body>
