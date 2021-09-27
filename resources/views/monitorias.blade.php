@@ -18,7 +18,7 @@
             <a href="{{ route('index') }}"> HOME </a>
             <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
             <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-            <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
+            <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
         @endsection 
         <img src="{{ asset('/assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
     
@@ -270,6 +270,9 @@
                                         <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
                                         <text>Participantes {{ $post->num_inscritos }}</text>
                                     </p>
+                                    <button id="details" class="marginMonitorias" type="submit">
+                                        <text>Visualizar</text>
+                                    </button>
                             </div>
                         </a>
                     </div>

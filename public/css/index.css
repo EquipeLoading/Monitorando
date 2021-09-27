@@ -58,6 +58,7 @@ body {
     #topFilter{
         padding: 0;
         margin: 0;
+        margin-top: 3vh;
         display: flex;
         align-items: stretch;
     }
@@ -750,5 +751,9 @@ body {
       justify-content: flex-end;
       align-items: flex-start;
 
+  }
+
+  .marginMonitorias{
+      margin-bottom: 1vh;
   }
   
