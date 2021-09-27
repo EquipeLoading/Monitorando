@@ -4,7 +4,7 @@
 <!DOCTYPE html>
     <html>
         <head>
-            <title> Monitorando - Perfil </title>
+            <title> Monitorando - Quem Somos </title>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" type="text/css" href="{{ asset('/css/quemSomos.css') }}">
@@ -40,9 +40,9 @@
                 <p>Nossa logo é representada por um monitor (silhueta com preenchimento na cabeça) responsável por transmitir conhecimento para o estudante (silhueta sem preenchimento na cabeça). O preenchimento faz alusão ao conhecimento (que o monitor possui, e o aluno não). E a silhueta de ambos os corpos unidos formam um "M" que se refere ao nome do nosso projeto, o Monitorando.</p><br />
                 <h2>Nossos Canais</h2><br />
                 <p>Nossos canais foram criados com o objetivo de atualizarmos as pessoas que acompanharam nosso projeto, com todas as alterações e progressões feitas durante o desenvolvimento, do início ao fim. Esperamos que gostem!</p><br />
-                <p>• Blog: https://blogmonitorando.blogspot.com</p>
-                <p>• YouTube: https://www.youtube.com/channel/UC4h1uvG3epGzdxZNYYyVrBQ</p>
-                <p>• SVN: https://svn.spo.ifsp.edu.br/viewvc/A6PGP/A2021-PDS413/EquipeLoading/</p>
+                <p>• Blog: <a href="https://blogmonitorando.blogspot.com">https://blogmonitorando.blogspot.com</a></p>
+                <p>• YouTube: <a href="https://www.youtube.com/channel/UC4h1uvG3epGzdxZNYYyVrBQ">https://www.youtube.com/channel/UC4h1uvG3epGzdxZNYYyVrBQ</a></p>
+                <p>• SVN: <a href="https://svn.spo.ifsp.edu.br/viewvc/A6PGP/A2021-PDS413/EquipeLoading/">https://svn.spo.ifsp.edu.br/viewvc/A6PGP/A2021-PDS413/EquipeLoading/</a></p>
             </section>
         </body>
     </html>
