@@ -65,6 +65,7 @@ body {
 
 
     #search img{
+        margin-left: 1vw;
         height: 3vh;
         transform: rotate(270deg);
         filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
@@ -75,8 +76,7 @@ body {
         background-color: transparent;
         border: none;
         cursor: pointer;
-        margin: 1vw;
-        width: auto;
+        
     }
 
     #formSearch{
