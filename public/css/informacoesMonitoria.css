@@ -99,7 +99,7 @@ section{
         border-radius: 5vh;
         height: 4.5vh;
         border: none;
-        width: 4.5vh;
+        width: 4v;
         margin: 0;
         color: #fcfcfc !important;
         text-align: center;
@@ -185,7 +185,7 @@ section{
 
     #buttons{
         display: flex;
-        align-items: flex-start;    
+        align-items: center;    
     }
 
     h6{
@@ -229,7 +229,8 @@ section{
 
     }
 
-    #modalAvaliacao, #modalEditarAvaliacao, #modal, .modalGlobal{
+
+    #modalAvaliacao, #modalEditarAvaliacaoMonitoria, #modalRemoverMonitoria, .modalGlobal{
         display: none;
         position: fixed;
         z-index: 100;

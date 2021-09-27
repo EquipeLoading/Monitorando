@@ -210,7 +210,7 @@ body {
         text-overflow: ellipsis; 
      }
     
-    #details, .button{
+    #details, .buttonCancelarMonitoria{
         background-color: #193D6F !important;
         border: none;
         color: #ffffff;
@@ -219,8 +219,8 @@ body {
         min-width: 7vw;
         max-width: 10vw;
         height: 5vh;
-        margin-right: auto;
-        margin-left: auto;
+        margin-right: auto !important;
+        margin-left: auto !important;
         cursor: pointer;
         border-radius: 5vh;
         display: flex;
@@ -232,7 +232,7 @@ body {
     
     }
     
-    #details text, .button text{
+    #details text, .buttonCancelarMonitoria text{
         margin-top: auto;
         margin-left: auto;
         margin-right: auto;
@@ -241,7 +241,7 @@ body {
         font-weight: 300;
     }
 
-    .button{
+    .buttonCancelarMonitoria{
         margin-bottom: .5vh;
     }
 
@@ -575,7 +575,7 @@ body {
         
     }
     
-    #details, .button{
+    #details, .buttonCancelarMonitoria{
         background-color: #193D6F;
         border: none;
         color: #ffffff;
@@ -591,12 +591,12 @@ body {
         align-items: center;
     }
     
-    #details:hover, .button:hover{
+    #details:hover, .buttonCancelarMonitoria:hover{
         box-shadow: 0 0 1em rgb(83, 95, 109);
     
     }
     
-    #details text, .button text{
+    #details text, .buttonCancelarMonitoria text{
         margin-top: auto;
         margin-left: auto;
         margin-right: auto;
@@ -733,7 +733,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: auto;
+    margin-top: 0 !important;
   }
 
   .row-right{

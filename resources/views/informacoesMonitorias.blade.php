@@ -72,14 +72,14 @@
                 });
                 
                 $('#modalBtn').on('click', function() {
-                    $("#modal").css('display', 'block');
+                    $("#modalRemoverMonitoria").css('display', 'block');
                 });
                 $('.exit').on('click', function() {
-                    $("#modal").css('display', 'none');
+                    $("#modalRemoverMonitoria").css('display', 'none');""
                 });
                 $(document).on('click',function(e){
-                    if(!(($(e.target).closest("#modal").length > 0 ) || ($(e.target).closest("#modalBtn").length > 0))){
-                        $("#modal").css('display', 'none');
+                    if(!(($(e.target).closest("#modalRemoverMonitoria").length > 0 ) || ($(e.target).closest("#modalBtn").length > 0))){
+                        $("#modalRemoverMonitoria").css('display', 'none');
                     }
                 });
                 $('#modalAvaliacaoBtn').on('click', function() {
@@ -89,18 +89,18 @@
                     $("#modalAvaliacao").css('display', 'none');
                 });
                 $('#closetButtonAvaliation').on('click', function() {
-                    $("#modalEditarAvaliacao").css('display', 'none');
+                    $("#modalEditarAvaliacaoMonitoria").css('display', 'none');
                 });
                 
                 $('#editarAvaliacao').on('click', function() {
-                    $("#modalEditarAvaliacao").css('display', 'block');
+                    $("#modalEditarAvaliacaoMonitoria").css('display', 'block');
                 });
                 $('.closeEdit').on('click', function() {
-                    $("#modalEditarAvaliacao").css('display', 'none');
+                    $("#modalEditarAvaliacaoMonitoria").css('display', 'none');
                 });
                 $(document).on('click',function(e){
-                    if(!(($(e.target).closest("#modalEditarAvaliacao").length > 0 ) || ($(e.target).closest("#editarAvaliacao").length > 0))){
-                        $("#modalEditarAvaliacao").css('display', 'none');
+                    if(!(($(e.target).closest("#modalEditarAvaliacaoMonitoria").length > 0 ) || ($(e.target).closest("#editarAvaliacao").length > 0))){
+                        $("#modalEditarAvaliacaoMonitoria").css('display', 'none');
                     }
                 });
 
@@ -256,8 +256,8 @@
 
             </div>
 
-            <div id="modal">
-                <div class="modal-content">
+            <div id="modalRemoverMonitoria">
+                <div class="modal-content-informacoes">
                     <p>Todos os dados relacionadas a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
                     <div id="modalButton">
                         <button type="button" class="exit buttonModal" id="noRemove">Não</button>
@@ -270,7 +270,7 @@
                 </div>
             </div>
             <div id="modalAvaliacao">
-                <div class="modal-content">
+                <div class="modal-content-informacoes">
                     <form id="formAvaliacao" method="POST" action="{{ route('monitorias.avaliar', ['id' => $monitoria->id]) }}">
                         @csrf
                         <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>
@@ -287,8 +287,8 @@
 
             </div>
 
-            <div id="modalEditarAvaliacao">
-                <div class="modal-content">
+            <div id="modalEditarAvaliacaoMonitoria">
+                <div class="modal-content-informacoes">
                     <form id="formEditarAvaliacao" method="POST" action="{{ route('monitorias.editar.avaliacao', ['id' => $monitoria->id]) }}">
                         @csrf
                         <label for="nota">Atribua uma nota de 1 a 10 para a monitoria</label>

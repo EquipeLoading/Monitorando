@@ -225,11 +225,14 @@ input{
 
     }
 
+    form{
+        margin-top: 0 !important;
+    }
     form button{
         background-color: transparent;
         border: none;
         padding: 0 !important;
-        margin: .8vh 1vw;
+        margin: .8vh 1vw !important;
         color: #5499C3 !important;
         font-size:  1em !important;
         line-height: 1.3;

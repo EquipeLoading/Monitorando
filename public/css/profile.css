@@ -133,9 +133,9 @@
         border: transparent;
     }
 
-    .buttonInline, #saveButton{
+    .buttonInline{
         margin-left: auto !important;
-        margin-right: 2vw;
+        margin-right: 2vw !important;
     }
 
     .buttonInline, #buttonAdd, #link #trash, #add_field_button, #saveButton, .remove_field{
@@ -262,6 +262,7 @@
         height: 4.6vh;
         border-radius: 5vw;
         max-width: 8vw;
+        margin-left: 0 !important;
         margin-right: .5vw !important;
         border: none;
         color: #fcfcfc !important;
@@ -284,4 +285,8 @@
     .row{
         display: flex;
         align-items: center;
+    }
+
+    .cardHistory{
+        display: flex;
     }

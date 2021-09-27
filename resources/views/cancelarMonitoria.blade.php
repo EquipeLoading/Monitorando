@@ -147,7 +147,7 @@
                                         <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
                                     </p>
                                 </a>
-                                <button class="button" type="button" id="modalBtn-{{$monitoriaCard->id}}">Cancelar a monitoria</button>
+                                <button class="buttonCancelarMonitoria" type="button" id="modalBtn-{{$monitoriaCard->id}}">Cancelar a monitoria</button>
                                 
                             </div>
                             <script>
