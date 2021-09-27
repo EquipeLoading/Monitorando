@@ -443,7 +443,7 @@
     <footer>
         <div class="rowFooter">
             <div id="comecoFooter">
-                <img id="logoFooter" src="{{ asset('/assets/png/monitorando2.png') }}">
+                <img id="logoFooter" src="{{ asset('/assets/png/Monitorando2.png') }}">
             </div>
             <div class="textFooter ">
                 <h2>Canais</h2>
