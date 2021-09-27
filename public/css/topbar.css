@@ -640,6 +640,7 @@ input{
         text-align: center;
         font-weight: 500;
         font-size: 1.2em;
+        margin-top: 0;
         margin-bottom: .2vh;
     }
 
