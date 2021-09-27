@@ -146,7 +146,8 @@ input{
     
     #profileContainer{
         position: absolute;
-        width: auto;
+        max-width: 14vw;
+        min-width: 13vw;
         height: 5vh ;
         margin-right: 3vw ;
         margin-left: 85% ;
@@ -228,6 +229,7 @@ input{
     form{
         margin-top: 0 !important;
     }
+    
     .collapsible-wrapper form button{
         background-color: transparent;
         border: none;
@@ -240,7 +242,7 @@ input{
         text-align: end;
         cursor: pointer;
         align-items: center;
-        width: 85%;
+        width: 11.7vw;
 
     }
 
@@ -277,6 +279,7 @@ input{
     }
 
     #searchAll img{
+        margin-left: 1vw;
         height: 3vh;
         transform: rotate(270deg);
         filter: invert(15%) sepia(85%) saturate(1368%) hue-rotate(197deg) brightness(93%) contrast(89%);
@@ -287,8 +290,7 @@ input{
         background-color: transparent;
         border: none;
         cursor: pointer;
-        margin: 1vw;
-        width: auto;
+
     }
 
     #formSearchAll{

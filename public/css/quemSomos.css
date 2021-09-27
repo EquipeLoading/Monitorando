@@ -1,0 +1,16 @@
+
+h1, h2{
+    color: #193D6F;
+    text-align: center;
+}
+
+
+::marker{
+    color: #193D6F;
+}
+
+#imgMonitorando{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
