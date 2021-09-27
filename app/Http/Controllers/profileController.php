@@ -31,10 +31,10 @@ class ProfileController extends Controller
         $usuario = Auth::user();
         $imagem = null;
 
-        if($request->hasFile('foto')) {
-            $request->validate(['foto' => 'mimes:jpeg,png,jpg']);
-            $tipoImg = strtolower(pathinfo($request->foto, PATHINFO_EXTENSION));
-            $imagem = 'data:image/'.$tipoImg.';base64,'.base64_encode(file_get_contents($request->foto));
+        if($request->hasFile('imagem')) {
+            $request->validate(['imagem' => 'mimes:jpeg,png,jpg']);
+            $tipoImg = strtolower(pathinfo($request->imagem, PATHINFO_EXTENSION));
+            $imagem = 'data:image/'.$tipoImg.';base64,'.base64_encode(file_get_contents($request->imagem));
         }
 
         if($usuario->tipo == "Comum") {
@@ -91,28 +91,32 @@ class ProfileController extends Controller
                     'email' => $request->email,
                 ]);
 
-                if($request->has('apagarFoto')) {
-                    User::where('id', $usuario->id)->update([
-                        'foto' => null,
-                    ]);
-                } elseif($request->hasFile('foto')) {
+                if($request->hasFile('imagem')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => $imagem
                     ]);
                 }
 
-                return redirect()->route('verification.notice');
-            }
-            else{
                 if($request->has('apagarFoto')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => null,
                     ]);
-                } elseif($request->hasFile('foto')) {
+                } 
+
+                return redirect()->route('verification.notice');
+            }
+            else{
+                if($request->hasFile('imagem')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => $imagem
                     ]);
                 }
+
+                if($request->has('apagarFoto')) {
+                    User::where('id', $usuario->id)->update([
+                        'foto' => null,
+                    ]);
+                } 
 
                 return redirect()->route('profile', ['id' => $usuario->id]);
             }
@@ -156,28 +160,33 @@ class ProfileController extends Controller
                     'email' => $request->email,
                 ]);
 
-                if($request->has('apagarFoto')) {
-                    User::where('id', $usuario->id)->update([
-                        'foto' => null,
-                    ]);
-                } elseif($request->hasFile('foto')) {
+                if($request->hasFile('imagem')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => $imagem
                     ]);
                 }
 
-                return redirect()->route('verification.notice');
-            }
-            else{
                 if($request->has('apagarFoto')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => null,
                     ]);
-                } elseif($request->hasFile('foto')) {
+                } 
+
+                return redirect()->route('verification.notice');
+            }
+            else{
+
+                if($request->hasFile('imagem')) {
                     User::where('id', $usuario->id)->update([
                         'foto' => $imagem
                     ]);
                 }
+
+                if($request->has('apagarFoto')) {
+                    User::where('id', $usuario->id)->update([
+                        'foto' => null,
+                    ]);
+                } 
 
                 return redirect()->route('profile', ['id' => $usuario->id]);
             }
