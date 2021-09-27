@@ -25,11 +25,10 @@
         <script>
             var i = 0;
             $(document).ready(function(){
-                $('#noButton').on('click', function() {
+            }
+            $('#noButton').on('click', function() {
                     $(".modal-content").css('display', 'none');
                 });
-            }
-            
         </script>
         <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
 
@@ -83,7 +82,7 @@
                                         <form method="POST" action="{{ route('monitorias.cancelar') }}">
                                             @csrf
                                             <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
-                                            <button class="exit-2" id="cancelarMonitoria" type="submit"> Sim </button>
+                                            <button class="exit-2" id="cancelarMonitoria"type="submit"> Sim </button>
                                         </form>
                                     </div>
                                 </div>

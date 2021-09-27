@@ -14,6 +14,8 @@
 </head>
 
 <body>
+    <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
+
     <section>
         @section('links')
             <a class="active" href="{{ route('index') }}"> HOME </a>
@@ -21,7 +23,6 @@
             <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
             <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
         @endsection 
-        <img src="{{ asset('assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
         <div id="login">
             <form method="POST" action="{{ route('login') }}">
                 @csrf

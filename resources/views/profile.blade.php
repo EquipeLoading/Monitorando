@@ -11,6 +11,7 @@
             {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" --}}
             {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
 
+            <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -23,16 +24,22 @@
                     var contador = 0;
                     var edit = false;
                     $(".buttonInline").click(function(e) {
+                        $('#inputLink').removeClass("inputField").addClass("inputEdit");
                         e.preventDefault();
                         if(contador == 0) {
                             $('.inputField').attr('readonly', false);
-                            $("#update").append('<button type="submit">Atualizar dados</button>');
+                            $("#update").append(
+                                '<div class="row"><button type="submit" name="apagarFoto" class="apagarFoto"><h2>Apagar Foto</h2></button>' +
+                                '<label id="trocarFoto" for="avatarFile"><h2>Trocar foto</h2></label>' +
+                                '<input type="file" class="form-control-file" name="imagem" id="avatarFile">' + 
+                                '<button id="saveButton"type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button></div>'
+                            );
+
                             $('#buttonEdit').remove();
-                            $("#link").append('<button id="add_field_button" type="button">' +       
+                            $("#link").delay( 2000 ).append('<button id="add_field_button" type="button">' +       
                                                 '<img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus">' +  
                                             '</button>');
-                            $("#photoProfile").append('<button type="submit" name="apagarFoto" class="btn btn-warning">Apagar Foto</button>' +
-                                                    '<input type="file" class="form-control-file" name="foto" id="avatarFile">');
+                          
                             contador++;
                             edit = true;
                         }
@@ -48,7 +55,7 @@
                         if(count < max_campos){
                             count++;
                             $("#input_fields_wrap").append('<div id="addLink">' + 
-                                                    '<input type="text" name="link[]"/>' + 
+                                                    '<input class="inputEdit" type="text" name="link[]"/>' + 
                                                     '<button class="remove_field"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' + 
                                             '</div>');
                         }
@@ -91,14 +98,12 @@
                                         @else
                                             <img id="profile" src="{{ asset('assets/svg/profile.svg')}}"/> 
                                         @endif
-                                        <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                         {{ $errors->has('foto') ? $errors->first('foto') : '' }}
                                     </div>    
                                     <div class="editLabel">
                                             <label>Nome</label>
                                             <div class="inputInline">
                                                 <input name="nome" type="text" class="inputField" value="{{ $usuario->nome ?? old('nome') }}" readonly />
-                                                <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                             </div>
                                             {{ $errors->has('nome') ? $errors->first('nome') : '' }}
                                     </div> 
@@ -107,7 +112,6 @@
                                                 <label>Prontuário</label>
                                                 <div class="inputInline">
                                                     <input name="prontuario" type="text" class="inputField" value="{{ $usuario->prontuario ?? old('prontuario') }}" readonly />
-                                                    <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                                 </div>
                                                 {{ $errors->has('prontuario') ? $errors->first('prontuario') : '' }}
                                             </div> 
@@ -123,7 +127,6 @@
                                                             @endif
                                                         @endforeach
                                                         <input name="turma_id" type="text" class="inputField" value="{{ $numTurma ?? old('turma_id') }}" readonly />
-                                                        <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                                     </div>
                                                     {{ $errors->has('turma_id') ? $errors->first('turma_id') : '' }}
                                                 </div> 
@@ -132,7 +135,6 @@
                                                     <label>Disciplinas</label>
                                                     <div class="inputInline">
                                                         <input name="disciplinas" type="text" class="inputField" value="{{ $usuario->disciplinas ?? old('disciplinas') }}" readonly />
-                                                        <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                                     </div>
                                                     {{ $errors->has('disciplinas') ? $errors->first('disciplinas') : '' }}
                                                 </div> 
@@ -142,7 +144,6 @@
                                         <label>E-mail</label>
                                         <div class="inputInline">
                                             <input name="email" type="text" class="inputField" value="{{ $usuario->email ?? old('email') }}" readonly />
-                                            <button type="button" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                         </div>
                                         {{ $errors->has('email') ? $errors->first('email') : '' }}
                                     </div> 
@@ -158,7 +159,6 @@
                                                     <label id="labelMonitores" class="labelFont" for="link"> Links externos </label>
                                                     <div id="link">
                                                         <input class="inputField" id="inputLink" name="link[]" value="{{ $link ?? old('link[$i]') }}" type="text" readonly/>
-                                                        <button type="button" id="buttonEdit" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                                     </div>
                                                     {{ $errors->has('link') ? $errors->first('link') : '' }}
                                                 </div>
@@ -182,11 +182,12 @@
                                             <label id="labelMonitores" class="labelFont" for="link"> Links externos </label>
                                             <div id="link">
                                                 <input class="inputField" id="inputLink" name="link[]" value="" type="text" readonly/>
-                                                <button type="button" id="buttonEdit" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
                                             </div>
                                             {{ $errors->has('link') ? $errors->first('link') : '' }}
                                         </div>
                                     @endif
+                                    <button type="button" id="buttonEdit" class="buttonInline"><img src="{{asset('assets/svg/edit.svg')}}"/></button>
+
                                 </form>
                             </div>
                             <div id="two-content">
