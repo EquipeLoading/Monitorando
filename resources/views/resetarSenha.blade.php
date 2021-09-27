@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/senha.css') }}">
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <!-- mediaquery -->
 </head>
 
 <body>
     <script>
-        $(window).load(function() {
-                
+       $(window).load(function() {
             if("{{ session()->has('status') }}" == 1 || "{{ $errors->has('email') }}" == 1) {
                 $(".modalResetSenha").css('display', 'block');
             }
@@ -23,7 +23,6 @@
                     $(".modalResetSenha").css('display', 'none');
                 }
             });
-
         }); 
     </script>
     <div id="topBar">
