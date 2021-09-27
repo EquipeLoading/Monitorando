@@ -14,10 +14,7 @@
     <div id="topBar">
         <h1>Monitorando</h1>
     </div>
-    <div class="modalResetSenha">
-        {{ session()->has('status') ? session('status') : '' }}
-        {{ $errors->has('email') ? $errors->first('email') : '' }}
-    </div>
+
     <form method="POST" action="{{ route('password.update') }}">
         <h2>Redefina sua senha.</h2>
         <hr>
@@ -35,7 +32,7 @@
         <p>{{ $errors->has('password_confirmation') ? $errors->first('password_confirmation') : '' }}</p>
         
         <input type="hidden" name="token" value="{{ $token }}" />
-        <button class="buttonResetar" type="submit"><h3>Enviar</h3></button>
+        <button class="buttonResetar margin" type="submit"><h3>Enviar</h3></button>
     </form>
 
 </body>

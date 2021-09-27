@@ -101,6 +101,10 @@
         cursor: pointer;
     }
 
+    .margin{
+        margin-bottom: 1vh;
+    }
+
     .buttonResetar h3{
         margin: 0 .3vw;
         font-weight: 400;
