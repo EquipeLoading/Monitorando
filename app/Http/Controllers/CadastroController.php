@@ -24,7 +24,7 @@ class CadastroController extends Controller
                 'email' => 'required|email|unique:users|ends_with:@ifsp.edu.br',
                 'prontuario' => 'required|min:9|max:9|unique:users',
                 'disciplinas' => 'required|min:3|max:100',
-                'senha' => 'required|min:5|max:60',
+                'senha' => 'required|min:8|max:60',
                 'confirmacao_senha' => 'required|same:senha'
             ];
 
@@ -61,7 +61,7 @@ class CadastroController extends Controller
                 'email' => 'required|email|unique:users',
                 'prontuario' => 'required|min:9|max:9|unique:users',
                 'turma_id' => 'exists:turmas,id',
-                'senha' => 'required|min:5|max:60',
+                'senha' => 'required|min:8|max:60',
                 'confirmacao_senha' => 'required|same:senha'
             ];
 
