@@ -38,13 +38,13 @@
                                                                     '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
                                                                 '</div>' +  
                                                             '</div>' +
-                                                            '<button type="submit" id="presenca"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
+                                                            '<button type="submit" id="presenca"><img id="imgPresenca"src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
                                                             '<button type="button" id="fecharPresenca"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
                                                         '</form>');
                         count++;
                     }
                 });
-                $('#presenca').on('click', function() {
+                $('#imgPresenca').on('click', function() {
                     $("#listaChamada").css('display', 'block');
                 });
                 $('#adicionarPresenca').on('click', '#addNewField', function(e) {

@@ -134,8 +134,10 @@
     }
 
     .buttonInline{
+        margin-top: 1vh;
         margin-left: auto !important;
         margin-right: 2vw !important;
+        cursor: pointer;
     }
 
     .buttonInline, #buttonAdd, #link #trash, #add_field_button, #saveButton, .remove_field{
@@ -208,13 +210,16 @@
         padding: 5px;
         background-color: #fcfcfcc9;
         border-radius: 2vw;
+        min-height: 57vh;
+        /* height: 57vh; */
+        margin-right: 1vw;
     }
 
-    #two-content{
+    .two-content{
         margin-top: 3.5vh;
         margin-left: 2vw;
-        height: 50vh;
-        width: 30vw;
+        height: auto;
+        width: auto;
     }
 
     #trash, .remove_field{
@@ -284,9 +289,41 @@
 
     .row{
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+    }
+
+    .cardHistory{
+        margin-top: 3vh;
+        margin-left: 1vw;
+    }
+
+    #update .row{
+        margin-top: 1vh;
+
     }
 
     .cardHistory{
         display: flex;
+        flex-direction: column;
+    }
+
+    .cardHistory .content{
+        margin-bottom: .5vh;
+    }
+
+    .cardPerfil{
+        background-color: #fcfcfc;
+        border-radius: 1.5vh;
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .2);
+        margin-right: 2vw;
+    }
+
+    .cardDeatilsPerfil{
+        box-shadow: 0 0 .8em rgb(99, 98, 98, .1) !important;
+    }
+
+    .buttonVisualizar{
+        margin-top: 1vh;
+        height: 4vh !important;
+        margin-bottom: 1vh;
     }
