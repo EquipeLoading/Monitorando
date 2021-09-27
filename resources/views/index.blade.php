@@ -25,14 +25,7 @@
         <img src="{{ asset('/assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">
 
         <section>        
-            <?php if(!empty($nome)){?>
-                <div id="all-content">
-                    <div id="content">
-                        <hr>
-                        <h3 id="userName">Ola <br> {{ $nome }}!</h3>   
-                    </div>
-                </div>         
-            <?php }?>
+            
 
         </section>  
 
