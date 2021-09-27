@@ -38,13 +38,13 @@
                                                                     '<button type="button" id="addNewField"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' + 
                                                                 '</div>' +  
                                                             '</div>' +
-                                                            '<button type="submit" id="presenca"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
+                                                            '<button type="submit" id="presenca"><img id="imgPresenca"src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button>' +
                                                             '<button type="button" id="fecharPresenca"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
                                                         '</form>');
                         count++;
                     }
                 });
-                $('#presenca').on('click', function() {
+                $('#imgPresenca').on('click', function() {
                     $("#listaChamada").css('display', 'block');
                 });
                 $('#adicionarPresenca').on('click', '#addNewField', function(e) {
@@ -103,7 +103,6 @@
                         $("#modalEditarAvaliacaoMonitoria").css('display', 'none');
                     }
                 });
-
                 $('#adicionarTopico').click(function(e) {
                     $('#adicionarTopico').css('display', 'none');
                     $('#forumQuest').css('display', 'block');
@@ -125,17 +124,20 @@
                         i++;
                     }
                 });
-
                 $('#closetButton').on('click', function(){
                     $("#modalAvaliacao").css('display', 'none');
                 })
-
                 $(document).on('click', '#fecharTopico', function(e) {
                     e.preventDefault();
                     $("#postarNovoTopico").remove();
                     $('#adicionarTopico').css('display', 'block');
                     $('#forumQuest').css('display', 'none');
                     i = 0;
+                });
+                $(document).on('click',function(e){
+                    if(!(($(e.target).closest("#modalAvaliacao").length > 0 ) || ($(e.target).closest("#modalAvaliacaoBtn").length > 0))){
+                        $("#modalAvaliacao").css('display', 'none');
+                    }
                 });
             });
             $(window).load(function() {
@@ -158,7 +160,6 @@
                         $("#modalAvaliacaoFeedback").css('display', 'none');
                     }
                 });
-
                 if("{{ session()->has('topico') }}" == 1 || "{{ $errors->has('topico') }}" == 1 || "{{ $errors->has('mensagem') }}" == 1 || "{{ $errors->has('imagem') }}" == 1 || "{{ session()->has('editado') }}" == 1) {
                     $("#modalForum").css('display', 'block');
                 }
