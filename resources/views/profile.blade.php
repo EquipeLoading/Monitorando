@@ -476,7 +476,7 @@
                                                 $cont = 0;
                                             ?>
                                         </div>
-                                        <div>
+                                        <div class="content">
                                             @if(!($monitoriasParticipadas->isEmpty()))
                                                 @foreach($monitoriasParticipadas as $monitoria)
                                                     <?php
