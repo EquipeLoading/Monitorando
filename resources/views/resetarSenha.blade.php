@@ -17,7 +17,8 @@
             if("{{ session()->has('status') }}" == 1 || "{{ $errors->has('email') }}" == 1) {
                 $(".modalResetSenha").css('display', 'block');
             }
-            $(document).on('click',function(e){
+
+            $(document).on('click', function(e){
                 if(!(($(e.target).closest(".modalResetSenha").length > 0 ))){
                     $(".modalResetSenha").css('display', 'none');
                 }
@@ -30,7 +31,6 @@
     </div>
 
     <div class="modalResetSenha">
-        aaa
         {{ session()->has('status') ? session('status') : '' }}
         {{ $errors->has('email') ? $errors->first('email') : '' }}
     </div>
