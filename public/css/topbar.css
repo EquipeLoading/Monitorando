@@ -146,8 +146,7 @@ input{
     
     #profileContainer{
         position: absolute;
-        max-width: 14vw;
-        min-width: 13vw;
+        max-width: 11.5vw;
         height: 5vh ;
         margin-right: 3vw ;
         margin-left: 85% ;
@@ -190,7 +189,7 @@ input{
         transition: margin-bottom 0.3s cubic-bezier(0, 0, 0, 1);
         margin-bottom: 0;
         max-height: 15vh;
-        width: 100%;
+        width: 11.5vw;
         margin-left: auto;
         margin-right: auto;
         border-bottom-left-radius: 3Vh;
@@ -242,7 +241,7 @@ input{
         text-align: end;
         cursor: pointer;
         align-items: center;
-        width: 11.7vw;
+        width: 85%;
 
     }
 
