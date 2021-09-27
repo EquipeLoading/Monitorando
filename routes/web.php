@@ -224,6 +224,9 @@ Route::get('/pesquisar', function(Request $request){
 
 Route::get('/calendario', [\App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario')->middleware('verified');
 
+Route::get('/quem-somos', function() {
+    return view('quemSomos');
+})->name('quem.somos');
 
 //Rota de fallback
 Route::fallback(function() {

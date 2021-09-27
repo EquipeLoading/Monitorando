@@ -20,7 +20,7 @@
         <a href="{{ route('index') }}"> HOME </a>
         <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
         <a class="active" href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-        <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+        <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
     @endsection 
   
 <div class="container">

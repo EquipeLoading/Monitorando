@@ -72,7 +72,7 @@
                     <a href="{{ route('index') }}"> HOME </a>
                     <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
                     <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
-                    <a href="#quem somos"> @lang('lang.QuemSomos') </a>   
+                    <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
                 @endsection 
                 @if(isset($usuario) && isset($perfilUsuario))
                     @if($usuario->id == $perfilUsuario->id)
