@@ -64,6 +64,8 @@
     <link rel="icon" href="{{ asset('assets/png/icon.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/topbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/index.css') }}">
+
     <meta name="theme-color" content="#193D6F">
 
 </head>
@@ -262,74 +264,139 @@
                 <p>Nenhum resultado foi encontrado para o termo "{{session('search')}}"</p>
             @else
                 @if(!session('pesquisaUsuarios')->isEmpty())
-                    @foreach(session('pesquisaUsuarios') as $resultadoUsuarios)
-                        <a id="{{$resultadoUsuarios->id}}" class="modalBtn" href="{{ route('profile', ['id' => $resultadoUsuarios->id]) }}">
-                            <p>{{$resultadoUsuarios->nome}}</p>
-                            <p>{{$resultadoUsuarios->prontuario}}</p>
-                        </a>
-                    @endforeach
+                   <section>
+                        <div id="cardSearch">
+                            <h2>Pessoas</h2>
+                            @foreach(session('pesquisaUsuarios') as $resultadoUsuarios)
+                                <a id="{{$resultadoUsuarios->id}}" class="modalBtn" href="{{ route('profile', ['id' => $resultadoUsuarios->id]) }}">
+                                    @if(isset($resultadoUsuarios->foto))
+                                        <img src="{{ $resultadoUsuarios->foto }}"/> 
+                                    @else
+                                        <img id="profile" src="{{ asset('assets/svg/profile.svg')}}"/> 
+                                    @endif
+                                   <div class="center">
+                                        <h3>{{$resultadoUsuarios->nome}}</h3>
+                                        <h4 id="emailUser">{{$resultadoUsuarios->email}}</h4>
+                                   </div>
+                                </a>
+                                <hr>
+                            @endforeach
+                        </div>
+                   </section>
                 @endif
                 @if(!session('pesquisaMonitorias')->isEmpty())
-                    @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
-                        <div id="content-all">
-                            <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
-                                <div id="card">
-                                    <?php 
-                                        $date = new DateTime($resultadoMonitorias->data);
-                                        $n = $date->getTimestamp();
-                                        $data = date('D', $n);
-                                        $semana = array(
-                                            'Sun' => 'Domingo',
-                                            'Mon' => 'Segunda-Feira',
-                                            'Tue' => 'Terça-Feira',
-                                            'Wed' => 'Quarta-Feira',
-                                            'Thu' => 'Quinta-Feira',
-                                            'Fri' => 'Sexta-Feira',
-                                            'Sat' => 'Sábado'
-                                        );
                     
-                                    ?>
-                                    <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
-                                    <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
-                                    <p>{{ $resultadoMonitorias->conteudo }}</p>
-                                    <p class="users"> 
+                    <section>
+                            <div id="content-all">
+                                <div id="content">
+                                    <hr>
+                                    <div >
+                                        <h3 id="titleDiscipline">{{ $monitoria->codigo }}</h3>
+                                        <h3 id="nameDiscipline">{{ $monitoria->disciplina }}</h3>   
+                                    </div>
+                                </div>
+                                <button><a href="{{ route('monitorias.verTodas', ['codigo' => $monitoria->codigo]) }}">ver todos</a></button>
+                            </div>
+
+                    <div id="scroll">
+                        @foreach(session('pesquisaMonitorias') as $resultadoMonitorias)
+                            <div id="content-all">
+                                <a id="{{$resultadoMonitorias->id}}" class="modalBtn" href="{{ route('monitorias.informacoes', ['id' => $resultadoMonitorias->id]) }}">
+                                    <div id="card">
                                         <?php 
-                                            $monitoringMonitor = $resultadoMonitorias->monitor;
-                                            $monitoringM = explode(' e ', $monitoringMonitor);
-                                            $monitoringMonitor = $monitoringM[count($monitoringM)-1];
-                                            $monitoringM = $monitoringM[0];
-                                            $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
-                                            $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                            $date = new DateTime($resultadoMonitorias->data);
+                                            $n = $date->getTimestamp();
+                                            $data = date('D', $n);
+                                            $semana = array(
+                                                'Sun' => 'Domingo',
+                                                'Mon' => 'Segunda-Feira',
+                                                'Tue' => 'Terça-Feira',
+                                                'Wed' => 'Quarta-Feira',
+                                                'Thu' => 'Quinta-Feira',
+                                                'Fri' => 'Sexta-Feira',
+                                                'Sat' => 'Sábado'
+                                            );
+                        
                                         ?>
-                                        <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                        @if(isset($monitor1))
-                                            <text>{{ $monitor1->nome }}</text>    
-                                        @else
-                                            <text>{{ $monitoringMonitor }}</text>    
-                                        @endif
-                                    </p>
-                                    <?php if(!($monitoringM === $monitoringMonitor)){ ?>
-                                        <p class="users">
+                                        <p id="date">{{ date("d/m", $n) . " • " . $semana["$data"]}}</p>
+                                        <p id="hour">{{$resultadoMonitorias->hora_inicio." - ".$resultadoMonitorias->hora_fim}} </p>
+                                        <p class="users"> 
+                                            <?php 
+                                                $monitoringMonitor = $resultadoMonitorias->monitor;
+                                                $monitoringM = explode(' e ', $monitoringMonitor);
+                                                $monitoringMonitor = $monitoringM[count($monitoringM)-1];
+                                                $monitoringM = $monitoringM[0];
+                                                $monitor1 = $usuarios->where('prontuario', $monitoringMonitor)->first();
+                                                $monitor2 = $usuarios->where('prontuario', $monitoringM)->first();
+                                            ?>
                                             <img src="{{ asset('assets/svg/user.svg') }}" id="user">
-                                            @if(isset($monitor2))
-                                                <text>{{ $monitor2->nome }}</text>
+                                            @if(isset($monitor1))
+                                                <text>{{ $monitor1->nome }}</text>    
                                             @else
-                                                <text>{{ $monitoringM }}</text>    
+                                                <text>{{ $monitoringMonitor }}</text>    
                                             @endif
                                         </p>
-                                    <?php } else{?>   
-                                        <p id="blank"></p>
-                                    <?php }?>
-                                    <p>{{ $resultadoMonitorias->local }}</p> 
-                                    <p id="limit">
-                                        <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
-                                        <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
-                                    </p>
-                                    <p>{{ $resultadoMonitorias->descricao }}</p>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                        <?php if(!($monitoringM === $monitoringMonitor)){ ?>
+                                            <p class="users">
+                                                <img src="{{ asset('assets/svg/user.svg') }}" id="user">
+                                                @if(isset($monitor2))
+                                                    <text>{{ $monitor2->nome }}</text>
+                                                @else
+                                                    <text>{{ $monitoringM }}</text>    
+                                                @endif
+                                            </p>
+                                        <?php } else{?>   
+                                            <p id="blank"></p>
+                                        <?php }?>
+                                        <p id="limit">
+                                            <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
+                                            <text>Participantes {{ $resultadoMonitorias->num_inscritos }}</text>
+                                        </p>
+                                        @if(isset($inscrito))
+                                        @foreach($inscrito as $monitoriaInscrita)
+                                            @if($monitoriaInscrita->id == $monitoriaCard->id)
+                                                <?php 
+                                                    $usuarioInscrito = true;
+                                                    break; 
+                                                ?>
+                                            @else
+                                                <?php
+                                                    $usuarioInscrito = false;
+                                                ?>
+                                            @endif
+                                        @endforeach
+                                        @if($usuarioInscrito == true)
+                                            <form method="POST" action="{{ route('cancelamentoInscricao') }}">
+                                                @csrf
+                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                                <button id="details" type="submit">
+                                                    <text>Cancelar</text>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form method="POST" action="{{ route('inscricao') }}">
+                                                @csrf
+                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                                <button id="details" type="submit">
+                                                    <text>Inscrever-se</text>
+                                                </button>
+                                            </form>
+                                        @endif
+                                        @else
+                                            <form method="POST" action="{{ route('inscricao') }}">
+                                                @csrf
+                                                <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
+                                                <button id="details" type="submit">
+                                                    <text>Inscrever-se</text>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                    </section>
                 @endif
             @endif
         @else

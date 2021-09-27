@@ -113,6 +113,11 @@ body {
         color: #193D6F;
         font-weight: bold;
     }   
+
+    #content-all button a{
+        color: #193D6F;
+
+    }
     
     #scroll{
         overflow-x: scroll;
@@ -205,8 +210,8 @@ body {
         text-overflow: ellipsis; 
      }
     
-    #details{
-        background-color: #193D6F;
+    #details, .button{
+        background-color: #193D6F !important;
         border: none;
         color: #ffffff;
         text-align: center;
@@ -227,13 +232,17 @@ body {
     
     }
     
-    #details text{
+    #details text, .button text{
         margin-top: auto;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
         color: #fff;
         font-weight: 300;
+    }
+
+    .button{
+        margin-bottom: .5vh;
     }
 
     #buttons{
@@ -296,14 +305,17 @@ body {
         color: #193D6F;
     }
 
-
-
     #addMonitoria{
         margin-left: auto;
         margin-right: 1vw;
         background-color: #5499C3;
         transition: 0.7s;
-        color: #fcfcfc;
+        color: #fcfcfc !important;
+
+    }
+
+    #addMonitoria h4, #removeMonitoria h4{
+        color: #fcfcfc !important;
 
     }
 
@@ -316,6 +328,21 @@ body {
         background-color: #cf4949;
     }
     
+
+    .modal-content{
+        display: none;
+        position: absolute;
+        z-index: 100;
+        background-color: #fcfcfc;
+        border-radius: 3vh;
+        min-width: 20vw;
+        box-shadow: 0 2px .8em rgba(192, 192, 192, 0.6);
+        margin-bottom: 100vh;
+        margin-right: 50%;
+        margin-left: 30%;
+        text-align: start;
+        padding: .2vh 1.5vh;
+    }
 }
 
 
@@ -548,7 +575,7 @@ body {
         
     }
     
-    #details{
+    #details, .button{
         background-color: #193D6F;
         border: none;
         color: #ffffff;
@@ -564,12 +591,12 @@ body {
         align-items: center;
     }
     
-    #details:hover{
+    #details:hover, .button:hover{
         box-shadow: 0 0 1em rgb(83, 95, 109);
     
     }
     
-    #details text{
+    #details text, .button text{
         margin-top: auto;
         margin-left: auto;
         margin-right: auto;
@@ -680,20 +707,39 @@ body {
     top: 10%;
   }
 
-  /* Modal Content */
-  .modal-content {
-    position: fixed;
-    bottom: 0;
-    background-color: #bfd6e4;
-    width: 50%;
-    -webkit-animation-name: slideIn;
-    -webkit-animation-duration: 0.4s;
-    animation-name: slideIn;
-    animation-duration: 0.4s
-  }
   
   /* The Close Button */
   .exit {
     float: right;
+  }
+
+  .exit-2{
+    font-size: .9em;
+    margin-left: .5vw;
+    background-color: #5499C3;
+    box-shadow: 0 0 .8em rgba(192, 192, 192, 0.3);
+    height: 4vh;
+    border-radius: 5vh;
+    border: none;
+    cursor: pointer;
+    min-width: 5vw;
+    width: auto;
+    color: #fcfcfc !important;
+   
+  }
+
+  #cancelarMonitoria{
+    background-color: #cf4949;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: auto;
+  }
+
+  .row-right{
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+
   }
   

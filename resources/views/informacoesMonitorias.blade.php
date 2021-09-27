@@ -570,7 +570,7 @@
                                    <div class="avaliacao">
                                         <div class="column beetwen">
                                             <h5><img src="{{ asset('assets/svg/star.svg')}}"/>  •ﾠ{{ $avaliacao->pivot->nota }}</h5>
-                                            <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
+                                            <h4><b>Comentário </b><br>{{ $avaliacao->pivot->justificativa }}</h4>
                                         </div>
                                    </div>
                                 @endif

@@ -28,6 +28,7 @@ footer img{
 
 ::-webkit-scrollbar{
     width: .8vw;
+    height: .8vw;
 }
 
 ::-webkit-scrollbar-track{
@@ -59,9 +60,11 @@ input{
     .noLogin a{
         margin-left: 0 !important;
     }
+
     .noLogin{
         padding-left: .5vw;
     }
+
     .topnav {
         overflow: hidden;
         background-color: #5499C3;
@@ -78,6 +81,7 @@ input{
         margin-right: auto;
 
     }
+
     .topnav a {
         float: left;
         color: #ffffff;
@@ -92,8 +96,7 @@ input{
     a:hover{
         text-decoration: none !important;
     }
-      
-      
+       
     .topnav a.active {
         color: #193D6F;
         font-weight: 600;
@@ -141,7 +144,6 @@ input{
         margin-right: auto;
     }
     
-
     #profileContainer{
         position: absolute;
         width: auto;
@@ -170,7 +172,6 @@ input{
         
         
     }
-
 
     .collapsible-wrapper {
         display: flex;
@@ -239,6 +240,7 @@ input{
         width: 85%;
 
     }
+
     .menu-item #Perfil {
         margin-left: auto;
     }
@@ -258,6 +260,7 @@ input{
     
         text-overflow: ellipsis;
     }
+
     .profile img{
         margin-left: .3vw;
         margin-right: auto;
@@ -269,6 +272,7 @@ input{
         display: flex;
         align-items: stretch;
     }
+
     #searchAll img{
         height: 3vh;
         transform: rotate(270deg);
@@ -306,6 +310,76 @@ input{
         box-shadow: none;
     }
     
+    #cardSearch{
+        display: grid;
+        align-items: center;
+        height: auto;
+        background-color: #f0f2f5;
+        box-shadow: -1px -6px 55px -12px rgba(95, 95, 95, 0.15);
+        border-radius: 1.5vh;
+        padding: 1vh 1vh;
+        margin-bottom: .5vh;
+        margin-top: 3vh;
+        align-items: center;
+        text-align: start;
+        width: 33.5vw;
+        margin-left: auto;
+        margin-right: auto;
+        color: #193D6F;
+    }
+
+    #cardSearch h2{
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+
+    #cardSearch  h3, h4{
+        color: #193D6F;
+        font-weight: 500;
+
+    }
+
+    #cardSearch  h3{
+        font-size: .9em;
+        margin-bottom: 0;
+    }
+
+    #emailUser{
+        font-size: .8em;
+        margin-top: .3vh;
+    }
+
+    #cardSearch img{
+        width: 7vh;
+        height: 6.8vh;
+        object-fit: cover;
+        background-color: #e4e4e4;
+        border-radius: 8vh;
+        display: block;
+
+    }
+
+    .modalBtn{
+        display: flex;
+        align-items: center;
+        margin-top: 1vh ;
+        margin-left: 1vw;
+    }
+
+    .center{
+        margin-left: .5vw;
+        display: inline-table;
+    }
+
+    #cardSearch hr{
+        min-width: 31vw;
+        height: .2vh;
+        border-radius: .2vh;
+        background-color: rgba(25, 61, 111, 0.5);
+    }
+
+
+    /* warlock */
 }
 
 
