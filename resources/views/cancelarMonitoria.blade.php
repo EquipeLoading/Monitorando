@@ -25,10 +25,11 @@
         <script>
             var i = 0;
             $(document).ready(function(){
-            }
-            $('#noButton').on('click', function() {
-                    $(".modal-content").css('display', 'none');
-                });
+            
+                /*$('#noButton').on('click', function() {
+                        $(".modal-content").css('display', 'none');
+                    });
+                });*/
             });
             
         </script>
@@ -80,7 +81,7 @@
                             <div class="modal-content" id="modal-{{$monitoriaCard->id}}">
                                     <p>Todos os dados relacionados a essa monitoria serão excluídos do sistema. Tem certeza que deseja mesmo cancelá-la?</p>
                                     <div class="row-right">
-                                        <button type="button" class="exit-2" id="noButton">Não</button>
+                                        <button type="button" class="exit-2" id="noButton-{{$monitoriaCard->id}}">Não</button>
                                         <form method="POST" action="{{ route('monitorias.cancelar') }}">
                                             @csrf
                                             <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
@@ -153,16 +154,15 @@
                             <script>
                                 var modal{{$monitoriaCard->id}} = document.getElementById('modal-{{$monitoriaCard->id}}');
                                 var modalBtn{{$monitoriaCard->id}} = document.getElementById('modalBtn-{{$monitoriaCard->id}}');
-                                var closeBtn = document.getElementsByClassName("exit-2");
+                                var closeBtn = document.getElementById("noButton-{{$monitoriaCard->id}}");
                                 
                                 modalBtn{{$monitoriaCard->id}}.addEventListener('click', function() {
                                     modal{{$monitoriaCard->id}}.style.display = "block";
                                 });
     
-                                closeBtn[i].addEventListener('click', function() {
+                                closeBtn.addEventListener('click', function() {
                                     modal{{$monitoriaCard->id}}.style.display = "none";
                                 });
-                                i = i + 2;
 
                                 $(window).on('click',function(e){
                                     if(!(($(e.target).closest(modal{{$monitoriaCard->id}}).length > 0 ) || ($(e.target).closest(modalBtn{{$monitoriaCard->id}}).length > 0))){
