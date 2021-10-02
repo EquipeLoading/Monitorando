@@ -230,5 +230,7 @@ Route::get('/quem-somos', function() {
 
 //Rota de fallback
 Route::fallback(function() {
-    echo __('lang.fallback');
+    // echo __('lang.fallback');
+    return view('404');
+
 });
