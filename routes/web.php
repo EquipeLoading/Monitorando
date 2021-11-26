@@ -108,6 +108,7 @@ Route::prefix('/monitorias')->group(function() {
     })->name('monitorias.cadastro')->middleware('verified');
     Route::post('/cadastro', [\App\Http\Controllers\MonitoriasController::class, 'cadastro'])->name('monitorias.cadastro');
     Route::post('/autocomplete', [\App\Http\Controllers\MonitoriasController::class, 'autocomplete'])->name('monitorias.autocomplete');
+    Route::post('/autocomplete/monitores', [\App\Http\Controllers\MonitoriasController::class, 'autocompleteMonitores'])->name('monitorias.autocomplete.monitores');
     Route::get('/cancelar', function() {
         $usuario = Auth::user()->id;
         $monitorias = User::find($usuario)->monitorias()->wherePivotIn('tipo', ['Criador', 'Monitor'])->orderby('codigo', 'asc')->get();
@@ -126,8 +127,9 @@ Route::prefix('/monitorias')->group(function() {
         $mensagens = Mensagem::where('topico_id', $topicoId)->get();
         $usuarios = User::all();
         $todosTopicos = Topico::all();
+        $monitoria = Monitoria::where('id', $id)->get()->first();
 
-        return view('forum', ['topico' => $topico, 'mensagens' => $mensagens, 'monitoria_id' => $id, 'usuarios' => $usuarios, 'todosTopicos' => $todosTopicos]);
+        return view('forum', ['topico' => $topico, 'mensagens' => $mensagens, 'monitoria_id' => $id, 'usuarios' => $usuarios, 'todosTopicos' => $todosTopicos, 'monitoria' => $monitoria]);
     })->whereNumber('id')->whereNumber('topico')->name('monitorias.forum')->middleware('verified');
     Route::post('/{id}/forum/{topico}', [\App\Http\Controllers\MonitoriasController::class, 'responderTopico'])->whereNumber('topico')->whereNumber('id')->name('monitorias.forum')->middleware('verified');
     Route::get('/excluir-topico/{id}', function($id) {
@@ -171,6 +173,8 @@ Route::prefix('/resetar-senha')->group(function() {
         $status = Password::sendResetLink(
             $request->only('email')
         );
+
+        session()->put('email', $request->email);
     
         return $status === Password::RESET_LINK_SENT
                     ? back()->with(['status' => __($status)])
@@ -182,9 +186,10 @@ Route::prefix('/resetar-senha')->group(function() {
     Route::post('/esqueci-a-senha', function (Request $request) {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
+
+        $request->email = session('email');
     
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

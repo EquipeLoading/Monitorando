@@ -19,7 +19,9 @@
     @section('links')
         <a href="{{ route('index') }}"> HOME </a>
         <a href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-        <a class="active" href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+        @if(Auth::check())
+            <a class="active" href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+        @endif
         <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
     @endsection 
   

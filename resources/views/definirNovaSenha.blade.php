@@ -19,9 +19,9 @@
         <h2>Redefina sua senha.</h2>
         <hr>
         @csrf
-        <label for="email">Informe um e-mail</label>
+        <!--<label for="email">Informe um e-mail</label>
         <input type="text" name="email" placeholder="email@gmail.com"/>
-        <p>{{ $errors->has('email') ? $errors->first('email') : '' }}</p>
+        <p>{{ $errors->has('email') ? $errors->first('email') : '' }}</p>-->
         
         <label>Nova senha</label>
         <input type="password" name="password" placeholder="*******"/>

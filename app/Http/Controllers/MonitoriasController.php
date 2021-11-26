@@ -136,6 +136,23 @@ class MonitoriasController extends Controller
         return response()->json($resposta);
     }
 
+    public function autocompleteMonitores(Request $request) {
+        $procurar = $request->get('codigo');
+
+        if($procurar == '') {
+            $codigos = User::orderby('nome', 'asc')->select('prontuario', 'nome')->limit(5)->get();
+        } else {
+            $codigos = User::orderby('nome', 'asc')->select('prontuario', 'nome')->where('nome', 'LIKE', '%'.$procurar.'%')->limit(5)->get();
+        }
+        
+        $resposta = array();
+        foreach($codigos as $valor) {
+            $resposta[] = array("value" => $valor->prontuario, "label" => $valor->nome);
+        }
+
+        return response()->json($resposta);
+    }
+
     public function cancelar(Request $request) {
         $usuarios = Monitoria::find($request->monitoria_id)->usuarios()->get();
         foreach($usuarios as $usuario){
@@ -210,7 +227,6 @@ class MonitoriasController extends Controller
             'data' => $request->data,
             'hora_inicio' => $request->hora_inicio,
             'hora_fim' => $request->hora_fim,
-            'num_inscritos' => 0,
             'descricao' => $request->descricao,
             'disciplina' => $request->disciplina,
             'monitor' => $monitor,

@@ -16,10 +16,16 @@
         </head>
 
         <body>
+            <?php
+                $data1 = new DateTime($monitoria->data.' '.$monitoria->hora_fim);
+                $data2 = new DateTime('now');
+            ?>
             @section('links')
                 <a href="{{ route('index') }}"> HOME </a>
                 <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-                <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+                @if(Auth::check())
+                    <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+                @endif
                 <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
             @endsection 
             <script>
@@ -84,40 +90,42 @@
                                                     <img height="200" width="300" src="{{ $mensagem->imagem }}" />
                                                 @endif
                                             @endif
-                                            <div class="row">
-                                                @if($mensagem->user_id == Auth::user()->id)
-                                                    <button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>
-                                                    <a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>
-                                                    <script>
-                                                        $(document).ready(function() {
-                                                            $(document).on('click', "#editarResposta{{$mensagem->id}}", function(e) {
-                                                                e.preventDefault(); 
-                                                                $("#mensagem{{$mensagem->id}}").append('<form method="POST" id="editarMensagem" class="column" action="{{ route('monitorias.editar.mensagem', ['id' => $mensagem->id]) }}" enctype="multipart/form-data">' +
-                                                                                        '@csrf' +
-                                                                                        '<div id="forumMensagem">' + 
-                                                                                            '<label >Editar texto</label>' +
-                                                                                            '<textarea name="mensagem" form="editarMensagem">{{ $mensagem->mensagem ?? old('mensagem') }}</textarea>' + 
-                                                                                            '<div class="row"><label id="labelAvatar" for="avatarFile"><h5>Enviar foto</h5></label><input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp" buttonText="Your label here.">' +
-                                                                                            '<button id="marginButton" class="button trash" type="submit" name="apagarAnexo"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' +
-                                                                                            '<button class="button trash cancel" type="button" id="fecharEdicao{{$mensagem->id}}"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
-                                                                                            '<button class="button" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button></div>' +
-                                                                                        
-                                                                                        '</div>' +
-                                                                                    '</form>');
-                                                                $("#editarResposta{{$mensagem->id}}").remove();
-                                                                $("#excluirResposta{{$mensagem->id}}").remove();
+                                            @if($data1 > $data2)
+                                                <div class="row">
+                                                    @if($mensagem->user_id == Auth::user()->id)
+                                                        <button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>
+                                                        <a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                $(document).on('click', "#editarResposta{{$mensagem->id}}", function(e) {
+                                                                    e.preventDefault(); 
+                                                                    $("#mensagem{{$mensagem->id}}").append('<form method="POST" id="editarMensagem" class="column" action="{{ route('monitorias.editar.mensagem', ['id' => $mensagem->id]) }}" enctype="multipart/form-data">' +
+                                                                                            '@csrf' +
+                                                                                            '<div id="forumMensagem">' + 
+                                                                                                '<label >Editar texto</label>' +
+                                                                                                '<textarea name="mensagem" form="editarMensagem">{{ $mensagem->mensagem ?? old('mensagem') }}</textarea>' + 
+                                                                                                '<div class="row"><label id="labelAvatar" for="avatarFile"><h5>Enviar foto</h5></label><input type="file" class="form-control-file" name="imagem" id="avatarFile" aria-describedby="fileHelp" buttonText="Your label here.">' +
+                                                                                                '<button id="marginButton" class="button trash" type="submit" name="apagarAnexo"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></button>' +
+                                                                                                '<button class="button trash cancel" type="button" id="fecharEdicao{{$mensagem->id}}"><img src="{{ asset("assets/svg/plus.svg") }}" alt="Plus"></button>' +
+                                                                                                '<button class="button" type="submit"><img src="{{ asset("assets/svg/save.svg") }}" alt="Save"></button></div>' +
+                                                                                            
+                                                                                            '</div>' +
+                                                                                        '</form>');
+                                                                    $("#editarResposta{{$mensagem->id}}").remove();
+                                                                    $("#excluirResposta{{$mensagem->id}}").remove();
+                                                                });
+                                                                $(document).on('click', '#fecharEdicao{{$mensagem->id}}', function(e) {
+                                                                    e.preventDefault();
+                                                                    $("#editarMensagem").remove();
+                                                                    $("#mensagem{{$mensagem->id}}").append('<div class="row"><button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>' +
+                                                                        '<a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>'
+                                                                    );
+                                                                });
                                                             });
-                                                            $(document).on('click', '#fecharEdicao{{$mensagem->id}}', function(e) {
-                                                                e.preventDefault();
-                                                                $("#editarMensagem").remove();
-                                                                $("#mensagem{{$mensagem->id}}").append('<div class="row"><button type="button" id="editarResposta{{$mensagem->id}}" class="button"><img src="{{ asset("assets/svg/edit.svg") }}" alt="Edit"></button>' +
-                                                                    '<a id="excluirResposta{{$mensagem->id}}" class="button trash" href="{{ route('monitorias.excluir.mensagem', ['id' => $mensagem->id]) }}"><img src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>'
-                                                                );
-                                                            });
-                                                        });
-                                                    </script>
-                                                @endif
-                                            </div>
+                                                        </script>
+                                                    @endif
+                                                </div>
+                                            @endif
                                         </div>
 
                                     @else
@@ -237,10 +245,12 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div id="novaResposta">
-                            <button id="adicionarResposta" type="button" class="button">Responder</button>
-                            {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
-                        </div>
+                        @if($data1 > $data2)
+                            <div id="novaResposta">
+                                <button id="adicionarResposta" type="button" class="button">Responder</button>
+                                {{ $errors->has('resposta') ? $errors->first('resposta') : '' }}
+                            </div>
+                        @endif
     
                     </div>
 

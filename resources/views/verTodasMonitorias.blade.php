@@ -17,7 +17,9 @@
         @section('links')
             <a href="{{ route('index') }}"> HOME </a>
             <a class="active" href="{{ route('monitorias') }}"> @lang('lang.Monitorias') </a>
-            <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            @if(Auth::check())
+                <a href="{{ route('calendario') }}"> @lang('lang.Calendario') </a>
+            @endif
             <a href="{{ route('quem.somos') }}"> @lang('lang.QuemSomos') </a>   
         @endsection 
         <img src="{{ asset('/assets/svg/banner.svg') }}" alt="banner_monitorando" id="banner">

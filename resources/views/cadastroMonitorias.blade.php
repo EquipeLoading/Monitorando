@@ -40,19 +40,66 @@
                     return false;
                 }
             });
+
+            i = 0;
             
             var wrapper = $("#input_fields_wrap");
             var add_button = $("#add_field_button");
             
             $(add_button).click(function(e){
                 e.preventDefault();
+                i += 1;
                     $(wrapper).append('<div id="addUser">' + 
-                                            '<input class="inputBorder" id="monitor_id" name="monitores[]" type="text"/>' + 
+                                            '<input class="inputBorder" id="monitor_id_' + i + '" name="monitores[]" type="text"/>' + 
                                             '<a id="imgTrash" class="remove_field"><img  src="{{ asset("assets/svg/trash.svg") }}" alt="Trash"></a>' + 
                                        '</div>');
+
+                $("#monitor_id_" + i).autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url:"{{route('monitorias.autocomplete.monitores')}}",
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                _token:"{{ csrf_token() }}",
+                                codigo: request.term
+                            }, 
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    select: function(event, ui) {
+                        $("#monitor_id_" + i).val(ui.item.value);
+                        return false;
+                    }
+                });
             });
             $(wrapper).on("click",".remove_field", function(e){
                 e.preventDefault(); $(this).parent('div').remove(); 
+            });
+
+            
+
+            $("#monitor_id_0").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url:"{{route('monitorias.autocomplete.monitores')}}",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            _token:"{{ csrf_token() }}",
+                            codigo: request.term
+                        }, 
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    $("#monitor_id_0").val(ui.item.value);
+                    return false;
+                }
             });
            
         });
@@ -117,9 +164,9 @@
                 </p>
 
                 <div class="camp" id="input_fields_wrap">
-                    <label id="labelMonitores" class="labelFont" for="monitores[]"> Prontuário do Monitor </label>
+                    <label id="labelMonitores" class="labelFont" for="monitores[]"> Nome do Monitor </label>
                     <div id="addUser">
-                        <input class="inputBorder" id="monitor_id" name="monitores[]" value="{{ old('monitores[]') }}" type="text"/>
+                        <input class="inputBorder" id="monitor_id_0" name="monitores[]" value="{{ old('monitores[]') }}" type="text"/>
                         <button id="add_field_button" type="button" onclick="addButton()">        
                             <img src="{{ asset('assets/svg/plus.svg') }}" alt="Plus">  
                         </button>
