@@ -172,7 +172,7 @@
         </script>
 
         <?php
-            $data1 = new DateTime($monitoria->data.' '.$monitoria->hora_fim);
+            $data1 = new DateTime($monitoria->data);
             $data2 = new DateTime('now');
         ?>
 
