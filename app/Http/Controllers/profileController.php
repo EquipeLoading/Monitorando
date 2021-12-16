@@ -20,9 +20,9 @@ class ProfileController extends Controller
         $perfilUsuario = User::where('id', $id)->get()->first();
 
         $usuarioLogado = User::find(Auth::user()->id);
-        $monitoriasParticipadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Participou')->orderby('codigo', 'asc')->get();
-        $monitoriasInscrito = $usuarioLogado->monitorias()->wherePivot('tipo', 'Inscrito')->orderby('codigo', 'asc')->get();
-        $monitoriasAvaliadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Avaliado')->orderby('codigo', 'asc')->get();
+        $monitoriasParticipadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Participou')->orderby('codigo', 'asc')->orderby('data', 'desc')->get();
+        $monitoriasInscrito = $usuarioLogado->monitorias()->wherePivot('tipo', 'Inscrito')->orderby('codigo', 'asc')->orderby('data', 'desc')->get();
+        $monitoriasAvaliadas = $usuarioLogado->monitorias()->wherePivot('tipo', 'Avaliado')->orderby('codigo', 'asc')->orderby('data', 'desc')->get();
 
         return view('profile',  ['usuario' => $usuario, 'monitorias' => $monitorias, 'turmas' => $turmas, 'perfilUsuario' => $perfilUsuario, 'monitoriasParticipadas' => $monitoriasParticipadas, 'usuarios' => $usuarios, 'monitoriasInscrito' => $monitoriasInscrito, 'monitoriasAvaliadas' => $monitoriasAvaliadas]);
     }

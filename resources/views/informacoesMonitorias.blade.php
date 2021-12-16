@@ -334,7 +334,7 @@
                             
                         @endif
 
-                        @if(Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria))
+                        @if((Gate::allows('criador', $monitoria) || Gate::allows('monitor', $monitoria)) && ($data1 > $data2))
                             <div id="monitoriaEdit">
                                 <h5>Monitoria</h5>
                                 <button type="button" class="button">
@@ -348,7 +348,7 @@
                             </div>                     
                         @endif       
                         
-                        @if(Gate::allows('participou', $monitoria))
+                        @if(Gate::allows('participou', $monitoria) && ($data1 > $data2))
                             @foreach($avaliacoes as $avaliacao)
                                 @if(Auth::check())
                                     @if($avaliacao->id == Auth::user()->id)
@@ -390,7 +390,7 @@
                                         <h4>Cancelar</h4>    
                                     </button>
                                 </form>
-                            @else
+                            @elseif($data1 > $data2)
                                 <form method="POST" action="{{ route('inscricao') }}">
                                     @csrf
                                     <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
@@ -399,7 +399,7 @@
                                     </button>
                                 </form>
                             @endif
-                        @else
+                        @elseif($data1 > $data2)
                             <form method="POST" action="{{ route('inscricao') }}">
                                 @csrf
                                 <input type="hidden" name="monitoria_id" value="{{ $monitoria->id }}" />
@@ -575,7 +575,9 @@
                                                  <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
                                              </div>
                                         </div>
-                                        <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
+                                        @if($data1 > $data2)
+                                            <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
+                                        @endif
                                     </div>
                                 @else
                                    <div class="avaliacao">
@@ -604,7 +606,9 @@
                                             <h4><b>Comentário </b><br><i>{{ $avaliacao->pivot->justificativa }}</i></h4>
                                         </div>
                                     </div>
-                                    <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
+                                    @if($data1 > $data2)
+                                        <button id="editarAvaliacao"><img src="{{ asset('assets/svg/edit.svg')}}" alt="Edit"/></button>
+                                    @endif
                                 </div>
                             @else
                               

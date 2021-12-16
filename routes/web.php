@@ -174,7 +174,7 @@ Route::prefix('/resetar-senha')->group(function() {
             $request->only('email')
         );
 
-        session()->put('email', $request->email);
+        session(['email' => $request->email]);
     
         return $status === Password::RESET_LINK_SENT
                     ? back()->with(['status' => __($status)])
@@ -189,8 +189,6 @@ Route::prefix('/resetar-senha')->group(function() {
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $request->email = session('email');
-    
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
@@ -216,6 +214,7 @@ Route::get('/pesquisar', function(Request $request){
                 ->where('conteudo', 'LIKE', "%{$search}%")
                 ->orWhere('disciplina', 'LIKE', "%{$search}%")
                 ->orWhere('codigo', 'LIKE',  "%{$search}%")
+                ->orderby('data', 'desc')
                 ->get();
     $pesquisaUsuarios = DB::table('users')
                 ->where('nome', 'LIKE', "%{$search}%")

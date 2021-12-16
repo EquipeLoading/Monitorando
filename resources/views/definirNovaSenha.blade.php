@@ -32,6 +32,7 @@
         <p>{{ $errors->has('password_confirmation') ? $errors->first('password_confirmation') : '' }}</p>
         
         <input type="hidden" name="token" value="{{ $token }}" />
+        <input type="hidden" name="email" value="{{ session('email') }}" />
         <button class="buttonResetar margin" type="submit"><h3>Enviar</h3></button>
     </form>
 

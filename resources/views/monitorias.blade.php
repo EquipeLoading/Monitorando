@@ -59,6 +59,7 @@
             <?php
                 if(!isset($search)) { 
                     $cont = 0;
+                    $cont2 = 0;
                     $usuarioInscrito = false;
             ?>
             @foreach($monitorias as $monitoria)
@@ -169,6 +170,10 @@
                                                 ?>
                                             @endif
                                         @endforeach
+                                        <?php
+                                            $data1 = new DateTime($monitoriaCard->data.' '.$monitoriaCard->hora_fim);
+                                            $data2 = new DateTime('now');
+                                        ?>
                                         @if($usuarioInscrito == true)
                                             <form method="POST" action="{{ route('cancelamentoInscricao') }}">
                                                 @csrf
@@ -177,7 +182,7 @@
                                                     <text>Cancelar</text>
                                                 </button>
                                             </form>
-                                        @else
+                                        @elseif($data1 > $data2)
                                             <form method="POST" action="{{ route('inscricao') }}">
                                                 @csrf
                                                 <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
@@ -197,6 +202,9 @@
                                     @endif
                                 </div>
                             </a>
+                            <?php
+                                $cont2 +=1;
+                            ?>
                         @endforeach
                     </div>
                 @endif

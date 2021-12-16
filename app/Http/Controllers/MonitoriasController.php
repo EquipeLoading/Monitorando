@@ -17,7 +17,7 @@ class MonitoriasController extends Controller
     
     public function index(Request $request) {
         $mostrarBotao = Gate::allows('professor');
-        $monitorias = Monitoria::orderby('codigo', 'asc')->get();
+        $monitorias = Monitoria::orderby('codigo', 'asc')->orderby('data', 'desc')->get();
         $usuario = Auth::user();
         if(isset($usuario)){
             $usuario = User::where('id', Auth::user()->id)->get()->first();
@@ -32,6 +32,7 @@ class MonitoriasController extends Controller
                 ->where('conteudo', 'LIKE', "%{$search}%")
                 ->orWhere('disciplina', 'LIKE', "%{$search}%")
                 ->orWhere('codigo', 'LIKE',  "%{$search}%")
+                ->orderBy('data', 'desc')
                 ->get();
 
         return view('monitorias', compact('posts'), ['nome' => session()->get('nome'), 'mostrarBotao' => $mostrarBotao, 'monitorias' => $monitorias, 'inscrito' => $inscrito, 'search' => $search, 'usuarios' => User::all()]);
