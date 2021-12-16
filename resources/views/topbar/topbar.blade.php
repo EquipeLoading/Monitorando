@@ -418,8 +418,12 @@
                                                                 <text>Inscrever-se</text>
                                                             </button>
                                                         </form>
+                                                    @else
+                                                        <button id="details">
+                                                            <text>Indisponível</text>
+                                                        </button>
                                                     @endif
-                                                @else
+                                                @elseif($data1 > $data2)
                                                     <form method="POST" action="{{ route('inscricao') }}">
                                                         @csrf
                                                         <input type="hidden" name="monitoria_id" value="{{ $resultadoMonitorias->id }}" />
@@ -427,6 +431,10 @@
                                                             <text>Inscrever-se</text>
                                                         </button>
                                                     </form>
+                                                @else
+                                                    <button id="details">
+                                                        <text>Indisponível</text>
+                                                    </button>
                                                 @endif
                                             </div>
                                             </a>

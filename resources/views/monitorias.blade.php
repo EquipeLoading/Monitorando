@@ -157,6 +157,10 @@
                                         <img src="{{ asset('assets/svg/user-group.svg') }}" id="user">
                                         <text>Participantes {{ $monitoriaCard->num_inscritos }}</text>
                                     </p>
+                                    <?php
+                                        $data1 = new DateTime($monitoriaCard->data.' '.$monitoriaCard->hora_fim);
+                                        $data2 = new DateTime('now');
+                                    ?>
                                     @if(isset($inscrito))
                                         @foreach($inscrito as $monitoriaInscrita)
                                             @if($monitoriaInscrita->id == $monitoriaCard->id)
@@ -170,10 +174,6 @@
                                                 ?>
                                             @endif
                                         @endforeach
-                                        <?php
-                                            $data1 = new DateTime($monitoriaCard->data.' '.$monitoriaCard->hora_fim);
-                                            $data2 = new DateTime('now');
-                                        ?>
                                         @if($usuarioInscrito == true)
                                             <form method="POST" action="{{ route('cancelamentoInscricao') }}">
                                                 @csrf
@@ -190,8 +190,12 @@
                                                     <text>Inscrever-se</text>
                                                 </button>
                                             </form>
+                                        @else
+                                            <button id="details">
+                                                <text>Indisponível</text>
+                                            </button>
                                         @endif
-                                    @else
+                                    @elseif($data1 > $data2)
                                         <form method="POST" action="{{ route('inscricao') }}">
                                             @csrf
                                             <input type="hidden" name="monitoria_id" value="{{ $monitoriaCard->id }}" />
@@ -199,6 +203,10 @@
                                                 <text>Inscrever-se</text>
                                             </button>
                                         </form>
+                                    @else
+                                        <button id="details">
+                                            <text>Indisponível</text>
+                                        </button>
                                     @endif
                                 </div>
                             </a>
